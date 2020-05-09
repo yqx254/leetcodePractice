@@ -1,27 +1,23 @@
 package hard;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class Hard {
 
     public double findMedianSortedArrays(int [] nums1, int [] nums2){
-        int n = nums1.length;
-        int m = nums2.length;
+        int m = nums1.length;
+        int n = nums2.length;
         if(m > n){
             int [] temp = nums1;
             nums1 = nums2;
             nums2 = temp;
-            int tmp = n;
-            n = m;
-            m = tmp;
+            int tmp = m;
+            m = n;
+            n = tmp;
         }
-        int iMin = 0, iMax = m, halfLen  =(m + n + 1) / 2;
+        int iMin = 0, iMax = m, halfLen = (n + m + 1) / 2;
+        int i = 0,j = 0,maxLeft = 0, minRight = 0;
         while(iMin <= iMax){
-            int i = (iMin + iMax) / 2;
-            int j = halfLen - i;
+            i = (iMin + iMax) / 2;
+            j = halfLen - i;
             if(i < iMax && nums1[i] < nums2[j - 1]){
                 iMin = i + 1;
             }
@@ -29,20 +25,32 @@ public class Hard {
                 iMax = i - 1;
             }
             else{
-                int maxLeft = 0;
                 if(i == 0){
                     maxLeft = nums2[j - 1];
                 }
                 else if(j == 0){
                     maxLeft = nums1[i - 1];
                 }
-                if((m + n ) % 2 == 1){
+                else{
+                    maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
+                }
+                if((m + n) % 2 == 1){
                     return maxLeft;
                 }
-                
+
+                if(i == m){
+                    minRight = nums2[j];
+                }
+                else if(j == n){
+                    minRight = nums1[i];
+                }
+                else{
+                    minRight = Math.min(nums1[i],nums2[j]);
+                }
+                return (maxLeft + minRight) / 2.0;
             }
+
         }
         return 0.0;
-
     }
 }
