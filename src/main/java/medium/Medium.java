@@ -28,4 +28,32 @@ public class Medium {
         }
         return Math.max(max, s.length()  - start);
     }
+    //5. 最长回文子串
+    //给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+    public String longestPalindrome(String s) {
+        if(s.length() == 0){
+            return null;
+        }
+        int maxLen = 1;
+        String maxStr = String.valueOf(s.charAt(0));
+        for(int i = 0;i < s.length(); i ++){
+            for(int j = s.length() - 1; j > i + maxLen - 1; j --){
+                if(s.charAt(i) == s.charAt(j) && checkPalindrome(s.substring(i,j + 1))){
+                    maxLen = j - i + 1;
+                    maxStr = s.substring(i,j + 1);
+                }
+            }
+        }
+        return maxStr;
+    }
+    public boolean checkPalindrome(String s){
+        for(int i = 0,j=s.length()-1;i < j; i++, j--){
+            if(s.charAt(i) != s.charAt(j)){
+                System.out.println(s + " failed");
+                return false;
+            }
+        }
+        System.out.println(s + " succeed");
+        return true;
+    }
 }
