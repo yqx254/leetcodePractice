@@ -1,5 +1,8 @@
 package hard;
 
+/**
+ * @author fstar
+ */
 public class Hard {
 
     public double findMedianSortedArrays(int [] nums1, int [] nums2){

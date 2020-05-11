@@ -44,4 +44,9 @@ public class MediumTest {
                 medium.lengthOfLongestSubstring(e2)
         );
     }
+
+    @Test
+    public void longestPalindrome(){
+        String s = "";
+    }
 }

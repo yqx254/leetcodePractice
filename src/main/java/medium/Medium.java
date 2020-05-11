@@ -1,9 +1,7 @@
 package medium;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 /**
  * @author fstar
@@ -28,32 +26,79 @@ public class Medium {
         }
         return Math.max(max, s.length()  - start);
     }
-    //5. 最长回文子串
-    //给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+    /**
+     * 5. 最长回文子串
+     * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
+     * @param s input String
+     * @return longest palindrome
+     */
     public String longestPalindrome(String s) {
-        if(s.length() == 0){
-            return null;
+        if(s == null || s.length() < 1){
+            return "";
         }
-        int maxLen = 1;
-        String maxStr = String.valueOf(s.charAt(0));
-        for(int i = 0;i < s.length(); i ++){
-            for(int j = s.length() - 1; j > i + maxLen - 1; j --){
-                if(s.charAt(i) == s.charAt(j) && checkPalindrome(s.substring(i,j + 1))){
-                    maxLen = j - i + 1;
-                    maxStr = s.substring(i,j + 1);
-                }
+        if(s.length() == 1){
+            return s;
+        }
+        //有效的中心点是2n - 2
+        int start = 0;
+        int end = 0;
+        for(int center = 0; center < s.length() - 1; center ++){
+            int len1 = findPalindrome(s,center, center);
+            int len2 = findPalindrome(s,center, center + 1);
+            int len = Math.max(len1, len2);
+            if(len > end - start){
+                start = center - (len  - 1) / 2;
+                end = center + len / 2;
             }
         }
-        return maxStr;
+        return s.substring(start, end + 1);
     }
-    public boolean checkPalindrome(String s){
-        for(int i = 0,j=s.length()-1;i < j; i++, j--){
-            if(s.charAt(i) != s.charAt(j)){
-                System.out.println(s + " failed");
-                return false;
-            }
+
+    private int findPalindrome(String s,int centerNum, int centerNum2){
+        int start = centerNum;
+        int end = centerNum2;
+
+        while(start >= 0 && end <= s.length() - 1 && s.charAt(start) == s.charAt(end)) {
+                start--;
+                end++;
         }
-        System.out.println(s + " succeed");
-        return true;
+        return end - start - 1;
     }
+
+      /**
+     * 6. Z字型变换
+     * 将一个给定字符串根据给定的行数，以从上往下、从左到右进行 Z 字形排列。
+     * @param s input String
+     * @param numRows input num
+     * @return z form
+     */
+      public String convert(String s, int numRows){
+          List<StringBuilder> stringList  = new ArrayList<>(numRows);
+          StringBuilder result  = new StringBuilder();
+          if(numRows <= 1){
+              return  s;
+          }
+          if(s.length() <= 1){
+              return s;
+          }
+          if(s.length() <= numRows){
+              return s;
+          }
+          for(int i = 0; i < numRows; i ++){
+              stringList.add(new StringBuilder());
+          }
+          boolean flip = false;
+          int num = 0;
+          for(int  j = 0;j < s.length(); j ++) {
+              stringList.get(num).append(s.charAt(j));
+              if(num == 0 || num == numRows - 1){
+                  flip = !flip;
+              }
+              num += flip ? -1 : 1;
+          }
+          for(StringBuilder bd : stringList){
+              result.append(bd);
+          }
+        return result.toString();
+      }
 }
