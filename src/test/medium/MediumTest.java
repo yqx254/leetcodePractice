@@ -1,6 +1,3 @@
-package medium;
-
-
 import medium.Medium;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +44,28 @@ public class MediumTest {
 
     @Test
     public void longestPalindrome(){
-        String s = "";
+        String s = "babad";
+        String s1 = "cbbd";
+        String s2  = "";
+        String e1 = "a";
+        String e2 = "tattarrattat";
+        assertEquals("bab",medium.longestPalindrome(s));
+        assertEquals("bb",medium.longestPalindrome(s1));
+        assertEquals("",medium.longestPalindrome(s2));
+        assertEquals("a",medium.longestPalindrome(e1));
+        assertEquals("tattarrattat",medium.longestPalindrome(e2));
+    }
+
+    @Test
+    public void zConvert(){
+        String s1 = "LEETCODEISHIRING";
+        String s2 = "LEETCODEISHIRING";
+        String e1 = "ABCD";
+        int num1 = 3;
+        int num2 = 4;
+        int nume1 = 2;
+        assertEquals("LCIRETOESIIGEDHN",medium.convert(s1, num1));
+        assertEquals("LDREOEIIECIHNTSG",medium.convert(s2, num2));
+        assertEquals("ACBD",medium.convert(e1, nume1));
     }
 }
