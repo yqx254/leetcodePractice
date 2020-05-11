@@ -87,7 +87,8 @@ public class Medium {
           for(int i = 0; i < numRows; i ++){
               stringList.add(new StringBuilder());
           }
-          boolean flip = false;
+          //进入的时候num=0，先假装翻一次
+          boolean flip = true;
           int num = 0;
           for(int  j = 0;j < s.length(); j ++) {
               stringList.get(num).append(s.charAt(j));
@@ -101,4 +102,16 @@ public class Medium {
           }
         return result.toString();
       }
+    /**
+     * 8. 字符串转换整数 (atoi)
+     * 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
+     */
+    public int myAtoi(String str) {
+        try{
+            return Integer.parseInt(str.trim());
+        }
+        catch(Exception e){
+            return 0;
+        }
+    }
 }

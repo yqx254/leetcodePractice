@@ -12,15 +12,32 @@ import java.util.Map;
  以数值为键以下标做值，找到目标值（target - 当前值）的话，返回当前下表和目标值的下标
  */
 public class Easy{
-public int[] twoSum(int [] nums, int target) {
-                Map<Integer, Integer> result = new HashMap<>(nums.length);
-                for(int i=0; i < nums.length; i ++){
-                        if(result.get(target - nums[i]) != null
-                                && result.get(target - nums[i]) != i){
-                                return new int [] {result.get(target - nums[i]), i};
-                        }
-                        result.put(nums[i],i);
-                }
-                return  new int[] {0,0};
+    public int[] twoSum(int [] nums, int target) {
+                    Map<Integer, Integer> result = new HashMap<>(nums.length);
+                    for(int i=0; i < nums.length; i ++){
+                            if(result.get(target - nums[i]) != null
+                                    && result.get(target - nums[i]) != i){
+                                    return new int [] {result.get(target - nums[i]), i};
+                            }
+                            result.put(nums[i],i);
+                    }
+                    return  new int[] {0,0};
+            }
+    /**
+     * @author fstar
+     * 7.给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+     */
+    public int reverse(int x) {
+        boolean flag = true;
+        if(x < 0){
+            flag = false;
         }
+        StringBuilder s = new StringBuilder(String.valueOf(Math.abs(x)));
+        try{
+            return flag ? Integer.parseInt(s.reverse().toString()) : -Integer.parseInt(s.reverse().toString());
+        }
+        catch(Exception e){
+            return 0;
+        }
+    }
 }

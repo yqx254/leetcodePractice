@@ -1,3 +1,5 @@
+package medium;
+
 import medium.Medium;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,5 +69,15 @@ public class MediumTest {
         assertEquals("LCIRETOESIIGEDHN",medium.convert(s1, num1));
         assertEquals("LDREOEIIECIHNTSG",medium.convert(s2, num2));
         assertEquals("ACBD",medium.convert(e1, nume1));
+    }
+
+    @Test
+    public void atoi(){
+        String s1 = "-45";
+        String s2 = "8888 and words";
+        String s3 = "    167";
+        assertEquals(-45,medium.myAtoi(s1));
+        assertEquals(0,medium.myAtoi(s2));
+        assertEquals(167,medium.myAtoi(s3));
     }
 }
