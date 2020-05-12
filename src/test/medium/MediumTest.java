@@ -80,4 +80,10 @@ public class MediumTest {
         assertEquals(0,medium.myAtoi(s2));
         assertEquals(167,medium.myAtoi(s3));
     }
+
+    @Test
+    public void maxArea(){
+        int [] height = {2,3};
+        assertEquals(49,medium.maxArea(height));
+    }
 }
