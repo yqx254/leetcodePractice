@@ -28,16 +28,33 @@ public class Easy{
      * 7.给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
      */
     public int reverse(int x) {
-        boolean flag = true;
-        if(x < 0){
-            flag = false;
+        long result = 0;
+        int current;
+
+        while(x != 0){
+            current = x % 10;
+            result = result * 10 + current;
+            x = x / 10;
         }
-        StringBuilder s = new StringBuilder(String.valueOf(Math.abs(x)));
-        try{
-            return flag ? Integer.parseInt(s.reverse().toString()) : -Integer.parseInt(s.reverse().toString());
-        }
-        catch(Exception e){
+        if(result > Integer.MAX_VALUE || result < Integer.MIN_VALUE){
             return 0;
         }
+        return (int)result;
+    }
+    /**
+     *
+     * 9.判断一个整数是否是回文数。
+     * 回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+     */
+    public boolean isPalindrome(int x){
+        if(x < 0 || (x % 10 == 0 && x != 0)){
+            return false;
+        }
+        int result = 0;
+        while (x > result){
+            result = result * 10 + x % 10;
+            x = x / 10;
+        }
+        return result == x || result / 10 == x ;
     }
 }

@@ -1,4 +1,4 @@
-package easy;
+
 
 import easy.Easy;
 import org.junit.Before;
@@ -30,8 +30,20 @@ public class EasyTest {
         int i1 = 123;
         int i2 = 230;
         int i3 = -142;
+        int e1 = 1534236469;
         assertEquals(321,easy.reverse(i1));
         assertEquals(32,easy.reverse(i2));
         assertEquals(-241,easy.reverse(i3));
+        assertEquals(0,easy.reverse(e1));
+    }
+
+    @Test
+    public void isPalindrome(){
+        int  i1 = 121;
+        int i2 = -121;
+        int i3 = 10;
+        assertTrue(easy.isPalindrome(i1));
+        assertFalse(easy.isPalindrome(i2));
+        assertFalse(easy.isPalindrome(i3));
     }
 }

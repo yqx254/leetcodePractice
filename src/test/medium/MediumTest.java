@@ -1,4 +1,4 @@
-package medium;
+
 
 import medium.Medium;
 import org.junit.Before;
