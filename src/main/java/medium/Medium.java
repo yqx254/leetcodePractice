@@ -279,4 +279,33 @@ public class Medium {
         return result;
     }
 
+    public int threeSumClosest(int[] nums, int target){
+        if(nums.length <= 2){
+            return 0;
+        }
+        Arrays.sort(nums);
+        int i, j, sum, k = 0, current = nums[0] + nums[1] + nums[2];
+        while(k < nums.length){
+            i = k + 1;
+            j = nums.length - 1;
+            while(i < j){
+                sum = nums[i] + nums[j] + nums[k];
+                if(Math.abs(target - current) > Math.abs(target - sum)){
+                    current = sum;
+                }
+                if(sum > target){
+                    j --;
+                }
+                else if(sum < target){
+                    i ++;
+                }
+                else{
+                    return sum;
+                }
+            }
+            k ++;
+        }
+        return current;
+    }
+
 }
