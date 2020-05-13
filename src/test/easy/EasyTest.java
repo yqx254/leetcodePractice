@@ -46,4 +46,17 @@ public class EasyTest {
         assertFalse(easy.isPalindrome(i2));
         assertFalse(easy.isPalindrome(i3));
     }
+
+    @Test
+    public  void longestCommonPrefix(){
+        String [] a1 = {"flower","flow","flight"};
+        String [] a2 = {"dog","racecar","car"};
+        String [] a3 = {"abca","aba","aaab"};
+        String [] a4 = {"ca","a"};
+
+        assertEquals("fl",easy.longestCommonPrefix(a1));
+        assertEquals("",easy.longestCommonPrefix(a2));
+        assertEquals("a",easy.longestCommonPrefix(a3));
+        assertEquals("",easy.longestCommonPrefix(a4));
+    }
 }

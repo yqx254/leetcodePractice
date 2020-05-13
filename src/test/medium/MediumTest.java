@@ -114,4 +114,17 @@ public class MediumTest {
         assertEquals(58,medium.romanToInt(s3));
         assertEquals(1994,medium.romanToInt(s4));
     }
+
+    @Test
+    public void threeSum(){
+        int [] nums1 = {1,-1,-1,0};
+        int [] nums2= {};
+        int [] nums3 = {-1,0,1,2,-1,-4};
+        int [] nums4 = {0,0,0,0};
+        System.out.println(medium.threeSum(nums1));
+        System.out.println(medium.threeSum(nums2));
+        System.out.println(medium.threeSum(nums3));
+        System.out.println(medium.threeSum(nums4));
+
+    }
 }

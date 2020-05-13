@@ -223,4 +223,60 @@ public class Medium {
         }
         return total;
     }
+
+    /**
+     *  15.给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？
+     *   请你找出所有满足条件且不重复的三元组。
+     * @param nums 整数数组
+     * @return 三元组组合
+     */
+    public List<List<Integer>> threeSum(int[] nums) {
+        int i ,j,k = 0;
+        int sum = 0;
+        List<List<Integer>> result = new ArrayList<>(nums.length / 2);
+        if(nums.length <= 2){
+            return  result;
+        }
+        Arrays.sort(nums);
+        while(k < nums.length - 1 && nums[k] <= 0){
+            //这个地方用k和k-1进行比较
+            //k和k+1比较似乎也可行，但是处理不了{0,0,0,0,0},{-1,-1,-1,-1,1,2}这类情况，指针直接被推到最后了
+//            if(k < nums.length - 3 && nums[k] == nums[k + 1]){
+            if(k > 0 && nums[k] == nums[k - 1]){
+                k ++;
+                continue;
+            }
+            i = k + 1;
+            j = nums.length - 1;
+            while(i < j){
+                sum = nums[i] + nums[j] + nums[k];
+                if(sum < 0){
+                    while(i < j && nums[i] == nums[i + 1]){
+                        i ++;
+                    }
+                    i ++;
+                }
+                else if(sum > 0){
+                    while(i < j && nums[j] == nums[j - 1]){
+                        j --;
+                    }
+                    j --;
+                }
+                else{
+                    result.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k])));
+                    while(i < j && nums[i] == nums[i + 1]){
+                        i ++;
+                    }
+                    while(i < j && nums[j] == nums[j - 1]){
+                        j --;
+                    }
+                    i ++;
+                    j --;
+                }
+            }
+         k ++;
+        }
+        return result;
+    }
+
 }

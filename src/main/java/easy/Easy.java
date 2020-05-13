@@ -1,5 +1,6 @@
 package easy;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,5 +57,30 @@ public class Easy{
             x = x / 10;
         }
         return result == x || result / 10 == x ;
+    }
+    /**
+     * 14.最长公共前缀
+     *  编写一个函数来查找字符串数组中的最长公共前缀。
+     *  思路1：水平扫描  字符串挨个和前缀比较（默认为数组首个字符串）
+     *  使用indexOf来计算当前字符和公共前缀的关系（若为0，则切掉前缀最后一位，再进行尝试）
+     *  思路2： 垂直扫描  字符串每个字母挨个和其他字符串同位置字符进行比较
+     *  若数组末尾有较短的字符，则减少了很多比较次数
+     *  思路3：JAVA偷鸡大法
+     *  使用Arrays.sort排序数组，再比较第一个字符和最后一个字符即可找出公共前缀
+     *  思路清奇，但似乎略慢一些
+     */
+    public String longestCommonPrefix(String [] strs){
+        if(strs.length == 0){
+            return "";
+        }
+        for(int i = 0; i <strs[0].length(); i ++){
+            char current = strs[0].charAt(i);
+            for(int j = 1; j < strs.length; j ++){
+                if(i == strs[j].length() || strs[j].charAt(i) != current){
+                    return strs[0].substring(0, i);
+                }
+            }
+        }
+        return strs[0];
     }
 }
