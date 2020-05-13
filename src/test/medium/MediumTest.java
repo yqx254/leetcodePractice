@@ -86,4 +86,32 @@ public class MediumTest {
         int [] height = {2,3};
         assertEquals(49,medium.maxArea(height));
     }
+
+    @Test
+    public void intToRome(){
+        int i1 = 3;
+        int i2 = 9;
+        int i3 = 58;
+        int i4 = 1994;
+        int i5 = 4;
+
+        assertEquals("III",medium.intToRoman(i1));
+        assertEquals("IX",medium.intToRoman(i2));
+        assertEquals("LVIII",medium.intToRoman(i3));
+        assertEquals("MCMXCIV",medium.intToRoman(i4));
+        assertEquals("IV",medium.intToRoman(i5));
+    }
+
+    @Test
+    public void romeToInt(){
+        String s1 = "III";
+        String s2 = "IX";
+        String s3 = "LVIII";
+        String s4 = "MCMXCIV";
+
+        assertEquals(3,medium.romanToInt(s1));
+        assertEquals(9,medium.romanToInt(s2));
+        assertEquals(58,medium.romanToInt(s3));
+        assertEquals(1994,medium.romanToInt(s4));
+    }
 }
