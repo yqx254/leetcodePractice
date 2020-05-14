@@ -139,4 +139,20 @@ public class MediumTest {
         assertEquals(0,medium.threeSumClosest(nums1, target1));
         assertEquals(-52,medium.threeSumClosest(nums2, target2));
     }
+
+    @Test
+    public void letterCombination(){
+        String input1 = "23";
+        String input2 = "";
+        assertArrayEquals(new String[]{"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"}
+            ,medium.letterCombinations(input1).toArray());
+        assertArrayEquals(new String [] {},medium.letterCombinations(input2).toArray());
+    }
+
+    @Test
+    public void forSum(){
+        int [] nums = {0,0,0,0,0};
+        int target =0;
+        System.out.println(medium.fourSum(nums, target));
+    }
 }

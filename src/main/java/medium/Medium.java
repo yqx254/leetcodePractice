@@ -229,6 +229,9 @@ public class Medium {
      *   请你找出所有满足条件且不重复的三元组。
      * @param nums 整数数组
      * @return 三元组组合
+     *  思路：排序（重要），最外层遍历，内层双指针
+     *  三数之和过小则移动左指针，三数之和过大则移动右指针
+     *  排重是难点
      */
     public List<List<Integer>> threeSum(int[] nums) {
         int i ,j,k = 0;
@@ -279,6 +282,15 @@ public class Medium {
         return result;
     }
 
+    /**
+     * 16. 最接近的三数之和
+     * 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。
+     * 返回这三个数的和。假定每组输入只存在唯一答案。
+     * @param nums 整数数组
+     * @param target 目标
+     * @return 最接近目标的和
+     * 思路：同上，不需要排重因此要容易得多
+     */
     public int threeSumClosest(int[] nums, int target){
         if(nums.length <= 2){
             return 0;
@@ -308,4 +320,102 @@ public class Medium {
         return current;
     }
 
+    /**
+     * 17. 电话号码的字母组合
+     *  给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
+     * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
+     * @param digits 号码
+     * @return 可能的号码组合List
+     * 思路：干脆的BFS 爆破……
+     */
+    public List<String> letterCombinations(String digits){
+        List<String> result = new ArrayList<>(digits.length() * 3);
+        if(digits.length() == 0){
+            return result;
+        }
+        searchCombination(result,digits,"");
+        return  result;
+    }
+    private void searchCombination(List<String>result,String digits,String prefix ){
+        if(digits.length() == 0){
+            result.add(prefix);
+        }
+        else{
+            char c = digits.charAt(0);
+            String comb = combination(c);
+            for(int i = 0; i < comb.length(); i ++){
+                searchCombination(result,digits.substring(1),prefix + comb.charAt(i));
+            }
+        }
+    }
+    private String combination(char digit){
+        switch (digit){
+            case '2':
+                return "abc";
+            case '3':
+                return "def";
+            case '4':
+                return "ghi";
+            case '5':
+                return "jkl";
+            case '6':
+                return "mno";
+            case '7':
+                return "pqrs";
+            case '8':
+                return "tuv";
+            case '9':
+                return "wxyz";
+            default:
+                return "";
+        }
+    }
+
+    public List<List<Integer>> fourSum(int[]nums, int target){
+        List<List<Integer>>result = new ArrayList<>(nums.length);
+        if(nums.length < 4){
+            return result;
+        }
+        Arrays.sort(nums);
+        int sum;
+        for(int l = 0;l < nums.length - 3; l ++){
+            if(l > 0 && nums[l] == nums[l - 1]){
+                continue;
+            }
+            for(int r = nums.length - 1;r > l + 2; r --){
+                if(r < nums.length - 1 && nums[r] == nums[r + 1]){
+                    continue;
+                }
+                int i = l + 1, j = r - 1;
+                while(i < j){
+                    System.out.println("i   :" + i + "j  :" + j);
+                    sum = nums[l] + nums[r] + nums[i] + nums[j];
+                    if(sum < target){
+                        while(i < j && nums[i] == nums[i + 1]){
+                            i ++;
+                        }
+                        i++;
+                    }
+                    else if(sum > target){
+                        while(i < j && nums[j] == nums[j - 1]){
+                            j --;
+                        }
+                        j --;
+                    }
+                    else{
+                        result.add(new ArrayList<>(Arrays.asList(nums[l],nums[r],nums[i],nums[j])));
+                        while(i < j && nums[i] == nums[i + 1]){
+                            i ++;
+                        }
+                        while(i < j && nums[j] == nums[j - 1]){
+                            j --;
+                        }
+                        i ++;
+                        j --;
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }
