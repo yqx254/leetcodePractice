@@ -59,4 +59,19 @@ public class EasyTest {
         assertEquals("a",easy.longestCommonPrefix(a3));
         assertEquals("",easy.longestCommonPrefix(a4));
     }
+
+    @Test
+    public void isValid(){
+        String s1 = "()";
+        String s2 = "{}()[]";
+        String s3 = "([)]";
+        String s4 = "{[]}";
+        String s5 = "((";
+
+        assertTrue(easy.isValid(s1));
+        assertTrue(easy.isValid(s2));
+        assertFalse(easy.isValid(s3));
+        assertTrue(easy.isValid(s4));
+        assertFalse(easy.isValid(s5));
+    }
 }

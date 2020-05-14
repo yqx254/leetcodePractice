@@ -155,4 +155,10 @@ public class MediumTest {
         int target =0;
         System.out.println(medium.fourSum(nums, target));
     }
+
+    @Test
+    public void generator(){
+        int n1 = 4;
+        System.out.println(medium.generateParenthesis(n1));
+    }
 }

@@ -6,7 +6,6 @@ import java.util.*;
 
 /**
  * @author fstar
- * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
  *
  */
 public class Medium {
@@ -417,5 +416,39 @@ public class Medium {
             }
         }
         return result;
+    }
+
+    /**
+     * 22. 括号生成
+     * 数字 n 代表生成括号的对数
+     * 请你设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。
+     * @param n 括号的对数
+     * @return 可能的结果
+     * 思路： DFS
+     */
+    public List<String> generateParenthesis(int n){
+        List<String>result =new ArrayList<>();
+        if(n < 1){
+            result.add("");
+            return result;
+        }
+        generate(result, "(",n - 1, n);
+        return result;
+    }
+    private void generate(List<String> result, String current, int left, int right){
+        if(left == 0 && right == 0){
+            result.add(current);
+        }
+        else if(left < right){
+            if(left > 0){
+                generate(result,current + "(",left - 1, right);
+            }
+            if(right > 0){
+                generate(result,current + ")" , left, right - 1);
+            }
+        }
+        else if(left == right){
+            generate(result, current + "(", left - 1, right);
+        }
     }
 }

@@ -3,6 +3,7 @@ package easy;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author fstar
@@ -83,4 +84,40 @@ public class Easy{
         }
         return strs[0];
     }
+
+    /**
+     * 20.给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+     * @param s 带括号的字符串
+     * @return 是否有效
+     * 思路： 栈来！
+     * 可能的错误：抬手一个反括号，直接peek会报异常，需要先进行检查
+     * 补充：如果length为奇数，应该直接返回false
+     * 其他诡异思路：循环replace () {} []，然后检查字符串是否为空，5行python搞定的偏锋操作
+     */
+    public boolean isValid(String s){
+        Stack<Character> stack = new Stack<>();
+        for(int i = 0;i < s.length(); i ++){
+            char current =s.charAt(i);
+            if(current == '(' || current == '{' || current == '['){
+                stack.push(current);
+            }
+            else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                if(current == ')' && stack.peek() != '('){
+                    return false;
+                }
+                if(current == '}' && stack.peek() != '{'){
+                    return false;
+                }
+                if(current == ']' && stack.peek() != '['){
+                    return false;
+                }
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+    }
+
 }
