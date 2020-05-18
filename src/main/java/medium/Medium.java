@@ -2,6 +2,7 @@ package medium;
 
 
 
+import java.math.BigInteger;
 import java.util.*;
 
 /**
@@ -450,5 +451,48 @@ public class Medium {
         else if(left == right){
             generate(result, current + "(", left - 1, right);
         }
+    }
+
+    /**
+     * 29.两数相除
+     * 给定两个整数，被除数 dividend 和除数 divisor。
+     * 将两数相除，要求不使用乘法、除法和 mod 运算符
+     * @param dividend 除数
+     * @param divisor 被除数
+     * @return 整数商
+     */
+    public int divide(int dividend, int divisor){
+        long d1 = dividend;
+        long d2 = divisor;
+        boolean flag = d1 * d2 > 0;
+        long count = 0;
+        if(divisor == 1){
+            count = d1;
+        }
+        else if(divisor == - 1){
+            count = - d1;
+        }
+        else{
+            d1 = Math.abs(d1);
+            d2 = Math.abs(d2);
+            long tempDivisor, tempCount;
+            while(d1 >= d2){
+                tempDivisor = d2;
+                tempCount = 1;
+                while(tempDivisor <= d1){
+                    d1 -= tempDivisor;
+                    count += tempCount;
+                    tempDivisor = tempDivisor << 1;
+                    tempCount = tempCount << 1;
+                }
+            }
+            if(!flag){
+                count = -count;
+            }
+        }
+        if(count > Integer.MAX_VALUE){
+            return Integer.MAX_VALUE;
+        }
+        return (int)count;
     }
 }

@@ -1,5 +1,10 @@
 package hard;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author fstar
  */
@@ -66,5 +71,66 @@ public class Hard {
             return (current && isMatch(s.substring(1),p)) || isMatch(s, p.substring(2));
         }
         return current && isMatch(s.substring(1),p.substring(1));
+    }
+
+    /**
+     *  30. 串联所有单词的子串
+     *  给定一个字符串 s 和一些长度相同的单词 words。
+     *  找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始位置。
+     *  注意子串要与 words 中的单词完全匹配，中间不能有其他字符，
+     *  但不需要考虑 words 中单词串联的顺序。
+     * @param s 字符串
+     * @param words 字串
+     * @return 起始位置
+     *  思路：传说中的滑动窗口
+     *
+     */
+    public List<Integer> findSubstring(String s, String[] words){
+        List<Integer> result = new ArrayList<>();
+        Map<String , Integer> map = new HashMap<>(words.length);
+        Map<String, Integer> tmp = new HashMap<>(words.length);
+        if(words.length == 0){
+            return result;
+        }
+        for(String w : words){
+            int v = map.getOrDefault(w, 0);
+            map.put(w,v);
+        }
+        int wordLen = words[0].length();
+        int totalLen = wordLen * words.length;
+        int left,right;
+        for(int i = 0; i < words.length - 1; i ++){
+            left = i;
+            right = i;
+            if(right + totalLen < s.length()){
+                while(right + wordLen <= totalLen){
+                    String word = s.substring(right, right + wordLen);
+                    int v = tmp.getOrDefault(word, 0);
+                    tmp.put(word,v);
+                    right += wordLen;
+                }
+                if(map.equals(tmp)){
+                    result.add(right);
+                }
+                while(right + wordLen <= s.length()){
+                    String wordDel = s.substring(left, left + wordLen);
+                    int dv = tmp.get(wordDel);
+                    if(dv - 1 == 0){
+                        tmp.remove(wordDel);
+                    }
+                    else{
+                        tmp.put(wordDel, dv - 1);
+                    }
+                    String wordAdd = s.substring(right, right + wordLen);
+                    int addV = tmp.getOrDefault(wordAdd, 0);
+                    tmp.put(wordAdd, addV + 1);
+                    if(map.equals(tmp)){
+                        result.add(right);
+                    }
+                    right += wordLen;
+                }
+            }
+        }
+        return result;
     }
 }

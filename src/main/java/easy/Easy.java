@@ -143,4 +143,66 @@ public class Easy{
         }
         return slow + 1;
     }
+
+    /**
+     * 27.移除元素
+     * @param nums 元素数组
+     * @param val 移除值
+     * @return 长度
+     * 思路：双指针
+     * 当然，双指针也分别人的双指针和自己的双指针……
+     */
+    public int removeElement(int [] nums, int val){
+        int i = 0;
+        for(int j = 0; j < nums.length; j ++){
+            if(nums[j]  != val){
+                nums[i] = nums[j];
+                i ++;
+            }
+        }
+        return i;
+    }
+
+    /**
+     *  28. 实现 strStr()
+     *  给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。
+     *  如果不存在，则返回  -1。
+     * @param haystack 源字符串
+     * @param needle 目标字符串
+     * @return 目标字符串所在位置
+     * 思路1： 双循环暴力拆解
+     * 思路2：  Sunday算法，建立偏移量map 如th： t： 2 h： 1
+     *   例如 something  th   th与so不等，在map中查找m的偏移量  结果未找到，idx从0移动到0 + th.length  + 1 = 3
+     *   et  与th不等，h在map中等于1，idx后移一位，th = th，返回idx=4
+     *   思路3：KMP算法，未研究，较困难
+     *   思路4：内置函数极限偷鸡
+     */
+    public int strStr(String haystack, String needle){
+        Map<Character, Integer> map = new HashMap<>(needle.length());
+        for(int i = 0 ;i < needle.length(); i ++){
+            map.put(needle.charAt(i), needle.length() - i);
+        }
+        int idx = 0;
+        while(idx + needle.length() <= haystack.length()){
+            String hay = haystack.substring(idx, idx + needle.length());
+            if(hay.equals(needle)){
+                return idx;
+            }
+            if(idx + needle.length() >= haystack.length()){
+                return -1;
+            }
+            char next = haystack.charAt(idx + needle.length());
+            if(map.get(next) != null){
+                idx = idx + map.get(next);
+            }
+            else{
+                idx = idx + needle.length() + 1;
+            }
+        }
+        if(idx + needle.length() >= haystack.length()){
+            return -1;
+        }
+        return idx;
+    }
+
 }

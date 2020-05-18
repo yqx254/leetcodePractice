@@ -74,4 +74,44 @@ public class EasyTest {
         assertTrue(easy.isValid(s4));
         assertFalse(easy.isValid(s5));
     }
+
+    @Test
+    public void removeElement(){
+        int [] nums1 = {3,2,2,3};
+        int val1 = 3;
+        int [] nums2 = {0,1,2,2,3,0,4,2};
+        int val2 = 2;
+        int [] nums3 = {1};
+        int val3 = 1;
+        int [] nums4 = {2,3,4,5};
+        int val4 = 6;
+        int [] nums5 = {4,5};
+        int val5 = 4;
+
+        System.out.println(easy.removeElement(nums1,val1));
+        System.out.println(easy.removeElement(nums2,val2));
+        System.out.println(easy.removeElement(nums3,val3));
+        System.out.println(easy.removeElement(nums4,val4));
+        System.out.println(easy.removeElement(nums5,val5));
+    }
+
+    @Test
+    public void strStr(){
+        String hayStack1= "hello";
+        String needle1 = "ll";
+        String hayStack2 = "aaaaa";
+        String needle2 = "bba";
+        String hayStack3 = "blablabla";
+        String needle3 = "";
+        String hayStack4 = "good";
+        String needle4 = "good";
+        String hayStackE1 = "mississippi";
+        String needleE1 = "issi";
+
+        assertEquals(2,easy.strStr(hayStack1, needle1));
+        assertEquals(-1,easy.strStr(hayStack2, needle2));
+        assertEquals(0,easy.strStr(hayStack3, needle3));
+        assertEquals(0,easy.strStr(hayStack4, needle4));
+        assertEquals(1,easy.strStr(hayStackE1, needleE1));
+    }
 }

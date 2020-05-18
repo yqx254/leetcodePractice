@@ -161,4 +161,20 @@ public class MediumTest {
         int n1 = 4;
         System.out.println(medium.generateParenthesis(n1));
     }
+
+    @Test
+    public void divide(){
+        int dd1 = 10;
+        int ds1 = 3;
+        int dd2 = 7;
+        int ds2 = -3;
+        int de1 = -2147483648;
+        int des1 = -1;
+        int de2 = 2147483647;
+        int des2 = 2;
+        assertEquals(3, medium.divide(dd1,ds1));
+        assertEquals(-2, medium.divide(dd2,ds2));
+        assertEquals(2147483647, medium.divide(de1,des1));
+        assertEquals(1073741823, medium.divide(de2,des2));
+    }
 }

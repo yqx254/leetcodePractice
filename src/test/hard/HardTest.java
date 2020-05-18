@@ -55,4 +55,12 @@ public class HardTest {
         assertTrue(hard.isMatch(es5,ep5));
         assertTrue(hard.isMatch(es6,ep6));
     }
+
+    @Test
+    public void checkFindSubString(){
+        String s = "barfoothefoobarman";
+        String [] words = {"foo","bar"};
+
+        assertArrayEquals(new Object [] {0,9},hard.findSubstring(s,words).toArray());
+    }
 }
