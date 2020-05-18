@@ -1,4 +1,4 @@
-
+package hard;
 
 
 import hard.Hard;
@@ -58,9 +58,24 @@ public class HardTest {
 
     @Test
     public void checkFindSubString(){
-        String s = "barfoothefoobarman";
-        String [] words = {"foo","bar"};
+        String s1 = "barfoothefoobarman";
+        String [] words1 = {"foo","bar"};
+        String s2 = "wordgoodgoodgoodbestword";
+        String [] words2 = {"word","good","best","word"};
+        String s3 = "namewordgooddaysbestgoodbestword";
+        String [] words3 = {"word","good","best","days"};
+        String s4 = "daydayupu";
+        String [] words4 = {""};
+        String e1 = "lingmindraboofooowingdingbarrwingmonkeypoundcake";
+        String [] wordsE1 = {"fooo","barr","wing","ding","wing"};
+        String e2 = "a";
+        String [] wordsE2 = {"a"};
 
-        assertArrayEquals(new Object [] {0,9},hard.findSubstring(s,words).toArray());
+        assertArrayEquals(new Object [] {0,9},hard.findSubstring(s1,words1).toArray());
+        assertArrayEquals(new Object [] {},hard.findSubstring(s2,words2).toArray());
+        assertArrayEquals(new Object [] {4},hard.findSubstring(s3,words3).toArray());
+        assertArrayEquals(new Object [] {},hard.findSubstring(s4,words4).toArray());
+        assertArrayEquals(new Object [] {13},hard.findSubstring(e1,wordsE1).toArray());
+        assertArrayEquals(new Object [] {0},hard.findSubstring(e2,wordsE2).toArray());
     }
 }

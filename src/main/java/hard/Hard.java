@@ -94,24 +94,28 @@ public class Hard {
         }
         for(String w : words){
             int v = map.getOrDefault(w, 0);
-            map.put(w,v);
+            map.put(w,v + 1);
         }
         int wordLen = words[0].length();
         int totalLen = wordLen * words.length;
         int left,right;
-        for(int i = 0; i < words.length - 1; i ++){
+        //进行窗口滑动
+        for(int i = 0; i < wordLen; i ++){
             left = i;
             right = i;
-            if(right + totalLen < s.length()){
-                while(right + wordLen <= totalLen){
+            tmp.clear();
+            if(right + totalLen <= s.length()){
+                //第一轮，把一样长度的几个单词全部填入map
+                while(right + wordLen <= totalLen + i  && right + wordLen <= s.length()){
                     String word = s.substring(right, right + wordLen);
                     int v = tmp.getOrDefault(word, 0);
-                    tmp.put(word,v);
+                    tmp.put(word,v + 1);
                     right += wordLen;
                 }
                 if(map.equals(tmp)){
-                    result.add(right);
+                    result.add(left);
                 }
+                //之后的轮次，右边加一个单词，左边拿掉一个单词
                 while(right + wordLen <= s.length()){
                     String wordDel = s.substring(left, left + wordLen);
                     int dv = tmp.get(wordDel);
@@ -125,8 +129,9 @@ public class Hard {
                     int addV = tmp.getOrDefault(wordAdd, 0);
                     tmp.put(wordAdd, addV + 1);
                     if(map.equals(tmp)){
-                        result.add(right);
+                        result.add(left + wordLen);
                     }
+                    left += wordLen;
                     right += wordLen;
                 }
             }
