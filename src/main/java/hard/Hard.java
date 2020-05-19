@@ -9,7 +9,20 @@ import java.util.Map;
  * @author fstar
  */
 public class Hard {
-
+    /**
+     *  4. 寻找两个正序数组的中位数
+     *  给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。
+     *  请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。
+     * @param nums1 排序数组1
+     * @param nums2 排序数组2
+     * @return 中位数
+     * 思路：遍历两个数组并重建 ：时间复杂度为O(m + n)，不符合题意
+     * log级别的复杂度，首先考虑二分法
+     * 在短的一个数组上找到合适的i 和j （j = 两数组总长度 / 2 - i）
+     * 使得 nums1[i - 1]  < nums2[j] 且 nums1[i] > nums2[j - 1]
+     * 这同时也保证了两个数组被i和j切成长度几乎相等的左右两半
+     * 寻找最大左值和最小右值，即可得到中位数
+     */
     public double findMedianSortedArrays(int [] nums1, int [] nums2){
         int m = nums1.length;
         int n = nums2.length;
@@ -62,16 +75,30 @@ public class Hard {
         return 0.0;
     }
 
+    /**
+     *  10. 正则表达式匹配
+     *  给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
+     *  '.' 匹配任意单个字符
+     * '*' 匹配零个或多个前面的那一个元素
+     * @param s 字符串
+     * @param p 匹配串
+     * @return 是否匹配
+     * 使用递归
+     * 当前字符是否和表达式匹配 或   当前字符匹配到 ‘.’
+     * 表达式下一位是'*'  切掉当前字符继续递归匹配并和当前匹配求或
+     * 或者切掉星号，继续匹配后面的内容
+     * 当前匹配为真， 递归比较之后的字符并求或
+     */
     public boolean isMatch(String s, String p) {
         if(p.isEmpty()){
             return s.isEmpty();
         }
-        boolean current = !s.isEmpty() && (p.charAt(0) =='.' || s.charAt(0) == p.charAt(0));
+    boolean current = !s.isEmpty() && (p.charAt(0) =='.' || s.charAt(0) == p.charAt(0));
         if(p.length() >= 2 && p.charAt(1) == '*'){
-            return (current && isMatch(s.substring(1),p)) || isMatch(s, p.substring(2));
-        }
-        return current && isMatch(s.substring(1),p.substring(1));
+        return (current && isMatch(s.substring(1),p)) || isMatch(s, p.substring(2));
     }
+        return current && isMatch(s.substring(1),p.substring(1));
+}
 
     /**
      *  30. 串联所有单词的子串
@@ -83,7 +110,9 @@ public class Hard {
      * @param words 字串
      * @return 起始位置
      *  思路：传说中的滑动窗口
-     *
+     *  例如 单词数组长度为3，可能从可选字符串的0  + n * words长度1 + n * words长度 2 + n * words长度中找到结果\
+     *  先按words数组能构成的总长度装填map并比较
+     *  若不相等，从左边移除一个单词，从右边加入一个单词，再次比较，循环
      */
     public List<Integer> findSubstring(String s, String[] words){
         List<Integer> result = new ArrayList<>();

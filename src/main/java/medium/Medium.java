@@ -10,28 +10,49 @@ import java.util.*;
  *
  */
 public class Medium {
-
+    /**
+     * 3. 无重复字符的最长子串
+     * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+     * @param s 字符串
+     * @return 最长子串
+     * 思路：使用一遍哈希表
+     *  start标识一个可能的子串起点
+     * 发现重复字符：求重复字符之前到开始位置的这一段的长度，并将start移动到重复字符之后
+     * 与当前max做对比
+     * 未发现重复字符则将当前字符和位置存入哈希
+     *  start和max可能没有移动，处理一下这个特殊情况（整个字符串不出现重复，长度为s.length() - start
+     */
     public int lengthOfLongestSubstring(String s) {
         if(s.length() == 0){
             return 0;
         }
-        Map<Character,Integer> result = new HashMap<>(s.length());
-        int max = 0;
-        int start = 0;
-        for(int i = 0; i < s.length(); i ++){
-            if(result.get(s.charAt(i)) != null  && result.get(s.charAt(i)) >= start){
-                max = Math.max(max,(i - start));
-                start = result.get(s.charAt(i)) + 1;
-            }
-            result.put(s.charAt(i),i);
+        if(s.length() == 1){
+            return 1;
         }
-        return Math.max(max, s.length()  - start);
+        Map<Character, Integer> map = new HashMap<>(s.length());
+        int start = 0;
+        int max = 0;
+        for(int i = 0; i < s.length(); i ++){
+            char current = s.charAt(i);
+            if(map.get(current) != null && map.get(current) >= start){
+                max = Math.max(max, i - start);
+                start = map.get(current) + 1;
+            }
+            map.put(current, i);
+        }
+        return Math.max(max, s.length() - start);
     }
     /**
      * 5. 最长回文子串
      * 给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。
      * @param s input String
      * @return longest palindrome
+     * 思路：暴力穷举不可取
+     * 较为容易理解的方法： 中心扩散法
+     * 除了第一个元素之前、第一个元素、最后一个元素之后、最后一个元素以外
+     * 长度为n的字符串共有2n - 4个中心点
+     * 一层循环遍历，一层循环验证从中间点出发的字符串是否是回文即可
+     * Manacher算法  据说复杂度达到O(n) 难度过大暂不尝试
      */
     public String longestPalindrome(String s) {
         if(s == null || s.length() < 1){
@@ -72,6 +93,7 @@ public class Medium {
      * @param s input String
      * @param numRows input num
      * @return z form
+       * 思路： 做标志位触底反弹即可
      */
       public String convert(String s, int numRows){
           List<StringBuilder> stringList  = new ArrayList<>(numRows);
@@ -106,6 +128,8 @@ public class Medium {
     /**
      * 8. 字符串转换整数 (atoi)
      * 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
+     * 不想纠结这个题
+     * 官方思路是DFA（确定有限状态机）
      */
     public int myAtoi(String str) {
         try{
@@ -117,7 +141,13 @@ public class Medium {
     }
     /**
      * 11. 盛最多水的容器
-     * 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * 给你 n 个非负整数 a1，a2，...，an，每个数代表坐标中的一个点 (i, ai) 。
+     * 在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找
+     * 出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * 思路：主要难点在于证明
+     * 若  bucket[i] < bucket[j]，则面积为 i * len若移动长边，面积有减无增 i * (len - 1)
+     * 所以移动短边咯
+     * 总之，使用双指针，获得当前面积后，往中心方向移动短边，直到指针重合
      */
     public int maxArea(int[] height) {
         int i = 0, j = height.length - 1;
@@ -197,7 +227,9 @@ public class Medium {
  *  13.罗马数字转整数
  *  例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。
  *  27 写做  XXVII, 即为 XX + V + II 。
- *  备注：switch似乎比hashmap快得多
+ *  基本玩法：发现前小后大，就把小的数减掉（减两倍就行）
+ *  否则直接加上
+ *  备注：switch似乎比hashmap快得多，诡异啊
  */
     public int  romanToInt(String s){
         Map<Character, Integer> map = new HashMap<>(8);
@@ -232,6 +264,7 @@ public class Medium {
      *  思路：排序（重要），最外层遍历，内层双指针
      *  三数之和过小则移动左指针，三数之和过大则移动右指针
      *  排重是难点
+     *  后置排重（算完了再排）较为安全
      */
     public List<List<Integer>> threeSum(int[] nums) {
         int i ,j,k = 0;
@@ -371,6 +404,17 @@ public class Medium {
         }
     }
 
+    /**
+     *  18. 四数之和
+     * @param nums 整数数组
+     * @param target 目标值
+     * @return 非重复的四元组
+     *
+     * 思路： 三数之和的进化版
+     * 关键词：排序
+     * 首尾各一个指针
+     * 中间两个指针 根据结果移动
+     */
     public List<List<Integer>> fourSum(int[]nums, int target){
         List<List<Integer>>result = new ArrayList<>(nums.length);
         if(nums.length < 4){
@@ -460,6 +504,9 @@ public class Medium {
      * @param dividend 除数
      * @param divisor 被除数
      * @return 整数商
+     * 除法即减法，使用一个计数器统计进行减法运算的数量，作为商
+     * 为了提高效率，每次除后将除数翻倍（使用位运算），此时除数计数也翻倍
+     * 如果发现除数搞大了，退回1倍重新做人
      */
     public int divide(int dividend, int divisor){
         long d1 = dividend;

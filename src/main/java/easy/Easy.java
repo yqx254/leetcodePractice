@@ -28,6 +28,9 @@ public class Easy{
     /**
      * @author fstar
      * 7.给出一个 32 位的有符号整数，你需要将这个整数中每位上的数字进行反转。
+     * 假设我们的环境只能存储得下 32 位的有符号整数
+     *  思路：模10除10下一波
+     *  用long存储来处理边界值问题
      */
     public int reverse(int x) {
         long result = 0;
@@ -47,17 +50,22 @@ public class Easy{
      *
      * 9.判断一个整数是否是回文数。
      * 回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+     * 额外要求：不使用字符串
+     * 思路：负数和被10整除的数字直接返回false
+     * 翻转整数和原数据进行比较
+     * 优化：当结果数大于等于原数时，代表已经比对了超过一半的数字
+     * 可直接确定结果
      */
     public boolean isPalindrome(int x){
         if(x < 0 || (x % 10 == 0 && x != 0)){
             return false;
         }
         int result = 0;
-        while (x > result){
+        while(x > result){
             result = result * 10 + x % 10;
-            x = x / 10;
+            x /= 10;
         }
-        return result == x || result / 10 == x ;
+        return result == x || result / 10 == x;
     }
     /**
      * 14.最长公共前缀
