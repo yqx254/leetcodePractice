@@ -4,6 +4,8 @@ import medium.Medium;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 
@@ -176,5 +178,21 @@ public class MediumTest {
         assertEquals(-2, medium.divide(dd2,ds2));
         assertEquals(2147483647, medium.divide(de1,des1));
         assertEquals(1073741823, medium.divide(de2,des2));
+    }
+
+    @Test
+    public void nextPermutation(){
+        int [] a1 = {5,4,3,2,1};
+        int [] a2 = {1,2,3,4,5};
+        int [] a3 = {1,2,3,5,6,4,9};
+        int [] a4 = {};
+        medium.nextPermutation(a1);
+        medium.nextPermutation(a2);
+        medium.nextPermutation(a3);
+        medium.nextPermutation(a4);
+        System.out.println(Arrays.toString(a1));
+        System.out.println(Arrays.toString(a2));
+        System.out.println(Arrays.toString(a3));
+        System.out.println(Arrays.toString(a4));
     }
 }
