@@ -219,4 +219,27 @@ public class MediumTest {
         assertEquals(-1,medium.search(nums4,target4));
         assertEquals(1,medium.search(numsE1,targetE1));
     }
+
+    @Test
+    public void searchRange(){
+        int [] nums1 = {5,7,7,8,8,10,10};
+        int target1 = 10;
+        int [] nums2  = {5,7,7,8,8,10,12};
+        int target2 = 8;
+        int [] nums3  = {2,2};
+        int target3 = 2;
+        int [] numsE1 = {1,1,2};
+        int targetE1 = 1;
+        int [] numsE2 = {0,0,0,1,2,3};
+        int targetE2 = 0;
+        int [] numsE3 = {0,0,0,1,2,3,3,3};
+        int targetE3 = 3;
+
+        System.out.println(Arrays.toString(medium.searchRange(nums1,target1)));
+        System.out.println(Arrays.toString(medium.searchRange(nums2,target2)));
+        System.out.println(Arrays.toString(medium.searchRange(nums3,target3)));
+        System.out.println(Arrays.toString(medium.searchRange(numsE1,targetE1)));
+        System.out.println(Arrays.toString(medium.searchRange(numsE2,targetE2)));
+        System.out.println(Arrays.toString(medium.searchRange(numsE3,targetE3)));
+    }
 }

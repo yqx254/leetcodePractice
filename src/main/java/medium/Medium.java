@@ -627,29 +627,89 @@ public class Medium {
     }
 
     public int [] searchRange(int [] nums, int target){
+        if(nums.length == 0){
+            return new int [] {-1,-1};
+        }
         int left = 0;
         int right = nums.length - 1;
         int index = 0;
+        int [] result = {-1,-1};
         //先找一个目标，找不到直接返回
-        while(left < right){
-            index = left + right / 2;
+        while(left <= right){
+            index = (left + right) / 2;
             if(nums[index] == target){
                 break;
             }
-            else if(nums[index ] < target){
+            else if(nums[index] < target){
                 left = index + 1;
             }
             else if(nums[index]  > target){
                 right = index - 1;
             }
         }
-        if(left >= right){
-            return new int [] {-1,-1};
+        if(nums[index] != target){
+            return result;
         }
+        result[0] = index;
+        result[1] = index;
         left = 0;
         right = nums.length - 1;
-        while(left <= index && right >= index){
 
+        boolean leftFlag = true;
+        boolean rightFlag = true;
+
+        int leftHead = 0;
+        int leftTail = index;
+        int rightHead = index + 1;
+        int rightTail = nums.length - 1;
+        if(rightTail < rightHead){
+            rightFlag = false;
         }
+        if(leftTail <= leftHead){
+            leftFlag = false;
+        }
+        while(left < index || right > index){
+            if(leftFlag){
+                left = (leftHead + leftTail) / 2;
+                if(nums[left + 1] == target && (nums[left] < target || left - 1 < 0)){
+                    if(nums[left] < target){
+                        result[0] = left + 1;
+                    }
+                    else if(left - 1 <= 0){
+                        result[0] = left;
+                    }
+                    leftFlag = false;
+                }
+                else if(nums[left] == target){
+                    leftTail = left - 1;
+                }
+                else if(nums[left + 1] < target){
+                    leftHead = left + 1;
+                }
+            }
+            if(rightFlag){
+                right = (rightHead + rightTail) / 2;
+                if(nums[right - 1] == target && (nums[right] > target || right + 1 >= nums.length)){
+                    if(nums[right] > target) {
+                        result[1] = right - 1;
+                    }
+                    else if(right + 1 >= nums.length){
+                        result[1] = right;
+                    }
+                    rightFlag = false;
+                }
+                else if(nums[right] == target){
+                    rightHead = right + 1;
+                }
+                else if(nums[right - 1] > target){
+                    rightTail = right - 1;
+
+                }
+            }
+            if(!leftFlag && !rightFlag){
+                break;
+            }
+        }
+        return result;
     }
 }
