@@ -1,9 +1,6 @@
 package hard;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author fstar
@@ -166,5 +163,36 @@ public class Hard {
             }
         }
         return result;
+    }
+
+    /**
+     *32. 最长有效括号
+     * 给定一个只包含 '(' 和 ')' 的字符串，找出最长的包含有效括号的子串的长度。
+     * 思路： -1先进栈垫底
+     * 遇到左括号将循环指针压栈，遇到右括号出栈
+     * 此时循环指针 - 栈顶指针 就是有效括号的长度
+     * 空栈则代表左括号全被捡完了，当前右括号不能组成有效括号
+     * 将右括号指针压入栈中
+     * 压-1这种事情，怎么想得到呢
+     */
+    public int longestValidParentheses(String s){
+        Stack<Integer> stack = new Stack<>();
+        int max = 0;
+        stack.push(-1);
+        for(int i = 0; i < s.length(); i ++){
+            if(s.charAt(i) == '('){
+                stack.push(i);
+            }
+            else{
+                stack.pop();
+                if(stack.isEmpty()){
+                    stack.push(i);
+                }
+                else{
+                    max = Math.max(max, i - stack.peek());
+                }
+            }
+        }
+        return max;
     }
 }

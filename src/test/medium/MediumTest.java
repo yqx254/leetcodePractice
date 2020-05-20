@@ -195,4 +195,28 @@ public class MediumTest {
         System.out.println(Arrays.toString(a3));
         System.out.println(Arrays.toString(a4));
     }
+
+    @Test
+    public void search(){
+        int [] nums1 = {4,5,6,7,0,1,2};
+        int target1 = 0;
+
+        int [] nums2 = {4,5,6,7,0,1,2};
+        int target2 = 3;
+
+        int [] nums3 = {4,5,6,7,0,1,2};
+        int target3 = 4;
+
+        int [] nums4 = {4,5,1};
+        int target4 = 8;
+
+        int [] numsE1 = {3,1};
+        int targetE1 = 1;
+
+        assertEquals(4,medium.search(nums1,target1));
+        assertEquals(-1,medium.search(nums2,target2));
+        assertEquals(0,medium.search(nums3,target3));
+        assertEquals(-1,medium.search(nums4,target4));
+        assertEquals(1,medium.search(numsE1,targetE1));
+    }
 }

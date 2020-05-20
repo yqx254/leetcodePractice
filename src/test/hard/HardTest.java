@@ -78,4 +78,21 @@ public class HardTest {
         assertArrayEquals(new Object [] {13},hard.findSubstring(e1,wordsE1).toArray());
         assertArrayEquals(new Object [] {0},hard.findSubstring(e2,wordsE2).toArray());
     }
+
+    @Test
+    public void longestValidParentheses(){
+        String s1 = "(()";
+        String s2 = ")()())";
+        String s3 = ")";
+        String s4= "())))))))()";
+        String s5= "()(()";
+        String s6= "()";
+
+        assertEquals(2, hard.longestValidParentheses(s1));
+        assertEquals(4, hard.longestValidParentheses(s2));
+        assertEquals(0, hard.longestValidParentheses(s3));
+        assertEquals(2,hard.longestValidParentheses(s4));
+        assertEquals(2,hard.longestValidParentheses(s5));
+        assertEquals(2,hard.longestValidParentheses(s6));
+    }
 }

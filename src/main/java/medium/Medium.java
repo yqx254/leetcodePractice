@@ -560,7 +560,7 @@ public class Medium {
             return;
         }
         while(i >= 0){
-            if(nums[i] < nums[i +1]){
+            if(nums[i] < nums[i + 1]){
                 int minIndex = i + 1;
                 for(int j = i + 1;j < nums.length; j ++){
                     if(nums[j] > nums[i] && nums[j] < nums[minIndex]){
@@ -577,5 +577,79 @@ public class Medium {
             }
         }
         Arrays.sort(nums, i  + 1, nums.length) ;
+    }
+
+    /**
+     *  33. 搜索旋转排序数组
+     *  假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+     *  ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+     *  搜索一个给定的目标值，如果数组中存在这个目标值，则返回它的索引，否则返回 -1 。
+     *  你的算法时间复杂度必须是 O(log n) 级别。
+     * @param nums 旋转数组
+     * @param target 目标值
+     * @return 目标值下标
+     * 思路：看到时间复杂度，首先考虑二分查找
+     * 若中间索引i对应的值大于等于（这很重要，是容易搞错的边界值）最左端值，则左半边有序
+     * 否则是右半边有序
+     * 用有序的半边检查指定值是否在范围内，就可以达成查找目的
+     * 若在，正常进行二分，若不在，使用另一半并重复操作
+     * 边界值是个大问题
+     */
+    public int search(int [] nums, int target){
+        int l = 0;
+        int r = nums.length - 1;
+        int i;
+        while(l <= r){
+            i = (l + r) / 2;
+            if(nums[i] == target){
+                return i;
+            }
+            //左半边有序
+            if(nums[i] >= nums[l]){
+                if(nums[i] > target && nums[l] <= target){
+                    r = i - 1;
+                }
+                else{
+                    l = i + 1;
+                }
+            }
+            //右半边有序
+            else{
+                if(nums[i] < target && nums[r] >= target){
+                    l = i + 1;
+                }
+                else{
+                    r = i - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int [] searchRange(int [] nums, int target){
+        int left = 0;
+        int right = nums.length - 1;
+        int index = 0;
+        //先找一个目标，找不到直接返回
+        while(left < right){
+            index = left + right / 2;
+            if(nums[index] == target){
+                break;
+            }
+            else if(nums[index ] < target){
+                left = index + 1;
+            }
+            else if(nums[index]  > target){
+                right = index - 1;
+            }
+        }
+        if(left >= right){
+            return new int [] {-1,-1};
+        }
+        left = 0;
+        right = nums.length - 1;
+        while(left <= index && right >= index){
+
+        }
     }
 }
