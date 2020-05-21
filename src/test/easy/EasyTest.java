@@ -114,4 +114,19 @@ public class EasyTest {
         assertEquals(0,easy.strStr(hayStack4, needle4));
         assertEquals(1,easy.strStr(hayStackE1, needleE1));
     }
+
+    @Test
+    public void countAndSay(){
+        int n1 = 2;
+        int n2 = 4;
+        int n3 = 6;
+        int n4 = 3;
+        int n5 = 30;
+
+        assertEquals("11",easy.countAndSay(n1));
+        assertEquals("21",easy.countAndSay(n4));
+        assertEquals("1211",easy.countAndSay(n2));
+        assertEquals("312211",easy.countAndSay(n3));
+        System.out.println(easy.countAndSay(n5));
+    }
 }

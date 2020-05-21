@@ -773,15 +773,18 @@ public class Medium {
         int boxIndex;
         for(int i = 0; i < board.length; i ++){
             for(int j = 0; j < board[0].length; j ++){
+                if(board[i][j] == '.'){
+                    continue;
+                }
                 boxIndex =  (i / 3) * 3 + j / 3;
                 int current = board[i][j];
                 if(rows[i].get(current) != null || column[j].get(current) != null
                         || box[boxIndex].get(current) != null){
                     return false;
                 }
-                rows[i].getOrDefault(current,1);
-                column[j].getOrDefault(current,1);
-                box[boxIndex].getOrDefault(current,1);
+                rows[i].putIfAbsent(current,1);
+                column[j].putIfAbsent(current,1);
+                box[boxIndex].putIfAbsent(current,1);
             }
         }
         return true;

@@ -237,4 +237,34 @@ public class Easy{
         return left;
     }
 
+    public String countAndSay(int n){
+        return say(n);
+    }
+
+    private String say(int n){
+        if(n == 1){
+            return "1";
+        }
+
+        StringBuilder sb1 = new StringBuilder();
+        String num = say(n - 1);
+        if(num.length() == 1){
+            sb1.append(1).append(num.charAt(0));
+            return sb1.toString();
+        }
+        int count = 1;
+        char start = num.charAt(0);
+        for(int i = 1; i <  num.length(); i ++){
+            if(num.charAt(i) == start){
+                count ++;
+            }
+            else{
+                sb1.append(count).append(start);
+                start = num.charAt(i);
+                count = 1;
+            }
+        }
+        sb1.append(count).append(start);
+        return sb1.toString();
+    }
 }
