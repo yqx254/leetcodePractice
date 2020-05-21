@@ -626,7 +626,7 @@ public class Medium {
         return -1;
     }
 
-    public int [] searchRange(int [] nums, int target){
+    public int [] searchRangeV2(int [] nums, int target){
         if(nums.length == 0){
             return new int [] {-1,-1};
         }
@@ -711,5 +711,79 @@ public class Medium {
             }
         }
         return result;
+    }
+
+    public int [] searchRange(int [] nums, int target){
+        int [] result = new int[] {-1,-1};
+        int leftIndex = searchBoundary(nums, target, true);
+        if(leftIndex >= nums.length || nums[leftIndex] != target){
+            return result;
+        }
+        int rightIndex = searchBoundary(nums, target, false);
+        return new int [] {leftIndex, rightIndex - 1};
+    }
+    private int searchBoundary(int [] nums, int target, boolean flag){
+        int left = 0;
+        int right = nums.length;
+        int index;
+        if(flag){
+            while(left < right){
+                index = (left + right) / 2;
+                if(nums[index] >= target){
+                    right = index;
+                }
+                else{
+                    left = index + 1;
+                }
+            }
+        }
+        else{
+            while(left < right){
+                index = (left + right) / 2;
+                if(nums[index] <= target){
+                    left = index + 1;
+                }
+                else{
+                    right = index;
+                }
+            }
+        }
+        return left;
+    }
+
+    /**
+     *  36. 有效的数独
+     *  判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
+     * @param board 疑似数独二维数组
+     * @return 是否是有效数独
+     * 思路一： 没啥好说的，一次尝试把所有组合放入set中，若被set去重（和计数不一致）则判断其为无效数独
+     * 思路二：使用HashMap存储每个组合的数字信息
+     * 很关键：横三竖三的box编号求法： (i / 3) * 3 + j / 3
+     */
+    public boolean isValidSudoku(char [] [] board){
+        HashMap<Integer,Integer> [] rows = new HashMap[9];
+        HashMap<Integer,Integer> [] column = new HashMap[9];
+        HashMap<Integer,Integer> [] box = new HashMap[9];
+
+        for(int i = 0; i < 9; i ++){
+            rows[i] = new HashMap<>(16);
+            column[i] = new HashMap<>(16);
+            box[i] = new HashMap<>(16);
+        }
+        int boxIndex;
+        for(int i = 0; i < board.length; i ++){
+            for(int j = 0; j < board[0].length; j ++){
+                boxIndex =  (i / 3) * 3 + j / 3;
+                int current = board[i][j];
+                if(rows[i].get(current) != null || column[j].get(current) != null
+                        || box[boxIndex].get(current) != null){
+                    return false;
+                }
+                rows[i].getOrDefault(current,1);
+                column[j].getOrDefault(current,1);
+                box[boxIndex].getOrDefault(current,1);
+            }
+        }
+        return true;
     }
 }

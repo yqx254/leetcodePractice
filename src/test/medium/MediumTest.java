@@ -234,12 +234,39 @@ public class MediumTest {
         int targetE2 = 0;
         int [] numsE3 = {0,0,0,1,2,3,3,3};
         int targetE3 = 3;
+        assertArrayEquals(new int [] {5,6},medium.searchRange(nums1, target1));
+        assertArrayEquals(new int [] {3,4},medium.searchRange(nums2, target2));
+        assertArrayEquals(new int [] {0,1},medium.searchRange(nums3, target3));
+        assertArrayEquals(new int [] {0,1},medium.searchRange(numsE1, targetE1));
+        assertArrayEquals(new int [] {0,2},medium.searchRange(numsE2, targetE2));
+        assertArrayEquals(new int [] {5,7},medium.searchRange(numsE3, targetE3));
+    }
 
-        System.out.println(Arrays.toString(medium.searchRange(nums1,target1)));
-        System.out.println(Arrays.toString(medium.searchRange(nums2,target2)));
-        System.out.println(Arrays.toString(medium.searchRange(nums3,target3)));
-        System.out.println(Arrays.toString(medium.searchRange(numsE1,targetE1)));
-        System.out.println(Arrays.toString(medium.searchRange(numsE2,targetE2)));
-        System.out.println(Arrays.toString(medium.searchRange(numsE3,targetE3)));
+    @Test
+    public void checkSudoku(){
+        char [] [] sudoku1 = {
+                {'5','3','.',  '.','7','.',  '.','.','.'},
+                {'6','.','.',   '1','9','5',   '.','.','.'},
+                {'.','9','8',   '.','.','.',    '.','6','.'},
+                {'8','.','.',   '.','6','.',   '.','.','3'},
+                {'4','.','.',   '8','.','3',   '.','.','1'},
+                {'7','.','.',   '.','2','.',   '.','.','6'},
+                {'.','6','.',   '.','.','.',   '2','8','.'},
+                {'.','.','.',   '4','1','9',   '.','.','5'},
+                {'.','.','.',   '.','8','.',   '.','7','9'},
+        };
+        char [] [] sudoku2 = {
+                {'9','3','.',  '.','7','.',  '.','.','.'},
+                {'6','.','.',   '1','9','5',   '.','.','.'},
+                {'.','9','8',   '.','.','.',    '.','6','.'},
+                {'8','.','.',   '.','6','.',   '.','.','3'},
+                {'4','.','.',   '8','.','3',   '.','.','1'},
+                {'7','.','.',   '.','2','.',   '.','.','6'},
+                {'.','6','.',   '.','.','.',   '2','8','.'},
+                {'.','.','.',   '4','1','9',   '.','.','5'},
+                {'.','.','.',   '.','8','.',   '.','7','9'},
+        };
+        assertTrue(medium.isValidSudoku(sudoku1));
+        assertFalse(medium.isValidSudoku(sudoku2));
     }
 }
