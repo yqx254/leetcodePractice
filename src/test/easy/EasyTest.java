@@ -114,4 +114,20 @@ public class EasyTest {
         assertEquals(0,easy.strStr(hayStack4, needle4));
         assertEquals(1,easy.strStr(hayStackE1, needleE1));
     }
+
+    @Test
+    public void searchInsert(){
+        int [] n1 = {1,3,5,6};
+        int target1 = 5;
+        int [] n2 = {1,3,5,6};
+        int target2 = 2;
+        int [] n3 = {1,3,5,6};
+        int target3 = 7;
+        int [] n4 = {1,3,5,6};
+        int target4 = 0;
+        assertEquals(2, easy.searchInsert(n1, target1));
+        assertEquals(1, easy.searchInsert(n2, target2));
+        assertEquals(4, easy.searchInsert(n3, target3));
+        assertEquals(0, easy.searchInsert(n4, target4));
+    }
 }
