@@ -116,18 +116,33 @@ public class EasyTest {
     }
 
     @Test
-    public void searchInsert(){
-        int [] n1 = {1,3,5,6};
+    public void searchInsert() {
+        int[] n1 = {1, 3, 5, 6};
         int target1 = 5;
-        int [] n2 = {1,3,5,6};
+        int[] n2 = {1, 3, 5, 6};
         int target2 = 2;
-        int [] n3 = {1,3,5,6};
+        int[] n3 = {1, 3, 5, 6};
         int target3 = 7;
-        int [] n4 = {1,3,5,6};
+        int[] n4 = {1, 3, 5, 6};
         int target4 = 0;
         assertEquals(2, easy.searchInsert(n1, target1));
         assertEquals(1, easy.searchInsert(n2, target2));
         assertEquals(4, easy.searchInsert(n3, target3));
         assertEquals(0, easy.searchInsert(n4, target4));
+    }
+    @Test
+    public void countAndSay(){
+        int n1 = 2;
+        int n2 = 4;
+        int n3 = 6;
+        int n4 = 3;
+        int n5 = 30;
+
+        assertEquals("11",easy.countAndSay(n1));
+        assertEquals("21",easy.countAndSay(n4));
+        assertEquals("1211",easy.countAndSay(n2));
+        assertEquals("312211",easy.countAndSay(n3));
+        System.out.println(easy.countAndSay(n5));
+
     }
 }
