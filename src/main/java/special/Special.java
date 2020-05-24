@@ -1,8 +1,7 @@
 package special;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * 用来写一些不太容易用一两个方法写完的算法
@@ -85,42 +84,51 @@ public class Special {
             }
             backtrack(0, 0);
         }
-        int [] candidates;
-        int min = 0;
-        List<List<Integer>> result = new ArrayList<>();
         //No.39
-        private void backtrack(ArrayList<Integer> current, int[] candidates, int target){
-            boolean flag;
-            int temp = 0;
-            for (int candidate : candidates) {
-                if(candidate == temp){
-                    continue;
-                }
-                temp = candidate;
-                if (target - candidate == 0) {
-                    flag = true;
-                    current.add(candidate);
-                } else if (target - candidate < min) {
-                    flag = false;
-                } else {
-                    current.add(candidate);
-                    flag = false;
-                    backtrack(current, candidates, target - candidate);
-                }
-                if (flag) {
-                    result.add(current);
-                    break;
+        int [] candidates;
+        List<List<Integer>> result = new ArrayList<>();
+        private void bTrack(int start, ArrayList<Integer> current, int[] candidates, int target){
+            if(target== 0){
+                result.add(new ArrayList<>(current));
+                return;
+            }
+            for(int i = start; i < candidates.length; i ++){
+                if(target >= candidates[i]){
+                    current.add(candidates[i]);
+                    bTrack(i, current, candidates, target - candidates[i]);
+                    current.remove(current.size() - 1);
                 }
             }
         }
         public List<List<Integer>> combinationSum(int[] candidates, int target) {
             this.candidates = candidates;
-            for (int candidate : candidates) {
-                if (candidate < min) {
-                    min = candidate;
-                }
-            }
-            backtrack(new ArrayList<>(),candidates, target);
+            bTrack(0, new ArrayList<>(),candidates, target);
             return result;
         }
+
+    private void bTrack2(int start, ArrayList<Integer> current, int[] candidates, int target){
+        if(target == 0){
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        for(int i = start; i < candidates.length; i ++){
+            if(i > start && candidates[i] == candidates[i - 1]){
+                continue;
+            }
+            if(target >= candidates[i]){
+                current.add(candidates[i]);
+                bTrack2(i + 1,current,candidates, target - candidates[i]);
+                current.remove(current.size() - 1);
+            }
+        }
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        this.candidates = candidates;
+        if(candidates == null){
+            return result;
+        }
+        Arrays.sort(candidates);
+        bTrack2(0, new ArrayList<>(),candidates, target);
+        return result;
+    }
 }
