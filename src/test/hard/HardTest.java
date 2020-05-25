@@ -95,4 +95,21 @@ public class HardTest {
         assertEquals(2,hard.longestValidParentheses(s5));
         assertEquals(2,hard.longestValidParentheses(s6));
     }
+
+    @Test
+    public void firstMissingPositive(){
+        int [] a1 = new int []{2,1,0};
+        int [] a2 = new int [] {3,4,1,-1};
+        int [] a3 = new int [] {7,8,9,11,12};
+        int [] a4 = new int [] {12,1,8,9,7,2,13,6,4,5};
+        int [] a5 = new int [] {8,7,6,5,4,3,2,1};
+        int [] e1 = new int [] {1,2,3};
+
+        assertEquals(3,hard.firstMissingPositive(a1));
+        assertEquals(2,hard.firstMissingPositive(a2));
+        assertEquals(1,hard.firstMissingPositive(a3));
+        assertEquals(3,hard.firstMissingPositive(a4));
+        assertEquals(9,hard.firstMissingPositive(a5));
+        assertEquals(4,hard.firstMissingPositive(e1));
+    }
 }

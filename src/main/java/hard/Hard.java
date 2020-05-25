@@ -195,4 +195,55 @@ public class Hard {
         }
         return max;
     }
+
+    /**
+     *  41. 缺失的第一个正数
+     *  给你一个未排序的整数数组，请你找出其中没有出现的最小的正整数。
+     *  算法的时间复杂度应为O(n)，并且只能使用常数级别的额外空间
+     * @param nums 未排序数组
+     * @return 未出现的最小正整数
+     * 思路：三轮扫描，O(n)级
+     * 第一轮将所有负数和大于数组长度的数改写为-1（因为用不上）
+     * 若数组中不存在1，直接返回1
+     * 第二轮将数组的值作为键，把键对应的值改成负值
+     * 负值代表这个数字出现过，比如{-1,-2,-1,4}代表1 2 4存在，3不存在
+     * （总是使用 - Math.abs()来避免重复操作导致的反转）
+     * 第二轮时，nums[0]将保存nums.length - 1这个键的出现状态
+     * 第三轮，从1开始，查找首个大于0的数字并返回，若没有找到，检查nums[0]
+     * 若nums[0] > 0，返回nums.length - 1
+     * 否则返回nums.length （数组是一个1～n的连续值）
+     */
+    public int firstMissingPositive(int [] nums){
+        boolean oneFlag = true;
+        for(int i = 0;i < nums.length; i ++){
+            if(nums[i] == 1 && oneFlag){
+                oneFlag = false;
+            }
+            if(nums[i] <= 0 || nums[i] > nums.length){
+                nums[i] = 1;
+            }
+        }
+        if(oneFlag){
+            return  1;
+        }
+        int index;
+        for(int j = 0; j < nums.length; j++){
+            index = Math.abs(nums[j]);
+            if(index == nums.length){
+                nums[0] = - Math.abs(nums[0]);
+            }
+            else{
+                nums[index] = - Math.abs(nums[index]);
+            }
+        }
+        for(int k = 1; k < nums.length; k ++){
+            if(nums[k] > 0){
+                return k;
+            }
+        }
+        if(nums[0] > 0){
+            return nums.length;
+        }
+        return nums.length + 1;
+    }
 }
