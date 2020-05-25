@@ -246,4 +246,44 @@ public class Hard {
         }
         return nums.length + 1;
     }
+
+    /**
+     *  42.接雨水
+     *  给定 n 个非负整数表示每个宽度为 1 的柱子的高度图
+     *  计算按此排列的柱子，下雨之后能接多少雨水。
+     * @param height 高度图
+     * @return 接水量
+     * 思路：双指针法，难在想通
+     * 从左右各找一个相对的大值，大值 - 之后的小值就是小值位置的存水量
+     * 例如：[0,2,1,0,2........] 左边大值是2， 在下标为2处（值为1）和下标为3处（值为0）的存水量分别为1 2
+     *  右边以相反的方向相同的逻辑进行处理
+     */
+    public int trap(int [] height){
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = 0;
+        int rightMax = 0;
+        int volumn = 0;
+        while(left < right){
+            if(height[left] <= height[right]){
+                if(height[left] >= leftMax){
+                    leftMax = height[left];
+                }
+                else{
+                    volumn += (leftMax - height[left]);
+                }
+                left ++;
+            }
+            else{
+                if(height[right] >= rightMax){
+                    rightMax = height[right];
+                }
+                else{
+                    volumn += (rightMax - height[right]);
+                }
+                right --;
+            }
+        }
+        return volumn;
+    }
 }

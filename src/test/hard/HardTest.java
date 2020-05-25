@@ -112,4 +112,13 @@ public class HardTest {
         assertEquals(9,hard.firstMissingPositive(a5));
         assertEquals(4,hard.firstMissingPositive(e1));
     }
+
+    @Test
+    public void trapTest(){
+        int [] a1 = new int []{0,1,0,2,1,0,1,3,2,1,2,1};
+        int [] a2 = new int []{0,1,0,3,1,0,1,3,2,1,2,1};
+
+        assertEquals(6,hard.trap(a1));
+        assertEquals(9,hard.trap(a2));
+    }
 }
