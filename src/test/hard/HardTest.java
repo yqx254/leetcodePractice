@@ -121,4 +121,39 @@ public class HardTest {
         assertEquals(6,hard.trap(a1));
         assertEquals(9,hard.trap(a2));
     }
+
+    @Test
+    public void isMatch2Test(){
+        String s1 = "aa";
+        String p1 = "a";
+        String s2 = "aa";
+        String p2 = "*";
+        String s3 = "cb";
+        String p3 = "?b";
+        String s4 = "adceb";
+        String p4 = "a*b";
+        String s5 = "acdcb";
+        String p5 = "a*c?b";
+        String s6 = "abcd";
+        String p6 = "ab*d";
+        String s7 = "";
+        String p7 = "*";
+        String s8 = "bbbb";
+        String p8 = "*b";
+        String e1 = "adceb";
+        String ep1 = "*a*b";
+        String e2 = "ho";
+        String ep2 = "ho**";
+
+        assertFalse(hard.isMatch2(s1,p1));
+        assertTrue(hard.isMatch2(s2,p2));
+        assertTrue(hard.isMatch2(s3,p3));
+        assertTrue(hard.isMatch2(s4,p4));
+        assertFalse(hard.isMatch2(s5,p5));
+        assertTrue(hard.isMatch2(s6,p6));
+        assertTrue(hard.isMatch2(s7,p7));
+        assertTrue(hard.isMatch2(s8,p8));
+        assertTrue(hard.isMatch2(e1,ep1));
+        assertTrue(hard.isMatch2(e2,ep2));
+    }
 }
