@@ -850,4 +850,75 @@ public class Medium {
             current.remove(current.size() - 1);
         }
     }
+    /**
+     *  47. 全排列 II
+     *  给定一个可包含重复数字的序列，返回所有不重复的全排列。
+     * @param nums 数字序列
+     * @return 非重复全排列
+     * 思路：回溯 + 剪枝
+     * 与上一题的细微差异：有重复数字
+     * 重复数字应该考虑排序并剪枝（排序是剪枝的前提？）
+     * 数字重复(nums[i] == nums[i - 1])有两种可能的情况
+     * 一是数字刚刚被使用过（visit[i - 1] == 1），在找下一个坑
+     * 二是数字刚刚出栈（visit[i - 1] == 0）。该填的list已经填入
+     * 二者择一进行剪枝即可去重（这个如果有图更容易理解）
+     */
+    public List<List<Integer>> permuteUnique(int [] nums){
+        List<List<Integer>> result = new ArrayList<>();
+        if(nums.length == 0){
+            return result;
+        }
+        Arrays.sort(nums);
+        int [] visit = new int[nums.length];
+        processUnique(result, new ArrayList<>(),nums, visit);
+        return result;
+    }
+
+    private  void processUnique(List<List<Integer>> result, ArrayList<Integer> current,
+                                                        int [] nums, int []visit){
+        if(current.size() == nums.length){
+            result.add(new ArrayList<>(current));
+        }
+        for(int i = 0; i < nums.length; i ++){
+            if(visit[i] == 1){
+                continue;
+            }
+            if(i > 0 && nums[i] == nums[i - 1] && visit[i - 1] == 1){
+                continue;
+            }
+            visit[i] = 1;
+            current.add(nums[i]);
+            processUnique(result, current, nums, visit);
+            visit[i] = 0;
+            current.remove(current.size() - 1);
+        }
+    }
+
+    /**
+     * 48. 旋转图像
+     * 给定一个 n × n 的二维矩阵表示一个图像。将图像顺时针旋转 90 度。
+     * 必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。
+     * @param matrix 被旋转图像
+     *  思路：研究图形规律
+     *  首先将矩阵横竖互换，然后倒转每一行即可
+     *   注意避免重复和剪枝
+     */
+    public void rotate(int [] [] matrix){
+        int temp;
+        int n = matrix.length;
+        for(int i = 0; i < n; i ++){
+            for(int j = i; j < n; j ++){
+                temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for(int k = 0; k < n; k ++){
+            for(int l = 0; l < n / 2; l ++){
+                temp = matrix[k][l];
+                matrix[k][l] = matrix[k][n - l - 1];
+                matrix[k][n - l - 1] = temp;
+            }
+        }
+    }
 }

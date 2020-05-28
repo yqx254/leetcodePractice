@@ -285,4 +285,10 @@ public class MediumTest {
 
         System.out.println(medium.permute(a1).toString());
     }
+
+    @Test
+    public void permuteUniqueTest(){
+        int [] a1 = {1,1,3};
+        System.out.println(medium.permuteUnique(a1).toString());
+    }
 }
