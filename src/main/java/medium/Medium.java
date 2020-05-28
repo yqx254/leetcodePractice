@@ -789,4 +789,65 @@ public class Medium {
         }
         return true;
     }
+    /**
+     * 55.跳跃游戏
+     * 给定一个非负整数数组，你最初位于数组的第一个位置。
+     * 数组中的每个元素代表你在该位置可以跳跃的最大长度。
+     * 判断你是否能够到达最后一个位置。
+     * 思路：在数组的每一个位置检测，当前索引 + 最大跳跃步数是否大于等于终点index
+     * 适当进行剪枝
+     */
+    public boolean canJump(int [] nums){
+        int current = 0;
+        int end = 0;
+        if(nums.length == 0){
+            return false;
+        }
+        for(;current < nums.length; current ++){
+            if(current > end){
+                return false;
+            }
+            end = Math.max(current + nums[current], end);
+            if(end >= nums.length - 1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *  46. 全排列
+     *  给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+     * @param nums 不重复的数字
+     * @return 所有全排列List
+     * 思路：回溯法典型例子
+     * 将问题视作：N个空位上填N个数字
+     * 填数字--修改标记数组--尝试填后边的数字--弹出当前数字
+     */
+    public List<List<Integer>> permute(int [] nums){
+        List<List<Integer>> result = new ArrayList<>();
+        if(nums.length == 0){
+            return result;
+        }
+        int [] visit = new int [nums.length];
+        process(result, new ArrayList<>(), nums, visit);
+        return result;
+    }
+    private void process(List<List<Integer>> result,ArrayList<Integer> current,
+                                            int [] nums, int [] visit){
+        if(current.size() == nums.length){
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        for(int i = 0; i < nums.length; i ++){
+            if(visit[i] == 1){
+                continue;
+            }
+            visit[i] = 1;
+            current.add(nums[i]);
+            process(result, current, nums, visit);
+            visit[i] = 0;
+            current.remove(current.size() - 1);
+        }
+    }
 }

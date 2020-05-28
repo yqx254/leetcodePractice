@@ -269,4 +269,20 @@ public class MediumTest {
         assertTrue(medium.isValidSudoku(sudoku1));
         assertFalse(medium.isValidSudoku(sudoku2));
     }
+
+    @Test
+    public void jumpTest(){
+        int [] a1 = {2,3,1,1,4};
+        int [] a2 = {3,2,1,0,4};
+
+        assertTrue(medium.canJump(a1));
+        assertFalse(medium.canJump(a2));
+    }
+
+    @Test
+    public void permuteTest(){
+        int [] a1 = {};
+
+        System.out.println(medium.permute(a1).toString());
+    }
 }
