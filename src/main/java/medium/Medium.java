@@ -921,4 +921,41 @@ public class Medium {
             }
         }
     }
+    /**
+     *  49. 字母异位词分组
+     *  给定一个字符串数组，将字母异位词组合在一起。
+     *  字母异位词指字母相同，但排列不同的字符串。
+     * @param strs 字母数组
+     * @return 分组后的list
+     * 思路：组合分类题目大概率需要使用Map
+     * 根据计算获取一个独一无二的值，然后用值做键指向一组异位词
+     * 官方解法：使用包含了26个字母出现次数并用符号隔开的字符串做键
+     * 如 eat #1#0#0#0#1#…………
+     * 美服大神骚套路：用26个质数表示26个字母，用质数的乘积做键保证各个串的唯一性
+     * 是个好套路，使用long来存储乘积键避免溢出
+     */
+    public List<List<String>> groupAnagrams(String [] strs){
+        Map<Character, Long> alphaMap = new HashMap<>();
+        Map<Long,List<String>> resultMap = new HashMap<>();
+        long [] arr = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43,
+                                47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
+        for(int i = 0; i < arr.length; i ++){
+            alphaMap.put((char) ('a' + i), arr[i]);
+        }
+        for(String s : strs){
+            long key = 1;
+            for(char c : s.toCharArray()){
+                key *= alphaMap.get(c);
+            }
+            if(resultMap.containsKey(key)){
+                resultMap.get(key).add(s);
+            }
+            else{
+                List<String> list = new ArrayList<>();
+                list.add(s);
+                resultMap.put(key,list);
+            }
+        }
+        return new ArrayList<>(resultMap.values());
+    }
 }

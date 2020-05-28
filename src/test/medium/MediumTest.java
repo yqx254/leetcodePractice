@@ -291,4 +291,10 @@ public class MediumTest {
         int [] a1 = {1,1,3};
         System.out.println(medium.permuteUnique(a1).toString());
     }
+
+    @Test
+    public void groupAnagrams(){
+        String [] a1 = {"eat", "tea", "tan", "ate", "nat", "bat"};
+        System.out.println(medium.groupAnagrams(a1));
+    }
 }
