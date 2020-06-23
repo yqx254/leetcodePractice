@@ -267,4 +267,23 @@ public class Easy{
         sb1.append(count).append(start);
         return sb1.toString();
     }
+
+    public int maxSubArray(int[] nums) {
+        int max = nums[0];
+        int sum = 0;
+        if(nums.length == 1){
+            return max;
+        }
+        for(int n : nums){
+            if(sum > 0){
+                sum += n;
+            }
+            else{
+                sum = n;
+            }
+            max = Math.max(max, sum);
+        }
+        return max;
+    }
+
 }
