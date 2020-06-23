@@ -11,13 +11,22 @@ public class App
 {
     public static void main( String[] args )
     {
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(1,1);
-        Map<Integer, Integer> map2 = new HashMap<>();
-        map2.put(1,1);
-        map2.put(2,0);
-        map2.remove(2);
-        System.out.println(map.equals(map2));
+        // initializing unsorted long array
+        long lArr[] = {1,2,5,6,9,8,4};
 
+        // let us print all the elements available in list
+        for (long number : lArr) {
+            System.out.println("Number = " + number);
+        }
+
+        // sorting array from index 1 to 3
+        Arrays.sort(lArr, 1, 6);
+
+        // let us print all the elements available in list
+        System.out.println("long array with some sorted values(1 to 3) is:");
+        for (long number : lArr) {
+            System.out.println("Number = " + number);
+        }
     }
+
 }

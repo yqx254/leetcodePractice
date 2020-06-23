@@ -317,4 +317,138 @@ public class Hard {
         }
         return true;
     }
+
+    public int  jump(int [] nums){
+        int end = 0;
+        int steps = 0;
+        int  maxGap = 0;
+        for(int i = 0; i < nums.length - 1; i ++){
+            maxGap = Math.max(i + nums[i], maxGap);
+            if(i == end){
+                steps ++;
+                end = maxGap;
+            }
+        }
+        return steps;
+    }
+
+    /**
+     *  N皇后
+     *  思路：摆棋子用回溯
+     *  判断棋子是否有效的逻辑上可能有较大改进空间
+     * @param n 数量
+     * @return 所有可能的结果集
+     */
+    public List<List<String>> solveNQueens(int n){
+        List<List<String>> result = new ArrayList<>(64);
+        putPos(result, new ArrayList<>(),0, 0,0, n);
+        return result;
+    }
+
+    private void putPos(List<List<String>> result,
+                                            List<String> current, int x, int y, int cnt, int size){
+        if(cnt == size){
+            result.add(new ArrayList<>(current));
+            return;
+        }
+        //初始化
+        if(current.size() == 0){
+            for(int i = 0; i < size; i ++){
+                StringBuilder stb = new StringBuilder();
+                for(int j = 0; j < size; j ++){
+                    stb.append('.');
+                }
+                current.add(stb.toString());
+            }
+        }
+        while(x < size && y < size){
+            if(checkPos(current, x,y)){
+                StringBuilder stb = new StringBuilder(current.get(x));
+
+                stb.setCharAt(y, 'Q');
+                current.set(x, stb.toString());
+
+                putPos(result, current, x + 1 , 0,cnt + 1, size);
+
+                stb.setCharAt(y, '.');
+                current.set(x, stb.toString());
+            }
+            y ++;
+            if(y == size){
+                y = 0;
+                x ++;
+            }
+        }
+    }
+
+    private boolean checkPos(List<String> current, int x, int y){
+        int size = current.get(x).length();
+        //验左右
+        for(int i = 0; i < size; i ++){
+            if(i == y){
+                continue;
+            }
+            if(current.get(x).charAt(i) == 'Q'){
+                return false;
+            }
+        }
+        //验上下
+        for(int i = 0; i < size; i ++){
+            if(i == x){
+                continue;
+            }
+            if(current.get(i).charAt(y) == 'Q'){
+                return false;
+            }
+        }
+        //左上
+        if(x > 0 && y > 0){
+            int i = x - 1;
+            int j = y - 1;
+            while(i >= 0 && j >= 0){
+                if(current.get(i).charAt(j) == 'Q'){
+                    return false;
+                }
+                i --;
+                j --;
+            }
+        }
+        //右上
+        if(x > 0 && y < size){
+            int i = x - 1;
+            int j = y + 1;
+            while(i >= 0 && j < size){
+                if(current.get(i).charAt(j) == 'Q'){
+                    return false;
+                }
+                i --;
+                j ++;
+            }
+        }
+        //左下
+        if(x < size && y > 0){
+            int i = x + 1;
+            int j = y - 1;
+            while(i < size && j >= 0){
+                if(current.get(i).charAt(j) == 'Q'){
+                    return false;
+                }
+                i ++;
+                j --;
+            }
+        }
+        //右下
+        if(x < size && y < size){
+            int i = x + 1;
+            int j = y + 1;
+            while(i < size && j < size){
+                if(current.get(i).charAt(j) == 'Q'){
+                    return false;
+                }
+                i ++;
+                j ++;
+            }
+        }
+        return true;
+    }
 }

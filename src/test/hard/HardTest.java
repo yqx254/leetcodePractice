@@ -156,4 +156,17 @@ public class HardTest {
         assertTrue(hard.isMatch2(e1,ep1));
         assertTrue(hard.isMatch2(e2,ep2));
     }
+    @Test
+    public void jumpTest(){
+        int [] a1 = {2,3,1,1,4};
+
+        assertEquals(2,hard.jump(a1));
+    }
+
+    @Test
+    public void queensTest(){
+        int n = 8;
+        System.out.println(hard.solveNQueens(n));
+        System.out.println(hard.solveNQueens(n).size());
+    }
 }
