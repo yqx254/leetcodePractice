@@ -169,4 +169,13 @@ public class HardTest {
         System.out.println(hard.solveNQueens(n));
         System.out.println(hard.solveNQueens(n).size());
     }
+    @Test
+    public void queenCntTest(){
+        int n1 = 8;
+        int n2 = 4;
+        int n3 = 11;
+        assertEquals(hard.totalNQueens(n1), 92);
+        assertEquals(hard.totalNQueens(n2), 2);
+        assertEquals(hard.totalNQueens(n3), 2680);
+    }
 }

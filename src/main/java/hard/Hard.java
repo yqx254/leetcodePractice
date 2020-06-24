@@ -336,11 +336,26 @@ public class Hard {
      *  N皇后
      *  思路：摆棋子用回溯
      *  判断棋子是否有效的逻辑上可能有较大改进空间
+     *  调整：三个数组保存列、主对角线（左上到右下），副对角线（左下到右上）的碰撞情况
+     *  主对角线规律：行减列的值相等的一共有2 * n - 1组
+     *  副对角线规律：行加列的值相等的一共有 2 * n - 1组
+     *  因此：同列、x - y + size - 1、x + y均不得有碰撞
+     *  搞了一个很大的乌龙：循环条件应该在y = size时候结束
+     *  而不是x = size && y = size
+     *  乌龙是 y = size时候直接置为0然后x+1
+     *  这样实际上把棋子摆到了下一排，（因为总数不够）进行的尝试么有作用！
      * @param n 数量
      * @return 所有可能的结果集
      */
+    private int[] dale;
+    private int[] hill;
+    private int[] row;
+    private int total;
     public List<List<String>> solveNQueens(int n){
         List<List<String>> result = new ArrayList<>(64);
+        row = new int[n];
+        dale = new int[2 * n - 1];
+        hill = new int[2 * n -1];
         putPos(result, new ArrayList<>(),0, 0,0, n);
         return result;
     }
@@ -367,11 +382,16 @@ public class Hard {
 
                 stb.setCharAt(y, 'Q');
                 current.set(x, stb.toString());
-
+                row[y] = 1;
+                dale[x - y + size - 1] = 1;
+                hill[x + y] = 1;
                 putPos(result, current, x + 1 , 0,cnt + 1, size);
 
                 stb.setCharAt(y, '.');
                 current.set(x, stb.toString());
+                row[y] = 0;
+                dale[x - y + size - 1] = 0;
+                hill[x + y] = 0;
             }
             y ++;
             if(y == size){
@@ -383,72 +403,43 @@ public class Hard {
 
     private boolean checkPos(List<String> current, int x, int y){
         int size = current.get(x).length();
-        //验左右
-        for(int i = 0; i < size; i ++){
-            if(i == y){
-                continue;
-            }
-            if(current.get(x).charAt(i) == 'Q'){
-                return false;
-            }
+        return row[y] + dale[x - y + size - 1] + hill[x + y] == 0;
+    }
+    private int size;
+    public int totalNQueens(int n) {
+        row = new int[n];
+        dale = new int[2 * n - 1];
+        hill = new int[2 * n -1];
+        size = n;
+        total = 0;
+        putQueen(0,0,0);
+        return total;
+    }
+    /**
+     * No 52 N皇后解法计数
+     * 跟上一题一个思路
+     * 虽然最佳解似乎是位运算
+     * 先不管了
+     */
+    private void putQueen(int x, int y,int cnt){
+        if(cnt == size){
+            total ++;
+            return;
         }
-        //验上下
-        for(int i = 0; i < size; i ++){
-            if(i == x){
-                continue;
+        while(y < size){
+            if(checkQueen(x, y)){
+                row[y] = 1;
+                dale[x - y + size - 1] = 1;
+                hill[x + y] = 1;
+                putQueen(x + 1,0,cnt + 1);
+                row[y] = 0;
+                dale[x - y + size - 1] = 0;
+                hill[x + y] = 0;
             }
-            if(current.get(i).charAt(y) == 'Q'){
-                return false;
-            }
+            y ++;
         }
-        //左上
-        if(x > 0 && y > 0){
-            int i = x - 1;
-            int j = y - 1;
-            while(i >= 0 && j >= 0){
-                if(current.get(i).charAt(j) == 'Q'){
-                    return false;
-                }
-                i --;
-                j --;
-            }
-        }
-        //右上
-        if(x > 0 && y < size){
-            int i = x - 1;
-            int j = y + 1;
-            while(i >= 0 && j < size){
-                if(current.get(i).charAt(j) == 'Q'){
-                    return false;
-                }
-                i --;
-                j ++;
-            }
-        }
-        //左下
-        if(x < size && y > 0){
-            int i = x + 1;
-            int j = y - 1;
-            while(i < size && j >= 0){
-                if(current.get(i).charAt(j) == 'Q'){
-                    return false;
-                }
-                i ++;
-                j --;
-            }
-        }
-        //右下
-        if(x < size && y < size){
-            int i = x + 1;
-            int j = y + 1;
-            while(i < size && j < size){
-                if(current.get(i).charAt(j) == 'Q'){
-                    return false;
-                }
-                i ++;
-                j ++;
-            }
-        }
-        return true;
+    }
+    private  boolean checkQueen(int x, int y){
+        return row[y] + dale[x -y  + size - 1] + hill[x + y] == 0;
     }
 }
