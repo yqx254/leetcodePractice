@@ -958,4 +958,69 @@ public class Medium {
         }
         return new ArrayList<>(resultMap.values());
     }
+
+    /**
+     * 54. 螺旋矩阵
+     * 给定一个包含 m x n 个元素的矩阵（m 行, n 列）
+     * 请按照顺时针螺旋顺序，返回矩阵中的所有元素。
+     * @param matrix 输入的二维矩阵
+     * @return 遍历结果
+     * 思路： 动态调整四个边界值 行首 行尾 列首 列尾
+     * 向右则加行首，向下则减列尾，向左则减行尾，向上则加列首，实现螺旋
+     * 以第一轮为例，向右遍历到底以后，行首就变成1 ，向下的遍历就要从第1行开始往下
+     * 向下遍历到底以后，列尾-1 ，从列尾- 1 的位置开始向前遍历
+     * 可以想象为，绕着小圈儿把最外层切掉
+     * 一把AC + 超过100%，小高兴一下
+     */
+    public List<Integer> spiralOrder(int [][] matrix){
+        List<Integer> result = new ArrayList<>();
+        if(matrix == null || matrix.length == 0 ||matrix[0] == null || matrix[0].length == 0){
+            return result;
+        }
+        int rowLength = matrix.length;
+        int columnLength = matrix[0].length;
+        int rowStart = 0;
+        int columnStart = 0;
+        int total = rowLength * columnLength;
+        int count = 0;
+        while(count < total){
+            //向右
+            for(int i = columnStart; i < columnLength; i ++){
+                result.add(matrix[rowStart][i]);
+                count ++;
+            }
+            if(count == total){
+                break;
+            }
+            rowStart ++;
+            //向下
+            for(int j = rowStart; j < rowLength; j ++){
+                result.add(matrix[j][columnLength - 1]);
+                count ++;
+            }
+            if(count == total){
+                break;
+            }
+            columnLength --;
+            //向左
+            for(int k = columnLength - 1; k >= columnStart; k --){
+                result.add(matrix[rowLength - 1][k]);
+                count ++;
+            }
+            if(count == total){
+                break;
+            }
+            rowLength --;
+            //向上
+            for(int l = rowLength - 1;l >= rowStart; l --){
+                result.add(matrix[l][columnStart]);
+                count ++;
+            }
+            if(count == total){
+                break;
+            }
+            columnStart ++;
+        }
+        return result;
+    }
 }

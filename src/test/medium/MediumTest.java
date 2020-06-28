@@ -297,4 +297,29 @@ public class MediumTest {
         String [] a1 = {"eat", "tea", "tan", "ate", "nat", "bat"};
         System.out.println(medium.groupAnagrams(a1));
     }
+
+    @Test
+    public void testSpiral(){
+            int [][] matrix1 = {
+                    {1,2,3},
+                    {4,5,6},
+                    {7,8,9}
+            };
+            int [][] matrix2 = {
+                    {1,2,3,4},
+                    {5,6,7,8},
+                    {9,10,11,12}
+            };
+        int [][] matrix3 = {
+                {1,2,3,4,9,12},
+                {5,6,7,8,6,5},
+                {9,10,11,12,9,3},
+                {33,44,61,7,7,1},
+                {33,44,61,7,9,10},
+                {15,23,9,89,8,11},
+        };
+        System.out.println(medium.spiralOrder(matrix1));
+        System.out.println(medium.spiralOrder(matrix2));
+        System.out.println(medium.spiralOrder(matrix3));
+    }
 }
