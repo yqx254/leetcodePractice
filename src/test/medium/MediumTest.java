@@ -4,7 +4,10 @@ import medium.Medium;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -147,7 +150,7 @@ public class MediumTest {
         String input1 = "23";
         String input2 = "";
         assertArrayEquals(new String[]{"ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"}
-            ,medium.letterCombinations(input1).toArray());
+                ,medium.letterCombinations(input1).toArray());
         assertArrayEquals(new String [] {},medium.letterCombinations(input2).toArray());
     }
 
@@ -300,16 +303,16 @@ public class MediumTest {
 
     @Test
     public void testSpiral(){
-            int [][] matrix1 = {
-                    {1,2,3},
-                    {4,5,6},
-                    {7,8,9}
-            };
-            int [][] matrix2 = {
-                    {1,2,3,4},
-                    {5,6,7,8},
-                    {9,10,11,12}
-            };
+        int [][] matrix1 = {
+                {1,2,3},
+                {4,5,6},
+                {7,8,9}
+        };
+        int [][] matrix2 = {
+                {1,2,3,4},
+                {5,6,7,8},
+                {9,10,11,12}
+        };
         int [][] matrix3 = {
                 {1,2,3,4,9,12},
                 {5,6,7,8,6,5},
@@ -321,5 +324,15 @@ public class MediumTest {
         System.out.println(medium.spiralOrder(matrix1));
         System.out.println(medium.spiralOrder(matrix2));
         System.out.println(medium.spiralOrder(matrix3));
+    }
+
+    @Test
+    public void testMerge(){
+        List<int []> res = new ArrayList<>();
+        int [] arr = {1,2,3,4};
+        int [] arr2 = {3,4,5,6};
+        res.add(arr);
+        res.add(arr2);
+        System.out.println(res.toArray(new int[0][])[1][3]);
     }
 }
