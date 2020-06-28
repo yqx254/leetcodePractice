@@ -328,11 +328,16 @@ public class MediumTest {
 
     @Test
     public void testMerge(){
-        List<int []> res = new ArrayList<>();
-        int [] arr = {1,2,3,4};
-        int [] arr2 = {3,4,5,6};
-        res.add(arr);
-        res.add(arr2);
-        System.out.println(res.toArray(new int[0][])[1][3]);
+        int [][] arr = {{1,3},{2,6},{8,10},{15,18}};
+        int [][] arr2 = {{1,4},{4,5}};
+        int [][] arr3 = {{}};
+        int [][] arr4 = {};
+        int [][] arr5 = {{1,100},{3,6},{6,9},{9,12},{13,28}};
+
+        System.out.println(Arrays.deepToString(medium.merge(arr)));
+        System.out.println(Arrays.deepToString(medium.merge(arr2)));
+        System.out.println(Arrays.deepToString(medium.merge(arr3)));
+        System.out.println(Arrays.deepToString(medium.merge(arr4)));
+        System.out.println(Arrays.deepToString(medium.merge(arr5)));
     }
 }

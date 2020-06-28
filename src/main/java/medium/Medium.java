@@ -1024,16 +1024,32 @@ public class Medium {
         return result;
     }
 
+    /**
+     * 56. 合并区间
+     * 给出一个区间的集合，请合并所有重叠的区间。
+     * 思路：首先将数组按左边数字升序排列，使合并只需要朝一个方向进行
+     * 将第二个元素的左边元素b和第一个元素的右边元素a比较
+     * 若 a >= b，代表两个元素有交集，进行合并
+     * 无交集代表不需要合并，插入结果集
+     * 使用java时存在许多数据结构上的转化，非常考验技术，值得记录
+     * 比如如何定义一个元素是基本型数组的List、如何将List转化为基本型数组
+     * 基本功还是怠慢不得啊
+     * @param intervals 二维数组
+     * @return 合并结果
+     */
     public int[][] merge(int[][] intervals){
         List<int[]> res = new ArrayList<>(intervals.length);
+        if(intervals.length == 0 || intervals[0].length == 0){
+            return res.toArray(new int[0][]);
+        }
         Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
         int i = 0;
         while(i < intervals.length){
             int left = intervals[i][0];
             int right = intervals[i][1];
             i ++;
-            while(intervals[i][0] <= right){
-                right = Math.max(intervals[i][0],right);
+            while(i < intervals.length && intervals[i][0] <= right){
+                right = Math.max(intervals[i][1],right);
                 i ++;
             }
             res.add(new int[]{left, right});
