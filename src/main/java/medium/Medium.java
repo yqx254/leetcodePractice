@@ -807,7 +807,7 @@ public class Medium {
             if(current > end){
                 return false;
             }
-            end = Math.max(current + nums[current], end);
+            end = Math.max(current + nums[current] , end);
             if(end >= nums.length - 1){
                 return true;
             }
@@ -1022,5 +1022,22 @@ public class Medium {
             columnStart ++;
         }
         return result;
+    }
+
+    public int[][] merge(int[][] intervals){
+        List<int[]> res = new ArrayList<>(intervals.length);
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        int i = 0;
+        while(i < intervals.length){
+            int left = intervals[i][0];
+            int right = intervals[i][1];
+            i ++;
+            while(intervals[i][0] <= right){
+                right = Math.max(intervals[i][0],right);
+                i ++;
+            }
+            res.add(new int[]{left, right});
+        }
+        return res.toArray(new int[0][]);
     }
 }
