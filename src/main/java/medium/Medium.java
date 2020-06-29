@@ -1048,12 +1048,77 @@ public class Medium {
             int left = intervals[i][0];
             int right = intervals[i][1];
             i ++;
-            while(i < intervals.length && intervals[i][0] <= right){
-                right = Math.max(intervals[i][1],right);
-                i ++;
+            if(i < intervals.length && intervals[i][0] <= right){
+                intervals[i][0] = left;
+                intervals[i][1] = Math.max(intervals[i][1],right);
             }
-            res.add(new int[]{left, right});
+            else{
+                res.add(new int[]{left, right});
+            }
         }
         return res.toArray(new int[0][]);
+    }
+
+    /**
+     *  57.插入区间
+     *  给出一个无重叠的 ，按照区间起始端点排序的区间列表。
+     *  在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠
+     *  （如果有必要的话，可以合并区间）。
+     *  思路：首先要根据新区间来找到插入位置
+     *  新区间归位后依次对之后的区间进行一次合并（参见56题）
+     *  各种边界值和区间的情况是个大麻烦事
+     *  这题是困难，写错地方，懒得挪了
+     * @param intervals 插入区间
+     * @param newInterval 插入的元素
+     * @return 插入结果
+     */
+    public int [][] insert(int[][] intervals, int [] newInterval){
+            int [][] res = new int[intervals.length + 1][2];
+            int idx = 0;
+            if(newInterval.length == 0){
+                return intervals;
+            }
+            if(intervals.length == 0){
+                res[0] = newInterval;
+                return res;
+            }
+            if(newInterval[1] < intervals[idx][0]){
+                res[idx] = newInterval;
+                for(int [] i : intervals){
+                    res[++idx] = i;
+                }
+                return Arrays.copyOf(res, idx + 1);
+            }
+            if(newInterval[0] >intervals[intervals.length - 1][1]){
+                for(int [] i : intervals){
+                    res[idx++] = i;
+                }
+                res[idx ++] = newInterval;
+                return Arrays.copyOf(res, idx);
+            }
+            for(int [] i : intervals){
+                if(i[1] >= newInterval[0]){
+                    if(newInterval[1] < i [0]){
+                        res[idx] = newInterval;
+                    }
+                    else{
+                        i[0] = Math.min(i[0], newInterval[0]);
+                        i[1] = Math.max(i[1], newInterval[1]);
+                        res[idx] = i;
+                    }
+                    break;
+                }
+                res[idx++] = i;
+            }
+            int index = idx;
+            for(; idx < intervals.length; idx ++){
+                if(intervals[idx][0] >res[index][1]){
+                    res[++index] = intervals[idx];
+                }
+                else{
+                    res[index][1] = Math.max(res[index][1],intervals[idx][1]);
+                }
+            }
+            return Arrays.copyOf(res,index + 1);
     }
 }

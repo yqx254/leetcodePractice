@@ -340,4 +340,36 @@ public class MediumTest {
         System.out.println(Arrays.deepToString(medium.merge(arr4)));
         System.out.println(Arrays.deepToString(medium.merge(arr5)));
     }
+
+    @Test
+    public void test_insert(){
+        int [][] arr = {{1,3},{6,9}};
+        int [] new1 = {2,5};
+
+        int [][] arr2 = {{1,2},{3,5},{6,7},{8,10},{12,16}};
+        int [] new2 = {4,8};
+
+        int [][] arr3 = {{2,4},{5,7}};
+        int [] new3 = {3,6};
+
+        int [][] arr4 = {{6,8}};
+        int []new4 = {1,5};
+
+        int [][] arr5 = {{1,2},{3,4},{5,6}};
+        int []new5 = {7,8};
+
+        int [][] arr6 = {{1,2}};
+        int [] new6 = {0,0};
+
+        int [][] arr7 = {{3,5},{12,15}};
+        int [] new7 = {6,12};
+
+        System.out.println(Arrays.deepToString(medium.insert(arr, new1)));
+        System.out.println(Arrays.deepToString(medium.insert(arr2, new2)));
+        System.out.println(Arrays.deepToString(medium.insert(arr3, new3)));
+        System.out.println(Arrays.deepToString(medium.insert(arr4, new4)));
+        System.out.println(Arrays.deepToString(medium.insert(arr5, new5)));
+        System.out.println(Arrays.deepToString(medium.insert(arr6, new6)));
+        System.out.println(Arrays.deepToString(medium.insert(arr7, new7)));
+    }
 }
