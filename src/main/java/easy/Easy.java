@@ -286,4 +286,20 @@ public class Easy{
         return max;
     }
 
+    /**
+     * 58. 最后一个单词的长度
+     * 给定一个仅包含大小写字母和空格 ' ' 的字符串 s，返回其最后一个单词的长度。
+     * @param s 给定字符串
+     * @return 最后单词的长度
+     * 思路： 没什么好说的，库函数走你
+     * 会有"a "这个比较坑爹的用例，做一下trim
+     */
+    public int lengthOfLastWord(String s) {
+        s = s.trim();
+        if(s.length() == 0){
+            return 0;
+        }
+        int lastSpace = s.lastIndexOf(' ');
+        return s.length() - lastSpace - 1;
+    }
 }

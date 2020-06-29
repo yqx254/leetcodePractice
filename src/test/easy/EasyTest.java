@@ -145,4 +145,18 @@ public class EasyTest {
         System.out.println(easy.countAndSay(n5));
 
     }
+
+    @Test
+    public void test_length_of_last_word(){
+        String s = "Hello World";
+        String s2 = "";
+        String s3 = "love and peaceful";
+        String s4 = " love and peaceful ";
+        String s5 = "a ";
+        assertEquals(easy.lengthOfLastWord(s),5);
+        assertEquals(easy.lengthOfLastWord(s2),0);
+        assertEquals(easy.lengthOfLastWord(s3),8);
+        assertEquals(easy.lengthOfLastWord(s4),8);
+        assertEquals(easy.lengthOfLastWord(s5),1);
+    }
 }
