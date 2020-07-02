@@ -556,7 +556,7 @@ public class Medium {
      *  思路：数学分析难度大的题，一般都败得很惨
      *  从右往左，找到第一个非递增的数字
      *  然后从它右边开始，找到一个最小，而且比它大的数字
-     *  交换两者，完成任务
+     *  交换两者，将交换点之后哦数据进行翻转，完成任务
      */
     public void nextPermutation(int [] nums){
         int i = nums.length - 2;
