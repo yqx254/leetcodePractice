@@ -1121,4 +1121,112 @@ public class Medium {
             }
             return Arrays.copyOf(res,index + 1);
     }
+
+    /**
+     * No.59 螺旋矩阵
+     * 给定一个正整数 n，生成一个包含 1 到 n2 所有元素，
+     * 且元素按顺时针顺序螺旋排列的正方形矩阵。
+     * @param n  正整数
+     * @return 生成的螺旋数组
+     * 思路：同No 54，设定四个边界值，一把过的干活！
+     */
+    public int [][] generateMatrix(int n){
+        int [][] result = new int [n][n];
+        if(n <= 0){
+            return result;
+        }
+        int startRow = 0;
+        int startCol = 0;
+        int endRow = n - 1;
+        int endCol = n - 1;
+        int count = 1;
+        int total = n * n + 1;
+        while(count < total){
+            for(int i = startCol; i <= endCol; i ++){
+                result[startRow][i] = count;
+                count ++;
+            }
+            startRow ++;
+            if(count == total){
+                break;
+            }
+            for(int j = startRow; j <= endRow; j ++){
+                result[j][endCol] = count;
+                count ++;
+            }
+            endCol --;
+            if(count == total){
+                break;
+            }
+            for(int k =endCol; k >= startCol ; k --){
+                result[endRow][k] = count;
+                count ++;
+            }
+            endRow --;
+            if(count == total){
+                break;
+            }
+            for(int l = endRow; l >=startRow; l --){
+                result[l][startCol] = count;
+                count ++;
+            }
+            startCol ++;
+        }
+        return result;
+    }
+
+    /**
+     * No 215  数组中的第K个最大元素
+     * 在未排序的数组中找到第 k 个最大的元素。
+     * @param nums 未排序的数组
+     * @param k 第k个最大元素的下标
+     * @return  第k个最大元素的值
+     * 思路： 稍微学习一下堆排序
+     * 重点：构建大根堆（正序）或者小根堆（倒序）
+     * 从最后一个根节点（length / 2)开始往前推，查看每个根节点的子节点是否大于根节点
+     * 若是，则将最大节点交换到根节点上
+     * 交换后，新的叶子节点可能是其他枝的根节点，递归调用交换逻辑，生成堆
+     * 将堆顶元素和堆末尾元素互换，并将堆的大小 - 1，再用以上方法调整整个堆
+     * 调整完后整个数组便有序
+     * 此题只需要第K大元素，则在调整k - 1 次以后取出堆顶元素即可
+     */
+    public int findKthLargest(int [] nums, int k){
+        int heapSize = nums.length;
+        if(heapSize == 0){
+            return -1;
+        }
+        buildHeap(nums, heapSize);
+        for(int i = nums.length - 1; i > nums.length - k ; i --){
+            swap(nums, 0 , i);
+            heapSize --;
+            maxHeap(nums,0, heapSize);
+        }
+        return nums[0];
+    }
+
+    private void buildHeap(int [] nums, int heapSize){
+        for(int i = heapSize / 2; i >= 0; i --){
+            maxHeap(nums, i, heapSize);
+        }
+    }
+
+    private void swap(int [] a,int i, int j){
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    private void maxHeap(int [] a, int i , int heapSize){
+        int l = i * 2 + 1, r = i * 2 + 2, largest = i;
+        if(l < heapSize && a[l] > a[largest]){
+            largest = l;
+        }
+        if(r < heapSize && a[r] > a[largest]){
+            largest = r;
+        }
+        if(largest != i){
+            swap(a, i , largest);
+            maxHeap(a, largest, heapSize);
+        }
+    }
 }

@@ -372,4 +372,28 @@ public class MediumTest {
         System.out.println(Arrays.deepToString(medium.insert(arr6, new6)));
         System.out.println(Arrays.deepToString(medium.insert(arr7, new7)));
     }
+
+    @Test
+    public void test_generate(){
+        int n1 = 3;
+        int n2 = 4;
+        System.out.println(Arrays.deepToString(medium.generateMatrix(n1)));
+        System.out.println(Arrays.deepToString(medium.generateMatrix(n2)));
+    }
+
+    @Test
+    public void test_find_k_largest(){
+        int []a1 = {6,1,9,3,12,25,2,8,4};
+        int k1 = 3;
+        int []a2 = {3, 2, 1, 5, 6, 4};
+        int k2 = 2;
+        int [] a3 = {3, 2, 3, 1, 2, 4, 5, 5, 6};
+        int k3 = 4;
+        int [] a4 = {};
+        int k4 = 0;
+        System.out.println(medium.findKthLargest(a1,k1));
+        System.out.println(medium.findKthLargest(a2,k2));
+        System.out.println(medium.findKthLargest(a3,k3));
+        System.out.println(medium.findKthLargest(a4,k4));
+    }
 }
