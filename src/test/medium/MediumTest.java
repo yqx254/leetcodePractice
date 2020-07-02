@@ -396,4 +396,17 @@ public class MediumTest {
         System.out.println(medium.findKthLargest(a3,k3));
         System.out.println(medium.findKthLargest(a4,k4));
     }
+
+    @Test
+    public void test_get_permutation(){
+        int n1 = 3;
+        int k1 = 3;
+        int n2 = 4;
+        int k2 = 9;
+        int n3 = 9;
+        int k3 = 72;
+        System.out.println(medium.getPermutation(n1,k1));
+        System.out.println(medium.getPermutation(n2,k2));
+        System.out.println(medium.getPermutation(n3,k3));
+    }
 }

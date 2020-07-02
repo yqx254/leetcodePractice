@@ -553,6 +553,10 @@ public class Medium {
      *  1，5，1  ---- 5，1，1
      *  3，2，1  ---- 1，2，3
      * @param nums 指定数组
+     *  思路：数学分析难度大的题，一般都败得很惨
+     *  从右往左，找到第一个非递增的数字
+     *  然后从它右边开始，找到一个最小，而且比它大的数字
+     *  交换两者，完成任务
      */
     public void nextPermutation(int [] nums){
         int i = nums.length - 2;
@@ -561,6 +565,7 @@ public class Medium {
         }
         while(i >= 0){
             if(nums[i] < nums[i + 1]){
+                //minIndex 指的是i之后最小的一个值，拿来和i进行交换
                 int minIndex = i + 1;
                 for(int j = i + 1;j < nums.length; j ++){
                     if(nums[j] > nums[i] && nums[j] < nums[minIndex]){
@@ -1228,5 +1233,20 @@ public class Medium {
             swap(a, i , largest);
             maxHeap(a, largest, heapSize);
         }
+    }
+
+    public String getPermutation(int n, int k){
+        int [] a = new int [n];
+        for(int i = 0; i < n; i ++){
+            a[i] = i + 1;
+        }
+        for(int j = 0; j < k - 1; j ++){
+            nextPermutation(a);
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int num : a){
+            sb.append(num);
+        }
+        return sb.toString();
     }
 }
