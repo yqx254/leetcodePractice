@@ -1,5 +1,6 @@
 package interview;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,13 +135,111 @@ public class Interview {
         }
         for(int i = 0; i < second.length(); i ++){
             if(first.charAt(i) != second.charAt(i)){
-                if(first.substring(i + 1).equals(second.substring(i + 1)) ||
-                    first.substring(i + 1).equals(second.substring(i))){
-                    return true;
-                }
-                return false;
+                return first.substring(i + 1).equals(second.substring(i + 1)) ||
+                        first.substring(i + 1).equals(second.substring(i));
             }
         }
         return true;
+    }
+
+    /**
+     *  01.06. 字符串压缩
+     *  字符串压缩。利用字符重复出现的次数，编写一种方法，实现基本的字符串压缩功能。
+     *  比如，字符串aabcccccaaa会变为a2b1c5a3。
+     *  若“压缩”后的字符串没有变短，则返回原先的字符串。
+     *  你可以假设字符串中只包含大小写英文字母（a至z）。
+     * @param s 要压缩的字符串
+     * @return 结果
+     * 思路：字符改变时统计字符出现的次数并塞入StringBuilder
+     * 用时比题解更短的做法：使用for循环替代foreach，并用i - start来计算count，可能会更快些？
+     */
+    public String compressString(String s){
+        if(s.length() == 0){
+            return s;
+        }
+        StringBuilder builder = new StringBuilder();
+        char tmp = s.charAt(0);
+        int count = 0;
+        int len = s.length();
+        for(char c : s.toCharArray()){
+            if(c != tmp){
+                    builder.append(tmp);
+                    builder.append(count);
+                    count = 1;
+                    tmp = c;
+            }
+            else{
+                count ++;
+            }
+            if(builder.length() >= len){
+                return s;
+            }
+        }
+        if(count != 0){
+            builder.append(tmp);
+            builder.append(count);
+        }
+        if(builder.length() >= len){
+            return s;
+        }
+        return builder.toString();
+    }
+
+    /**
+     *  01.07. 旋转矩阵
+     *  给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。
+     *  请你设计一种算法，将图像旋转 90 度。
+     * 不占用额外内存空间能否做到？
+     * @param matrix 被反转的矩阵
+     *  思路：对角线互换 + 水平翻转，需要先分析
+     *   所谓不占用额外内存空间指的是，使用常数级空间，不要理解错
+     */
+    public void rotate(int [][] matrix){
+        int tmp;
+        for(int i = 0; i < matrix.length - 1; i ++){
+            int j = i + 1;
+            for(;j < matrix[i].length; j ++){
+                tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+        for(int i = 0; i < matrix.length;i ++){
+            int len = matrix[i].length ;
+            for(int j = 0;j < len  / 2; j ++){
+                tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][len - j - 1];
+                matrix[i][len - j - 1] = tmp;
+            }
+        }
+    }
+
+    public void setZeroes(int [][] matrix){
+        if(matrix.length == 0 || matrix[0].length == 0){
+            return;
+        }
+        int [] rowIdx = new int [matrix.length];
+        int [] columnIdx = new int [matrix[0].length];
+        for(int i = 0; i< matrix.length; i ++){
+            for(int j = 0; j < matrix[i].length; j ++){
+                if(matrix[i][j] == 0){
+                    rowIdx[i] = 1;
+                    columnIdx[j] = 1;
+                }
+            }
+        }
+        for(int k = 0; k < rowIdx.length; k++){
+            if(rowIdx[k] == 1){
+                Arrays.fill(matrix[k], 0);
+            }
+        }
+        for(int l = 0;l < columnIdx.length ; l++){
+            if(columnIdx[l] == 1){
+                for(int n = 0; n < matrix.length; n ++){
+                    matrix[n][l] = 0;
+                }
+
+            }
+        }
     }
 }

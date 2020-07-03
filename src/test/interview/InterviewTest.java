@@ -3,6 +3,8 @@ package interview;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 
@@ -78,5 +80,48 @@ public class InterviewTest {
         assertFalse(interview.oneEditAway(sf2, ss2));
         assertFalse(interview.oneEditAway(sf3, ss3));
         assertTrue(interview.oneEditAway(sf4, ss4));
+    }
+
+    @Test
+    public void test_compress_string(){
+        String s1 = "aabcccccaaa";
+        String s2 = "abbccd";
+        String s3 = "";
+        String s4 = "ABCDEFGHIJKLMNN";
+        String s5 = "bb";
+
+        assertEquals("a2b1c5a3",interview.compressString(s1));
+        assertEquals("abbccd",interview.compressString(s2));
+        assertEquals("",interview.compressString(s3));
+        assertEquals("ABCDEFGHIJKLMNN",interview.compressString(s4));
+        assertEquals("bb",interview.compressString(s5));
+    }
+
+    @Test
+    public void test_rotate(){
+        int [][] matrix1 = {{1,2,3},{4,5,6},{7,8,9}};
+        int [][] matrix2 = {{5,1,9,11},{2,4,8,10},{13,3,6,7},{15,14,12,16}};
+        int [][] matrix3 = {{1,2},{4,5}};
+        int [][] matrix4 = {{}};
+        interview.rotate(matrix1);
+        interview.rotate(matrix2);
+        interview.rotate(matrix3);
+        interview.rotate(matrix4);
+        System.out.println(Arrays.deepToString(matrix1));
+        System.out.println(Arrays.deepToString(matrix2));
+        System.out.println(Arrays.deepToString(matrix3));
+        System.out.println(Arrays.deepToString(matrix4));
+    }
+
+    @Test
+    public void test_set_zeroes(){
+        int [][] matrix1 = {{1, 1, 1},{1, 0, 1},{1, 1, 1}};
+        int [][] matrix2 = {{0, 1, 2, 0},{3, 4, 5, 2},{1, 3, 1 ,5}};
+
+        interview.setZeroes(matrix1);
+        interview.setZeroes(matrix2);
+
+        System.out.println(Arrays.deepToString(matrix1));
+        System.out.println(Arrays.deepToString(matrix2));
     }
 }
