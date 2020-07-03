@@ -242,4 +242,38 @@ public class Interview {
             }
         }
     }
+
+    public boolean isFlipedString(String s1, String s2){
+        if(s1.length() != s2.length()){
+            return false;
+        }
+        if(s1.length() == 0){
+            return true;
+        }
+        char first = s1.charAt(0);
+        int location = s2.indexOf(first);
+        int current = location;
+        int i;
+        int count = 0;
+        while(location != -1){
+            for(i = 0; i < s1.length(); i ++){
+                if(s1.charAt(i) == s2.charAt(location)){
+                    location ++;
+                    count ++;
+                    if(location == s2.length()){
+                        location = 0;
+                    }
+                }
+                else{
+                    location = s2.indexOf(first, current + 1);
+                    current = location;
+                    break;
+                }
+            }
+            if(count == s1.length()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

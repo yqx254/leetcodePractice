@@ -124,4 +124,25 @@ public class InterviewTest {
         System.out.println(Arrays.deepToString(matrix1));
         System.out.println(Arrays.deepToString(matrix2));
     }
+
+    @Test
+    public void test_fliped_string(){
+        String s11 = "waterbottle";
+        String s12 = "erbottlewat";
+
+        String s21 = "";
+        String s22 = "";
+
+        String s31 = "aba";
+        String s32 = "aa";
+
+        String s41 = "somethingnew";
+        String s42 = "thingnetsome";
+
+        assertTrue(interview.isFlipedString(s11,s12));
+        assertTrue(interview.isFlipedString(s21,s22));
+        assertFalse(interview.isFlipedString(s31,s32));
+        assertFalse(interview.isFlipedString(s41,s42));
+
+    }
 }
