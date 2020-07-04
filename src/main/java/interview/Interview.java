@@ -267,6 +267,7 @@ public class Interview {
                 else{
                     location = s2.indexOf(first, current + 1);
                     current = location;
+                    count = 0;
                     break;
                 }
             }
