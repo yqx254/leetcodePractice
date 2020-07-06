@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Interview {
+    class ListNode {
+      int val;
+      ListNode next;
+      ListNode(int x) { val = x; }
 
+ }
     /**
      * 01.01 判定字符是否唯一
      * 实现一个算法，确定一个字符串 s 的所有字符是否全都不同。
@@ -276,5 +281,35 @@ public class Interview {
             }
         }
         return false;
+    }
+
+    /**
+     * 02.01. 移除重复节点
+     * @param head 头结点
+     * @return 头结点
+     * 编写代码，移除未排序链表中的重复节点。保留最开始出现的节点。
+     * 链表长度在[0, 20000]范围内。
+     * 链表元素在[0, 20000]范围内。
+     *
+     * 思路：定长、基础类型，数组比哈希速度更快
+     * 而且占空间居然少了一点点？
+     */
+    public ListNode removeDuplicateNodes(ListNode head){
+        int [] numArr = new int[20000];
+        ListNode prev = new ListNode(0);
+
+        prev.next = head;
+        ListNode current = head;
+        while(current != null){
+            if(numArr[current.val] == 1){
+                prev.next = current.next;
+            }
+            else{
+                numArr[current.val] = 1;
+                prev = prev.next;
+            }
+            current = current.next;
+        }
+        return head;
     }
 }
