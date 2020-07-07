@@ -424,4 +424,35 @@ public class Interview {
         }
         return rt.next;
     }
+
+    /**
+     *
+     * @param head
+     * @return
+     * 奇思妙想进死胡同了，留个纪念
+     */
+    public boolean isPalindrome(ListNode head){
+        StringBuilder front = new StringBuilder();
+        StringBuilder end = new StringBuilder();
+        ListNode fast = new ListNode(0);
+        fast.next = head;
+        ListNode slow = fast;
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            front.append(slow.val);
+        }
+        //当前值已经被记录过了，往前一步
+        slow = slow.next;
+        //说明元素个数是单数，中间位置要多走一步
+        if(fast.next != null){
+            slow = slow.next;
+        }
+        while(slow != null){
+            slow = slow.next;
+            end.append(slow.val);
+        }
+        end.reverse();
+        return front.toString().equals(end.toString());
+    }
 }
