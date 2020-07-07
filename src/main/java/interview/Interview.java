@@ -312,4 +312,116 @@ public class Interview {
         }
         return head;
     }
+
+    /**
+     * 02.02. 返回倒数第 k 个节点
+     * 实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。
+     * @param head 链表头
+     * @param k 倒数第k
+     * @return 倒数第k的值
+     * 思路：双指针，简单题
+     */
+    public int kthToLast(ListNode head, int k) {
+        ListNode target = head;
+        for(int i = 0; i < k; i ++){
+            head = head.next;
+        }
+        while(head != null){
+            head = head.next;
+            target = target.next;
+        }
+        //没什么必要，但还是健壮些
+        if(target != null){
+            return target.val;
+        }
+        return -1;
+    }
+
+    /**
+     *  02.03. 删除中间节点
+     *  实现一种算法，删除单向链表中间的某个节点（即不是第一个或最后一个节点）
+     *  假定你只能访问该节点。
+     * @param node 被删除的节点
+     *   简单题，但确实也中了盲区
+     */
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+
+    /**
+     *  02.04. 分割链表
+     *  问题描述写得乱七八糟
+     *  总之就是以x为基准重做链表，小的在左大的等于的在右
+     * @param head 头结点
+     * @param x 分割基准值
+     * @return 新链表头
+     * 思路 新建一个结点，往后接小值，完了一波合并了事
+     */
+    public ListNode partition(ListNode head, int x){
+        ListNode tmp = new ListNode(0);
+        ListNode res = tmp;
+        ListNode start = new ListNode(0);
+                start.next = head;
+                head = start;
+        while(start.next != null){
+            if(start.next.val < x){
+                tmp.next = start.next;
+                tmp = tmp.next;
+                start.next = start.next.next;
+            }
+            else{
+                start = start.next;
+            }
+        }
+        tmp.next = head.next;
+        return res.next;
+    }
+
+    /**
+     * 02.05 链表求和
+     * 给定两个用链表表示的整数，每个节点包含一个数位。
+     * 这些数位是反向存放的，也就是个位排在链表首部。
+     * 编写函数对这两个整数求和，并用链表形式返回结果。
+     * @param l1 一个数
+     * @param l2 另一个数
+     * @return 结果链表
+     * 思路 防一手链表跑远了抛空指针 和 进位 即可
+     */
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2){
+        int extra = 0;
+        int current;
+        int num1 = 0;
+        int num2 = 0;
+        ListNode res = new ListNode(0);
+        ListNode rt = res;
+        while(l1 != null || l2 != null){
+            if(l1 != null){
+                num1 = l1.val;
+                //防空指针异常
+                l1 = l1.next;
+            }
+            if(l2 != null){
+                //防空指针异常
+                num2 = l2.val;
+                l2 = l2.next;
+            }
+            current = num1 + num2 + extra;
+            if(current >= 10){
+                current -= 10;
+                extra = 1;
+            }
+            else{
+                extra = 0;
+            }
+            res.next = new ListNode(current);
+            num1 = 0;
+            num2 = 0;
+            res = res.next;
+        }
+        if(extra == 1){
+            res.next = new ListNode(1);
+        }
+        return rt.next;
+    }
 }
