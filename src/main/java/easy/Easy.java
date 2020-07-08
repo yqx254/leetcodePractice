@@ -1,5 +1,7 @@
 package easy;
 
+import pojo.ListNode;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -302,4 +304,69 @@ public class Easy{
         int lastSpace = s.lastIndexOf(' ');
         return s.length() - lastSpace - 1;
     }
+
+     /**
+     * 160.相交链表
+     * 编写一个程序，找到两个单链表相交的起始节点。
+     */
+     public ListNode getIntersectionNode(ListNode headA, ListNode headB){
+        ListNode n1 = headA;
+        ListNode n2 = headB;
+        ListNode newList;
+        int stat = 0;
+        if(n1 == null || n2 == null){
+            return null;
+        }
+        //把两个链表连成环
+        while(n1.next != null && n2.next != null){
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+        if(n1.next == null){
+            if(n1 == headB){
+                return n1;
+            }
+            n1.next = headA;
+            stat = 1;
+            newList = headB;
+        }
+        else{
+            if(n2 == headA){
+                return n2;
+            }
+            n2.next = headB;
+            stat = 2;
+            newList = headA;
+        }
+        ListNode fast = newList;
+        ListNode slow = newList;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            //出现环
+            if(fast == slow){
+                fast = newList;
+                while(fast != slow){
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                //不让改结构啊，调回去
+                if(stat == 1){
+                    n1.next = null;
+                }
+                if(stat == 2){
+                    n2.next = null;
+                }
+                return fast;
+            }
+        }
+        //不让改结构啊，调回去
+         if(stat == 1){
+             n1.next = null;
+         }
+         if(stat == 2){
+             n2.next = null;
+         }
+        return null;
+     }
 }

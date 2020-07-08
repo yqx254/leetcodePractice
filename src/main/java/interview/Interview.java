@@ -1,16 +1,10 @@
 package interview;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import pojo.ListNode;
 
 public class Interview {
-    class ListNode {
-      int val;
-      ListNode next;
-      ListNode(int x) { val = x; }
 
- }
     /**
      * 01.01 判定字符是否唯一
      * 实现一个算法，确定一个字符串 s 的所有字符是否全都不同。
@@ -426,33 +420,101 @@ public class Interview {
     }
 
     /**
-     *
-     * @param head
-     * @return
+     * 02.06. 回文链表
+     * 编写一个函数，检查输入的链表是否是回文的。
+     * @param head 头结点
+     * @return 是否是回文
      * 奇思妙想进死胡同了，留个纪念
+     * 正确的思路：用栈或其他数据结构，记录中间点以后的各个数值，然后出栈（或反转）来比较
+     * 高深的思路：慢指针行进过程中就进行前半段链表翻转
+     * 链表翻转的方式： 定义一个临时结点、一个新结点
+     * 临时结点指向当前遍历的结点
+     * 每次遍历，临时结点的next指向新结点，新结点指向临时结点
+     * 临时结点回到（已经被推到下一位置的）遍历结点上
+     * 盲区警告
      */
     public boolean isPalindrome(ListNode head){
-        StringBuilder front = new StringBuilder();
-        StringBuilder end = new StringBuilder();
-        ListNode fast = new ListNode(0);
-        fast.next = head;
-        ListNode slow = fast;
-        while(fast.next != null && fast.next.next != null){
-            fast = fast.next.next;
+        Stack<Integer> value = new Stack<>();
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode tmp = slow;
+        ListNode newList = null;
+        while(fast != null && fast.next != null){
             slow = slow.next;
-            front.append(slow.val);
+            fast = fast.next.next;
+            tmp.next = newList;
+            newList = tmp;
+            tmp = slow;
         }
-        //当前值已经被记录过了，往前一步
-        slow = slow.next;
-        //说明元素个数是单数，中间位置要多走一步
-        if(fast.next != null){
+        //总数量是单数
+        if(fast != null){
             slow = slow.next;
         }
         while(slow != null){
+            if(slow.val != newList.val){
+                return false;
+            }
             slow = slow.next;
-            end.append(slow.val);
+            newList = newList.next;
         }
-        end.reverse();
-        return front.toString().equals(end.toString());
+        return true;
+    }
+    /**
+     * 02.07 同 Easy 160题
+     */
+    /**
+     * 16.11. 跳水板
+     * 你正在使用一堆木板建造跳水板
+     * 有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。
+     * 你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。
+     * 返回的长度需要从小到大排列。
+     * @param shorter 短木板长度
+     * @param longer 长木板长度
+     * @param k 要用的木板数量
+     * @return 可能的长度数组
+     * 思路：数学思路解
+     * 规律是：用k块板可以搞出的组合数是k + 1
+     * 长度数组的差值就是长短板的差值
+     */
+    public int[] divingBoard(int shorter, int longer, int k) {
+        if(k == 0){
+            return  new int [0];
+        }
+        if(shorter == longer){
+            int [] res = new int[1];
+            res[0] = shorter * k;
+            return res;
+        }
+        int [] res = new int[k + 1];
+        int gap = longer - shorter;
+        res[0] = shorter * k;
+        for(int i = 1; i <= k; i ++ ){
+            res[i] = res[i - 1] + gap;
+        }
+        return res;
+    }
+
+    /**
+     *  02.08. 环路检测
+     * @param head 头结点
+     * @return 有环返开始节点 没环返回空
+     * 正宗的龟兔赛跑
+     */
+    public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if(fast == slow){
+                fast = head;
+                while(fast != slow){
+                    fast = fast.next;
+                    slow = slow.next;
+                }
+                return fast;
+            }
+        }
+        return null;
     }
 }
