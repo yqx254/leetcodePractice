@@ -11,10 +11,12 @@ public class MinStack {
     private int len;
     private int currentLen;
     private int min = Integer.MAX_VALUE;
+    private int [] minArr;
     /** initialize your data structure here. */
     public MinStack() {
         len = 128;
         data = new int [len];
+        minArr = new int [len];
         currentLen = 0;
     }
 
@@ -22,21 +24,25 @@ public class MinStack {
         if(currentLen == len){
             len = len * 2;
             int [] newData = new int[len];
+            int [] newMinArr = new int[len];
             System.arraycopy(data, 0, newData,0, data.length);
+            System.arraycopy(minArr, 0, newMinArr,0, minArr.length);
             data = newData;
+            minArr = newMinArr;
         }
         data[currentLen] = x;
         currentLen ++;
         if(x  < min){
             min = x;
         }
+        minArr[currentLen] = min;
     }
 
     public void pop() {
         if(currentLen > 0){
             currentLen --;
+            min = minArr[currentLen - 1];
         }
-
     }
 
     public int top() {
@@ -46,7 +52,7 @@ public class MinStack {
         return -1;
     }
 
-    public int getMin() {
-        return  min;
+    public int getMin(){
+        return  minArr[currentLen - 1];
     }
 }
