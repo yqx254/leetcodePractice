@@ -11,6 +11,7 @@ public class MinStack {
     private int len;
     private int currentLen;
     private int min = Integer.MAX_VALUE;
+    private int minLen;
     private int [] minArr;
     /** initialize your data structure here. */
     public MinStack() {
@@ -18,6 +19,7 @@ public class MinStack {
         data = new int [len];
         minArr = new int [len];
         currentLen = 0;
+        minLen = 0;
     }
 
     public void push(int x) {
@@ -31,17 +33,26 @@ public class MinStack {
             minArr = newMinArr;
         }
         data[currentLen] = x;
-        currentLen ++;
-        if(x  < min){
+        if(x <= min || currentLen == 0){
             min = x;
+            minArr[minLen] = x;
+            minLen ++;
         }
-        minArr[currentLen] = min;
+        currentLen ++;
     }
 
     public void pop() {
         if(currentLen > 0){
             currentLen --;
-            min = minArr[currentLen - 1];
+            if(minArr[minLen - 1] == data[currentLen]){
+                minLen -- ;
+                if(minLen > 0){
+                    min = minArr[minLen - 1];
+                }
+                else{
+                    min = Integer.MAX_VALUE;
+                }
+            }
         }
     }
 
@@ -53,6 +64,6 @@ public class MinStack {
     }
 
     public int getMin(){
-        return  minArr[currentLen - 1];
+        return  minArr[minLen - 1];
     }
 }
