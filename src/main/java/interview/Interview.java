@@ -537,4 +537,38 @@ public class Interview {
         root.right = sortedArrayToBST(Arrays.copyOfRange(nums, middle + 1,nums.length));
         return root;
     }
+
+    /**
+     * 10.01 合并排序的数组
+     * 给定两个排序后的数组 A 和 B，其中 A 的末端有足够的缓冲空间容纳 B。
+     * 编写一个方法，将 B 合并入 A 并排序。
+     * 初始化 A 和 B 的元素数量分别为 m 和 n。
+     * @param A A数组
+     * @param m 实际长度
+     * @param B B数组
+     * @param n 实际长度
+     *  思路：从末尾开始插入，指针向前推
+     */
+    public void merge(int[] A, int m, int[] B, int n) {
+        int i = m - 1, j = n - 1;
+        int tail = A.length - 1;
+        while(i >= 0 && j >= 0){
+            if(A[i] > B[j]){
+                A[tail] = A[i];
+                tail --;
+                i --;
+            }
+            else{
+                A[tail] = B[j];
+                tail --;
+                j --;
+            }
+        }
+        if(i < 0){
+         while(j >= 0){
+             A[j] = B[j];
+             j --;
+         }
+        }
+    }
 }
