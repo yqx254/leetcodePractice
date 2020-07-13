@@ -149,4 +149,20 @@ public class InterviewTest {
         System.out.println(interview.isFlipedString(s51, s52));
 
     }
+
+    @Test
+    public void test_merge(){
+        int [] A1 = new int [] {1,2,3,0,0,0};
+        int [] B1 = new int [] {2,5,6};
+        int m1 = 3;
+        int n1 = 3;
+        int [] A2 = new int [] {1,3,4,0,0};
+        int [] B2 = new int [] {8,9};
+        int m2 = 3;
+        int n2 = 2;
+        interview.merge(A1,m1, B1, n1);
+        interview.merge(A2,m2, B2, n2);
+        System.out.println(Arrays.toString(A1));
+        System.out.println(Arrays.toString(A2));
+    }
 }
