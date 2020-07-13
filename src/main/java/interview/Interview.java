@@ -2,6 +2,7 @@ package interview;
 
 import java.util.*;
 import pojo.ListNode;
+import pojo.TreeNode;
 
 public class Interview {
 
@@ -516,5 +517,24 @@ public class Interview {
             }
         }
         return null;
+    }
+
+    /**
+     * 04.02. 最小高度树
+     * 给定一个有序整数数组，元素各不相同且按升序排列，编写一个算法，创建一棵高度最小的二叉搜索树。
+     * @param nums 有序数组
+     * @return 二叉树
+     * 思路：通过有序数组建立二叉搜索树的方式：最中间一个数为根节点，然后递归左右半边的数组
+     * 递归函数返回根节点即可
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length == 0){
+            return null;
+        }
+        int middle = nums.length / 2;
+        TreeNode root = new TreeNode(nums[middle]);
+        root.left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, middle));
+        root.right = sortedArrayToBST(Arrays.copyOfRange(nums, middle + 1,nums.length));
+        return root;
     }
 }
