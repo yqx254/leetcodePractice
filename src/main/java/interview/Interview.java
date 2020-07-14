@@ -571,4 +571,20 @@ public class Interview {
          }
         }
     }
+
+    /**
+     *   16.05. 阶乘尾数
+     * @param n 目标数字
+     * @return 尾数一共有多少个0
+     * 思路： 5 × 2才得到0， 而2远远比5多（4 = 2 × 2），所以实质上是找乘式中5的个数
+     * 注意，是 count += n ，而非count ++，除以5的结果就是5的个数
+     */
+    public int trailingZeroes(int n ){
+        int count = 0;
+        while(n >= 5){
+            n /= 5;
+            count += n;
+        }
+        return count;
+    }
 }

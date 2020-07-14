@@ -165,4 +165,12 @@ public class InterviewTest {
         System.out.println(Arrays.toString(A1));
         System.out.println(Arrays.toString(A2));
     }
+
+    @Test
+    public void test_trailing_zeroes(){
+        int n1 = 5;
+        int n2 = 10;
+        assertEquals(1,interview.trailingZeroes(n1));
+        assertEquals(1,interview.trailingZeroes(n2));
+    }
 }
