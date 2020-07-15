@@ -1,6 +1,8 @@
 package interview;
 
 import java.util.*;
+
+import com.sun.jmx.remote.internal.ArrayQueue;
 import pojo.ListNode;
 import pojo.TreeNode;
 
@@ -588,36 +590,37 @@ public class Interview {
         return count;
     }
 
+    /**
+     *
+     */
+    ArrayList<Integer>[] myGraph;
+    int [] visited;
     public boolean  findWhetherExistsPath(int n, int[][] graph, int start, int target) {
-        if(start ==target){
+        myGraph = new ArrayList[n];
+        visited = new int[n];
+        for(int [] dot : graph){
+            if(myGraph[dot[0]] == null){
+                myGraph[dot[0]] = new ArrayList<>();
+            }
+            myGraph[dot[0]].add(dot[1]);
+        }
+        return graphDfs(start, target);
+    }
+    private boolean graphDfs(int node, int target){
+        if(node == target){
             return true;
         }
-        Map<Integer, List<Integer>> path = new HashMap<>();
-        int [] visit = new int [n];
-        for(int [] dot : graph){
-            if(!path.containsKey(dot[0])){
-                List<Integer> node = new ArrayList<>();
-                node.add(dot[1]);
-                path.put(dot[0], node);
-            }
-            else{
-                path.get(dot[0]).add(dot[1]);
-            }
+        List<Integer> current = myGraph[node];
+        visited[node] = 1;
+        if(current == null){
+            return false;
         }
-        Queue<Integer> queue = new ArrayDeque<>();
-        queue.offer(start);
-        while(!queue.isEmpty()){
-            int current = queue.poll();
-            visit[current] = 1;
-            List<Integer> accessibleNode = path.get(current);
-            for(Integer node : accessibleNode){
-                if(node == target){
-                    return true;
-                }
-                if(visit[node] == 1){
-                    continue;
-                }
-                queue.offer(node);
+        for(int n : current){
+            if(visited[n] == 1){
+                continue;
+            }
+            if(graphDfs(n,target)){
+                return true;
             }
         }
         return false;
