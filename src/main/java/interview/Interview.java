@@ -587,4 +587,39 @@ public class Interview {
         }
         return count;
     }
+
+    public boolean  findWhetherExistsPath(int n, int[][] graph, int start, int target) {
+        if(start ==target){
+            return true;
+        }
+        Map<Integer, List<Integer>> path = new HashMap<>();
+        int [] visit = new int [n];
+        for(int [] dot : graph){
+            if(!path.containsKey(dot[0])){
+                List<Integer> node = new ArrayList<>();
+                node.add(dot[1]);
+                path.put(dot[0], node);
+            }
+            else{
+                path.get(dot[0]).add(dot[1]);
+            }
+        }
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.offer(start);
+        while(!queue.isEmpty()){
+            int current = queue.poll();
+            visit[current] = 1;
+            List<Integer> accessibleNode = path.get(current);
+            for(Integer node : accessibleNode){
+                if(node == target){
+                    return true;
+                }
+                if(visit[node] == 1){
+                    continue;
+                }
+                queue.offer(node);
+            }
+        }
+        return false;
+    }
 }
