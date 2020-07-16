@@ -674,5 +674,51 @@ public class Interview {
         return res;
     }
 
+    private boolean isBalanced = true;
+    public boolean isBalanced(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        getDepth(root);
+        return isBalanced;
+
+    }
+
+    private int getDepth(TreeNode node){
+        if(!isBalanced){
+            return 0;
+        }
+        if(node == null){
+            return 0;
+        }
+        int leftLen = getDepth(node.left);
+        int rightLen = getDepth(node.right);
+        if(Math.abs(leftLen - rightLen) > 1){
+            isBalanced = false;
+            return 0;
+        }
+        return Math.max(leftLen, rightLen) + 1;
+    }
+
+    /**
+     * 0405
+     * @param root
+     * @return
+     */
+    public boolean isValidBST(TreeNode root) {
+        return checkBST(root);
+    }
+    private boolean checkBST(TreeNode node){
+        if(node == null){
+            return true;
+        }
+        if(node.left != null && node.left.val >= node.val){
+            return false;
+        }
+        if(node.right != null && node.right.val <= node.val){
+            return false;
+        }
+        return checkBST(node.left) && checkBST(node.right);
+    }
 
 }
