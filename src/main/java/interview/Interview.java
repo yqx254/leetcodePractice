@@ -591,7 +591,9 @@ public class Interview {
     }
 
     /**
-     *
+     * 04.01. 节点间通路
+     *  节点间通路。给定有向图，设计一个算法，找出两个节点之间是否存在一条路径。
+     *  思路：DFS 和 BFS的教科书，需要多练习
      */
     ArrayList<Integer>[] myGraph;
     int [] visited;
@@ -625,4 +627,52 @@ public class Interview {
         }
         return false;
     }
+
+    /**
+     *   04.03. 特定深度节点链表
+     *   给定一棵二叉树，设计一个算法，创建含有某一深度上所有节点的链表
+     *   （比如，若一棵树的深度为 D，则会创建出 D 个链表）。
+     *   返回一个包含所有深度的链表的数组。
+     * @param tree 二叉树顶
+     * @return 包含所有深度的链表数组
+     * 思路：BFS，尝试使用备用队列来提升效率
+     * 左右子节点全部加入备队列，主队列为空时，主备队列互换
+     * 好像没有什么根本变化
+     */
+    public ListNode[] listOfDepth(TreeNode tree){
+        Queue<TreeNode> mainQueue = new ArrayDeque<>();
+        Queue<TreeNode> backQueue = new ArrayDeque<>();
+        List<ListNode> result = new ArrayList<>();
+        mainQueue.offer(tree);
+        ListNode head = new ListNode(0);
+        ListNode cur = head;
+        while(!mainQueue.isEmpty()){
+            TreeNode current = mainQueue.poll();
+            if(current.left != null){
+                backQueue.offer(current.left);
+                cur.next = new ListNode(current.left.val);
+                cur = cur.next;
+            }
+            if(current.right != null){
+                backQueue.offer(current.right);
+                cur.next = new ListNode(current.right.val);
+                cur = cur.next;
+            }
+            if(mainQueue.isEmpty() && !backQueue.isEmpty()){
+                result.add(head.next);
+                head = new ListNode(0);
+                cur = head;
+                mainQueue = backQueue;
+                backQueue = new ArrayDeque<>();
+            }
+        }
+        ListNode [] res = new ListNode [result.size()];
+        res[0] = new ListNode(tree.val);
+        for(int i = 1; i <= result.size(); i ++){
+            res[i] = result.get(i - 1);
+        }
+        return res;
+    }
+
+
 }
