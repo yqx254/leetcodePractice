@@ -701,10 +701,15 @@ public class Interview {
     }
 
     /**
-     * 0405
-     * @param root
-     * @return
+     * 04.05. 合法二叉搜索树
+     * 实现一个函数，检查一棵二叉树是否为二叉搜索树。
+     * @param root 树的根节点
+     * @return 是否是二叉搜索树
+     * 思路： 树的中序遍历
+     * 有一个坑爹的用例导致Integer.MIN_VALUE做最小值会出问题
+     * 而且也没有限定元素值不重复，辣鸡题目
      */
+    long currentMax = Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
         return checkBST(root);
     }
@@ -712,13 +717,19 @@ public class Interview {
         if(node == null){
             return true;
         }
-        if(node.left != null && node.left.val >= node.val){
+        if(node.left != null){
+            if(!checkBST(node.left)){
+                return false;
+            }
+        }
+        if(node.val <= currentMax){
             return false;
         }
-        if(node.right != null && node.right.val <= node.val){
-            return false;
+        currentMax = node.val;
+        if(node.right != null){
+            return checkBST(node.right);
         }
-        return checkBST(node.left) && checkBST(node.right);
+        return true;
     }
 
 }
