@@ -1,8 +1,8 @@
 package interview;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 import pojo.ListNode;
 import pojo.TreeNode;
 
@@ -818,5 +818,37 @@ public class Interview {
             result = node;
         }
         return total;
+    }
+
+    /**
+     * 10.02. 变位词组
+     * 编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。
+     * @param strs
+     * @return
+     * 思路： 老题目，等优化吧
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> storage = new HashMap<>();
+        for(String s : strs){
+            int []alpha = new int[26];
+            for(char c : s.toCharArray()){
+                alpha[c - 97] ++;
+            }
+            StringBuilder key = new StringBuilder();
+            for(int i : alpha){
+                key.append("#");
+                key.append(i);
+            }
+            String k = key.toString();
+            if(storage.containsKey(k)){
+                storage.get(k).add(s);
+            }
+            else{
+                ArrayList<String> arr = new ArrayList<>();
+                arr.add(s);
+                storage.put(k, arr);
+            }
+        }
+        return new ArrayList<>(storage.values());
     }
 }
