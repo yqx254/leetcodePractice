@@ -699,7 +699,7 @@ public class Interview {
         }
         return Math.max(leftLen, rightLen) + 1;
     }
-
+    long currentMax = Long.MIN_VALUE;
     /**
      * 04.05. 合法二叉搜索树
      * 实现一个函数，检查一棵二叉树是否为二叉搜索树。
@@ -709,7 +709,6 @@ public class Interview {
      * 有一个坑爹的用例导致Integer.MIN_VALUE做最小值会出问题
      * 而且也没有限定元素值不重复，辣鸡题目
      */
-    long currentMax = Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
         return checkBST(root);
     }
@@ -730,6 +729,40 @@ public class Interview {
             return checkBST(node.right);
         }
         return true;
+    }
+
+    boolean find = false;
+    TreeNode resultNode;
+    /**
+     * 04.06. 后继者
+     * 设计一个算法，找出二叉搜索树中指定节点的“下一个”节点（也即中序后继）。
+     * 如果指定节点没有对应的“下一个”节点，则返回null。
+     * @param root 树根节点
+     * @param p 目标节点
+     * @return 后继节点
+     * 思路： 非常头疼的一个题，表面上看是中序遍历，但跳出时机不太好把握
+     * 根据搜索树的性质进行剪枝，边界值也很容易出问题，且效果不明显
+     */
+    public TreeNode inorderSuccessor(TreeNode root, TreeNode p){
+        findNode(root, p.val);
+        return resultNode;
+    }
+
+    private void findNode(TreeNode node, int val){
+        if(node.left != null && node.val >= val){
+            findNode(node.left, val);
+        }
+        if(find){
+            find = false;
+            resultNode = node;
+            return ;
+        }
+        if(node.val == val){
+            find = true;
+        }
+        if(node.right != null && node.val <= val){
+            findNode(node.right, val);
+        }
     }
 
 }
