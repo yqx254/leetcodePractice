@@ -765,4 +765,58 @@ public class Interview {
         }
     }
 
+    TreeNode result;
+    boolean isFind = false;
+    /**
+     *  04.08. 首个共同祖先
+     *  设计并实现一个算法，找出二叉树中某两个节点的第一个共同祖先。
+     *  不得将其他的节点存储在另外的数据结构中
+     * @param root 根节点
+     * @param p 查找目标1
+     * @param q 查找目标2
+     * @return 共同祖先节点
+     * 思路：递归，自己、左树、右树里找到一个数就+1
+     * 能加到2的地方且位于递归最深层的根节点一定是答案
+     * 更短平快、更骚的操作：
+     * 若节点等于要查询的节点或空，直接返回
+     * 这样，如果左子树中找到了一个值，则会返回它，右子树也是如此
+     * 如果左右子树都不为空，说明找到了答案（这时候是递归的最深层，所以肯定是首个祖先）
+     */
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q){
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p,  q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left != null && right != null){
+            return root;
+        }
+        if(left != null){
+            return left;
+        }
+        return right;
+    }
+//    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+//        result = root;
+//        findNodes(root, p.val, q.val);
+//        return result;
+//    }
+
+    private int findNodes(TreeNode node, int p, int q){
+        int total = 0;
+        if(node.val == p || node.val == q){
+            total += 1;
+        }
+        if(node.left != null){
+            total += findNodes(node.left, p, q);
+        }
+        if(node.right != null){
+            total += findNodes(node.right, p,q);
+        }
+        if(total == 2 && !isFind){
+            isFind = true;
+            result = node;
+        }
+        return total;
+    }
 }
