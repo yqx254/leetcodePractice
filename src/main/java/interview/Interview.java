@@ -852,17 +852,56 @@ public class Interview {
         return new ArrayList<>(storage.values());
     }
 
-//    public int[] smallestK(int[] arr, int k) {
-//        List<Integer> res = new ArrayList<>();
-//
-//    }
-//
-//    private void buildHeap(int [] heap, int heapSize){
-//        for(int i = heap.length / 2; i >= 0; i --){
-//
-//        }
-//    }
-//    private void minHeap(int [] heap, int i, int heapSize){
-//
-//    }
+    /**
+     * 17.14. 最小K个数
+     * 设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
+     * @param arr 目标数组
+     * @param k 最小的前k个数
+     * @return 最小的前k个数数组
+     * 思路：堆排序的练兵场，需要多加熟悉
+     * 快速排序应该更快，待研究
+     */
+    public int[] smallestK(int[] arr, int k) {
+        if(k == 0){
+            return new int[]{};
+        }
+        int [] res = new int[k];
+        buildHeap(arr, arr.length);
+        int i = 0;
+        int heapSize = arr.length;
+        while(i < k){
+            res[i] = arr[0];
+            i ++;
+            swap(arr, 0, heapSize - 1);
+            heapSize --;
+            minHeap(arr, 0, heapSize);
+        }
+        return res;
+    }
+
+    private void buildHeap(int [] heap, int heapSize){
+        for(int i = heap.length / 2; i >= 0; i --){
+            minHeap(heap, i, heapSize);
+        }
+    }
+    private void minHeap(int [] heap, int i, int heapSize){
+        int l = i * 2 + 1;
+        int r = i * 2 + 2;
+        int min = i;
+        if(l < heapSize && heap[l] < heap[min]){
+            min = l;
+        }
+        if(r < heapSize && heap[r] < heap[min]){
+            min = r;
+        }
+        if(min != i){
+            swap(heap, min, i);
+            minHeap(heap, min, heapSize);
+        }
+    }
+    private void swap(int [] arr, int i, int j){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
 }
