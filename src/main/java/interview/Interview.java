@@ -851,4 +851,18 @@ public class Interview {
         }
         return new ArrayList<>(storage.values());
     }
+
+//    public int[] smallestK(int[] arr, int k) {
+//        List<Integer> res = new ArrayList<>();
+//
+//    }
+//
+//    private void buildHeap(int [] heap, int heapSize){
+//        for(int i = heap.length / 2; i >= 0; i --){
+//
+//        }
+//    }
+//    private void minHeap(int [] heap, int i, int heapSize){
+//
+//    }
 }
