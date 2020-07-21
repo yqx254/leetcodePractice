@@ -188,31 +188,33 @@ public class Easy{
      *   思路4：内置函数极限偷鸡
      */
     public int strStr(String haystack, String needle){
-        Map<Character, Integer> map = new HashMap<>(needle.length());
-        for(int i = 0 ;i < needle.length(); i ++){
-            map.put(needle.charAt(i), needle.length() - i);
-        }
-        int idx = 0;
-        while(idx + needle.length() <= haystack.length()){
-            String hay = haystack.substring(idx, idx + needle.length());
-            if(hay.equals(needle)){
-                return idx;
-            }
-            if(idx + needle.length() >= haystack.length()){
-                return -1;
-            }
-            char next = haystack.charAt(idx + needle.length());
-            if(map.get(next) != null){
-                idx = idx + map.get(next);
-            }
-            else{
-                idx = idx + needle.length() + 1;
-            }
-        }
-        if(idx + needle.length() >= haystack.length()){
+        Map<Character, Integer> bias = new HashMap<>();
+        int needleLen = needle.length();
+        int haystackLen = haystack.length();
+        if(needleLen > haystackLen){
             return -1;
         }
-        return idx;
+        for(int i = 0; i < needleLen; i ++){
+            bias.put(needle.charAt(i), needleLen - i);
+        }
+        int idx = 0;
+        while(idx + needleLen <= haystackLen){
+            String current = haystack.substring(idx,idx + needleLen);
+            if(current.equals(needle)){
+                return idx;
+            }
+            if(idx + needleLen >= haystackLen){
+                return -1;
+            }
+            char next = haystack.charAt(idx + needleLen);
+            if(bias.containsKey(next)){
+                idx += bias.get(next);
+            }
+            else{
+                idx += needleLen + 1;
+            }
+        }
+        return  -1;
     }
 
     /**
@@ -368,5 +370,28 @@ public class Easy{
              n2.next = null;
          }
         return null;
+     }
+
+    /**
+     *  167. 两数之和 II - 输入有序数组
+     *  给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
+     *  函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
+     * @param numbers 有序数组
+     * @param target 要找的目标
+     * @return 下标值
+     * 思路：理论最佳思路应该是双指针一前一后？
+     * 查找并剪枝的效率感觉还行，先酱
+     */
+     public int[] twoSum2(int [] numbers, int target){
+        for(int i = 0; i < numbers.length; i ++){
+            int realTarget = target - numbers[i];
+            if(realTarget >= numbers[i]){
+                int idx = Arrays.binarySearch(numbers, i,numbers.length,realTarget);
+                if(idx > 0){
+                    return new int[]{i + 1, idx + 1};
+                }
+            }
+        }
+        return new int[]{};
      }
 }

@@ -904,4 +904,80 @@ public class Interview {
         arr[i] = arr[j];
         arr[j] = tmp;
     }
+
+    int len;
+    int [] row;
+    int [] col;
+    int [] vale;
+    int [] dale;
+    List<String> board;
+    List<List<String>> res;
+
+    /**
+     *  08.12. N皇后
+     * @param n 再战N皇后
+     * @return 结果集合
+     * 思路：回溯，需要练习 + 复习
+     */
+    public List<List<String>> solveNQueens(int n){
+         res = new ArrayList<>();
+         board = new ArrayList<>();
+        if(n ==0){
+            return res;
+        }
+        len = n;
+        row = new  int[len];
+        col = new int[len];
+        vale = new int [len * 2];
+        dale = new int [len * 2];
+
+        for(int i = 0; i < len; i ++){
+            StringBuilder stb = new StringBuilder();
+            for(int j = 0; j < len; j ++){
+                stb.append('.');
+            }
+            board.add(stb.toString());
+        }
+        attempt(0,0);
+        return res;
+    }
+
+    private  void attempt(int r, int count){
+        if(count == len){
+            res.add(new ArrayList<>(board));
+            return;
+        }
+            for(int c = 0; c < len; c ++){
+                if(checkValid(r, c)){
+                    put(r ,c);
+                    attempt(r + 1, count + 1);
+                    remove(r, c);
+                }
+            }
+
+    }
+
+    private void put(int r, int c){
+        StringBuilder stb = new StringBuilder(board.get(r));
+        stb.setCharAt(c, 'Q');
+        board.set(r,stb.toString());
+        row[r] = 1;
+        col[c] = 1;
+        vale[r - c + len] = 1;
+        dale[r + c] = 1;
+    }
+
+    private void remove(int r, int c){
+        StringBuilder stb = new StringBuilder(board.get(r));
+        stb.setCharAt(c, '.');
+        board.set(r,stb.toString());
+        row[r] = 0;
+        col[c] = 0;
+        vale[r - c + len] = 0;
+        dale[r + c] = 0;
+    }
+
+    private boolean checkValid(int r, int c){
+        return row[r] + col[c] + vale[r - c + len] + dale[r + c] == 0;
+    }
 }

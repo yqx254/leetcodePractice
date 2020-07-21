@@ -173,4 +173,10 @@ public class InterviewTest {
         assertEquals(1,interview.trailingZeroes(n1));
         assertEquals(1,interview.trailingZeroes(n2));
     }
+
+    @Test
+    public void test_solve_n_queen(){
+        int n = 8;
+        System.out.println(interview.solveNQueens(n).size());
+    }
 }
