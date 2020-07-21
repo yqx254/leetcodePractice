@@ -1249,4 +1249,42 @@ public class Medium {
         }
         return sb.toString();
     }
+
+    /**
+     *  1094. 拼车
+     *  假设你是一位顺风车司机，车上最初有 capacity 个空座位可以用来载客。
+     *  由于道路的限制，车 只能 向一个方向行驶（也就是说，不允许掉头或改变方向，你可以将其想象为一个向量）。
+     * 这儿有一份乘客行程计划表 trips[][]
+     * 其中 trips[i] = [num_passengers, start_location, end_location] 包含了第 i 组乘客的行程信息：
+     * 必须接送的乘客数量；
+     * 乘客的上车地点；
+     * 以及乘客的下车地点。
+     * 这些给出的地点位置是从你的 初始 出发位置向前行驶到这些地点所需的距离
+     * （它们一定在你的行驶方向上）。
+     * 请你根据给出的行程计划表和车子的座位数，来判断你的车是否可以顺利完成接送所用乘客的任务
+     * （当且仅当你可以在所有给定的行程中接送所有乘客时，返回 true，否则请返回 false）。
+     * @param trips 乘客表
+     * @param capacity  载客量
+     * @return 是否能够完成任务
+     * 思路：设置一个数组，存储的值是每个点发生的人数改变数量
+     * 完成后，使用单循环检查每个点的载客量是否超过承受值
+     * 改进：在首轮循环中设置路程的结束点，能够减少次轮循环的计算次数
+     */
+    public boolean carPooling(int [][] trips, int capacity){
+        int [] passengerCnt = new int [1000];
+        int endPoint = Integer.MIN_VALUE;
+        for(int i = 0; i < trips.length; i  ++){
+            passengerCnt[trips[i][1]] +=trips[i][0];
+            passengerCnt[trips[i][2]] -= trips[i][0];
+            endPoint = Math.max(endPoint, trips[i][2]);
+        }
+        int currentP = 0;
+        for(int j = 0; j <=  endPoint; j ++){
+            currentP += passengerCnt[j];
+            if(currentP > capacity){
+                return false;
+            }
+        }
+        return true;
+    }
 }
