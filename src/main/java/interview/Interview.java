@@ -1016,10 +1016,33 @@ public class Interview {
     }
 
     /**
+     * 16.17. 连续数列
+     * 给定一个整数数组，找出总和最大的连续数列，并返回总和。
+     * @param nums
+     * @return
+     */
+    public int maxSubArray(int[] nums) {
+        int total = nums[0];
+        int current = 0;
+        if(nums.length == 1){
+            return total;
+        }
+        for(int i : nums){
+            if(i + current > 0){
+                current = i + current;
+                total = Math.max(total, current);
+            }
+            else{
+                current = 0;
+            }
+        }
+        return total;
+    }
+    /**
      *  17.06. 2出现的次数
      *  编写一个方法，计算从 0 到 n (含 n) 中数字 2 出现的次数。
      *  暂时总结规律如下
-     *n=10	i = 0	1
+     * n=10	i = 0	1
      *
      * n=100	i = 1	val(i - 1) * 10 + n % 10  = 20
      *
