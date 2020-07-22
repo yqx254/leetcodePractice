@@ -442,4 +442,51 @@ public class Hard {
     private  boolean checkQueen(int x, int y){
         return row[y] + dale[x -y  + size - 1] + hill[x + y] == 0;
     }
+
+    /**
+     * 154. 寻找旋转排序数组中的最小值 II
+     * 假设按照升序排序的数组在预先未知的某个点上进行了旋转。
+     *
+     * ( 例如，数组 [0,1,2,4,5,6,7] 可能变为 [4,5,6,7,0,1,2] )。
+     *
+     * 请找出其中最小的元素。
+     *
+     * 注意数组中可能存在重复的元素。
+     * @param nums 输入数组
+     * @return 最小元素
+     * 思路：堆排序？暴力解？
+     * 好像速度差不多，可能需要研究一下二分查找解
+     */
+    public int findMin(int [] nums){
+        buildHeap(nums);
+        return nums[0];
+    }
+
+    private void buildHeap(int [] numbers){
+        for(int i = numbers.length / 2; i >= 0; i --){
+            minHeap(i, numbers);
+        }
+    }
+    private void minHeap(int i, int [] numbers){
+        int l = i * 2 + 1;
+        int r = i * 2 + 2;
+        int min = i;
+        if(l < numbers.length && numbers[l] < numbers[min]){
+            min  = l;
+        }
+        if(r < numbers.length && numbers[r] < numbers[min]){
+            min = r;
+        }
+        if(i != min){
+            swap(i, min,numbers);
+            minHeap(min,numbers);
+        }
+    }
+    private void swap(int i , int j, int [] numbers){
+        int tmp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = tmp;
+    }
+
+
 }
