@@ -982,6 +982,36 @@ public class Interview {
     }
 
     /**
+     *   16.06. 最小差
+     * @param a
+     * @param b
+     * @return
+     */
+    public int smallestDifference(int [] a , int [] b){
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int lenA = a.length;
+        int lenB = b.length;
+        int len = Math.min(lenA, lenB);
+        int i = 0;
+        int j = 0;
+        long min = Long.MAX_VALUE;
+        while(i < len && j < len){
+            min = Math.min(min, Math.abs(a[i] - b[j]));
+            if(a[i] == b[j]){
+                return 0;
+            }
+            else if(a[i] < b[j]){
+                i ++;
+            }
+            else{
+                j ++;
+            }
+        }
+        return (int) min;
+    }
+
+    /**
      * 16.10. 生存人数
      * 给定N个人的出生年份和死亡年份，第i个人的出生年份为birth[i]，死亡年份为death[i]
      * 实现一个方法以计算生存人数最多的年份。
