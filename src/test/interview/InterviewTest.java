@@ -190,4 +190,11 @@ public class InterviewTest {
         assertEquals(wordsFrequency.get("apple"), 1);
         assertEquals(wordsFrequency.get("pen"), 1);
     }
+
+    @Test
+    public void test_smallest_different(){
+        int [] a1 = new int []{-2147483648,1};
+        int [] b1 = new int []{2147483647,0};
+        assertEquals(interview.smallestDifference(a1, b1), 1);
+    }
 }

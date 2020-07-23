@@ -983,21 +983,24 @@ public class Interview {
 
     /**
      *   16.06. 最小差
-     * @param a
-     * @param b
-     * @return
+     *   给定两个整数数组a和b，计算具有最小差绝对值的一对数值（每个数组中取一个值），并返回该对数值的差
+     * @param a 数组1
+     * @param b 数组2
+     * @return 最小差
+     * 思路：先排序，双指针推进，
+     * 两数相减后把小的一方往后推（因为大的更大只会导致差距更大）直到末尾
+     * 有一组极其恶心的测试用例，见测试类
      */
     public int smallestDifference(int [] a , int [] b){
         Arrays.sort(a);
         Arrays.sort(b);
         int lenA = a.length;
         int lenB = b.length;
-        int len = Math.min(lenA, lenB);
         int i = 0;
         int j = 0;
         long min = Long.MAX_VALUE;
-        while(i < len && j < len){
-            min = Math.min(min, Math.abs(a[i] - b[j]));
+        while(i < lenA && j < lenB){
+            min = Math.min(min, Math.abs((long)a[i] - (long)b[j]));
             if(a[i] == b[j]){
                 return 0;
             }
@@ -1008,7 +1011,7 @@ public class Interview {
                 j ++;
             }
         }
-        return (int) min;
+        return (int)min;
     }
 
     /**
