@@ -2,6 +2,7 @@ package interview;
 
 import org.junit.Before;
 import org.junit.Test;
+import pojo.WordsFrequency;
 
 import java.util.Arrays;
 
@@ -178,5 +179,15 @@ public class InterviewTest {
     public void test_solve_n_queen(){
         int n = 8;
         System.out.println(interview.solveNQueens(n).size());
+    }
+
+    @Test
+    public void test_word_frequency(){
+        WordsFrequency wordsFrequency = new WordsFrequency(new String[]{"i", "have", "an", "apple", "he", "have", "a", "pen"});
+        assertEquals(wordsFrequency.get("you"), 0);
+        assertEquals(wordsFrequency.get("have"), 2);
+        assertEquals(wordsFrequency.get("an"), 1);
+        assertEquals(wordsFrequency.get("apple"), 1);
+        assertEquals(wordsFrequency.get("pen"), 1);
     }
 }
