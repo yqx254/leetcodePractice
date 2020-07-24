@@ -207,4 +207,11 @@ public class InterviewTest {
         interview.hanota(a, b, c);
         assertArrayEquals(tmp.toArray(),c. toArray());
     }
+
+    @Test
+    public void test_smallest_different(){
+        int [] a1 = new int []{-2147483648,1};
+        int [] b1 = new int []{2147483647,0};
+        assertEquals(interview.smallestDifference(a1, b1), 1);
+    }
 }
