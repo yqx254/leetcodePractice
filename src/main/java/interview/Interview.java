@@ -821,6 +821,31 @@ public class Interview {
     }
 
     /**
+     *  08.06. 汉诺塔问题
+     * @param A 塔1
+     * @param B 塔2
+     * @param C 塔3
+     *  递归+分治的经典题目，要注意List实现栈操作可能出现的各种问题
+     *   以及集合类的深浅拷贝（写测试用例可能会用到）
+     */
+    public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
+        build(A.size(), A, B, C);
+    }
+    private void build(int size, List<Integer> A, List<Integer> B, List<Integer> C){
+        if(size == 1){
+            move(A, C);
+        }
+        else{
+            build(size - 1, A, C, B);
+            move(A, C);
+            build(size - 1, B, A, C);
+        }
+    }
+    private void move(List<Integer> A, List<Integer> B){
+        B.add(A.remove(A.size() - 1));
+    }
+
+    /**
      * 10.02. 变位词组
      * 编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。
      * @param strs

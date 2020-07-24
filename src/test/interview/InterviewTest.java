@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import pojo.WordsFrequency;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -189,5 +191,20 @@ public class InterviewTest {
         assertEquals(wordsFrequency.get("an"), 1);
         assertEquals(wordsFrequency.get("apple"), 1);
         assertEquals(wordsFrequency.get("pen"), 1);
+    }
+
+    @Test
+    public void test_hanota(){
+        List<Integer> a = new ArrayList<>();
+        List<Integer> b = new ArrayList<>();
+        List<Integer> c= new ArrayList<>();
+
+        for(int i = 0; i < 5; i ++){
+            a.add(i);
+        }
+        //注意这个！
+        List<Integer> tmp = new ArrayList<>(a);
+        interview.hanota(a, b, c);
+        assertArrayEquals(tmp.toArray(),c. toArray());
     }
 }
