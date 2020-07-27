@@ -1096,6 +1096,80 @@ public class Interview {
         }
         return total;
     }
+
+    /**
+     * 16.20. T9键盘
+     * 在老式手机上，用户通过数字键盘输入，手机将提供与这些数字相匹配的单词列表。
+     * 每个数字映射到0至4个字母。给定一个数字序列，实现一个算法来返回匹配单词的列表。
+     * 你会得到一张含有有效单词的列表。
+     * @param num ha
+     * @param words
+     * @return
+     */
+    public List<String> getValidT9Words(String num, String[] words) {
+        List<String> result = new ArrayList<>();
+        int [] storage = new int [10];
+        for(char c : num.toCharArray()){
+            storage[c - 48] ++;
+        }
+        for(String s : words){
+            int [] st = storage.clone();
+            char [] a = s.toCharArray();
+            boolean checked = true;
+            for(char b : a){
+                int currentNum = location(b);
+                st[currentNum] --;
+                if(st[currentNum] < 0){
+                    checked = false;
+                    break;
+                }
+            }
+            if(checked){
+                result.add(s);
+            }
+        }
+        return result;
+    }
+    private int location(char c){
+        switch(c){
+            case 'a':
+            case 'b':
+            case 'c':
+                return 2;
+            case 'd':
+            case 'e':
+            case 'f':
+                return 3;
+            case 'g':
+            case 'h':
+            case 'i':
+                return 4;
+            case 'j':
+            case 'k':
+            case 'l':
+                return 5;
+            case 'm':
+            case 'n':
+            case 'o':
+                return 6;
+            case 'p':
+            case 'q':
+            case 'r':
+            case 's':
+                return 7;
+            case 't':
+            case 'u':
+            case 'v':
+                return 8;
+            case 'w':
+            case 'x':
+            case 'y':
+            case 'z':
+                return 9;
+            default:
+                return 0;
+        }
+    }
     /**
      *  17.06. 2出现的次数
      *  编写一个方法，计算从 0 到 n (含 n) 中数字 2 出现的次数。

@@ -214,4 +214,23 @@ public class InterviewTest {
         int [] b1 = new int []{2147483647,0};
         assertEquals(interview.smallestDifference(a1, b1), 1);
     }
+
+    @Test
+    public void test_valid_word(){
+        String num1 = "8733";
+        String [] words1 = new String []{"tree","used"};
+        String num2 = "3";
+        String [] words2 = new String []{"a","b","c","d"};
+        String num3 = "";
+        String [] words3 = new String []{"a","b","c","d"};
+        String num4 = "2536";
+        String [] words4 = new String []{};
+        String num5 = "4663";
+        String [] words5 = new String []{"good","mine","mint"};
+        System.out.println(interview.getValidT9Words(num1,words1).toString());
+        System.out.println(interview.getValidT9Words(num2,words2).toString());
+        System.out.println(interview.getValidT9Words(num3,words3).toString());
+        System.out.println(interview.getValidT9Words(num4,words4).toString());
+        System.out.println(interview.getValidT9Words(num5,words5).toString());
+    }
 }

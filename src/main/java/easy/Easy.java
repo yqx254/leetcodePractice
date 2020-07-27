@@ -395,6 +395,15 @@ public class Easy{
         return new int[]{};
      }
 
+    /**
+     *  392. 判断子序列
+     *  给定字符串 s 和 t ，判断 s 是否为 t 的子序列。
+     * @param s 疑似子序列
+     * @param t 长长的字符串
+     * @return 疑似子序列是不是子序列
+     * 思路：双指针
+     * 把字符串拆成字符数组可以略微提升效率
+     */
      public boolean isSubsequence(String s, String t){
         if(s.length() > t.length()){
             return false;
