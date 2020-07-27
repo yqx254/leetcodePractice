@@ -394,4 +394,20 @@ public class Easy{
         }
         return new int[]{};
      }
+
+     public boolean isSubsequence(String s, String t){
+        if(s.length() > t.length()){
+            return false;
+        }
+        char [] sChar = s.toCharArray();
+        char [] tChar = t.toCharArray();
+        int i = 0,j = 0;
+        while(i < t.length() && j < s.length()){
+            if(sChar[j] == tChar[i]){
+                j ++;
+            }
+            i ++;
+        }
+        return j == s.length();
+     }
 }
