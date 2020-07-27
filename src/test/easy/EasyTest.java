@@ -159,4 +159,17 @@ public class EasyTest {
         assertEquals(easy.lengthOfLastWord(s4),8);
         assertEquals(easy.lengthOfLastWord(s5),1);
     }
+
+    @Test
+    public void test_is_subsequence(){
+        String s1 = "abc";
+        String t1 = "ahbgdc";
+        String s2 = "axc";
+        String t2 = "ahbgdc";
+        String s3 = "";
+        String t3 = "abcd";
+        assertTrue(easy.isSubsequence(s1, t1));
+        assertFalse(easy.isSubsequence(s2, t2));
+        assertTrue(easy.isSubsequence(s3, t3));
+    }
 }
