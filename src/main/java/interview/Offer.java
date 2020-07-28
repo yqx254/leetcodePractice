@@ -1,5 +1,9 @@
 package interview;
 
+import pojo.ListNode;
+
+import java.util.Stack;
+
 /**
  * 剑指offer分类题解
  * @author fstar
@@ -26,5 +30,29 @@ public class Offer {
             storage[num] ++;
         }
         return -1;
+    }
+
+    /**
+     * 06. 从尾到头打印链表
+     * 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
+     * @param head 头节点
+     * @return 反转的数组
+     * 思路： 栈解法： 空间复杂度为O(n)
+     * 切记！！！！不要用storage.size()直接做循环控制变量，囧
+     * 尝试翻转链表？
+     */
+    public int[] reversePrint(ListNode head) {
+        Stack<Integer> storage = new Stack<>();
+        while(head != null){
+            storage.push(head.val);
+            head = head.next;
+        }
+        int size = storage.size();
+        int [] result = new int[size];
+        for(int i = 0; i < size; i ++){
+            result[i] = storage.pop();
+        }
+        return result;
+
     }
 }
