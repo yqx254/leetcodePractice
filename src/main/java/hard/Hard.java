@@ -203,7 +203,7 @@ public class Hard {
      * @param nums 未排序数组
      * @return 未出现的最小正整数
      * 思路：三轮扫描，O(n)级
-     * 第一轮将所有负数和大于数组长度的数改写为-1（因为用不上）
+     * 第一轮将所有负数和大于数组长度的数改写为1（因为用不上）
      * 若数组中不存在1，直接返回1
      * 第二轮将数组的值作为键，把键对应的值改成负值
      * 负值代表这个数字出现过，比如{-1,-2,-1,4}代表1 2 4存在，3不存在
@@ -219,6 +219,7 @@ public class Hard {
             if(nums[i] == 1 && oneFlag){
                 oneFlag = false;
             }
+            //这一手hin关键，注意是改成1
             if(nums[i] <= 0 || nums[i] > nums.length){
                 nums[i] = 1;
             }
@@ -227,6 +228,7 @@ public class Hard {
             return  1;
         }
         int index;
+        //第二轮扫描是使用负号来标识已经出现过的数字
         for(int j = 0; j < nums.length; j++){
             index = Math.abs(nums[j]);
             if(index == nums.length){

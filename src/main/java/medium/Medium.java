@@ -1235,6 +1235,32 @@ public class Medium {
         }
     }
 
+    /**
+     *  287. 寻找重复数
+     *  给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n）
+     *  可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。
+     * @param nums 数组
+     * @return 重复的数
+     * 思路：龟兔跑起来！
+     * 注意这个题目的条件，数字大于n 或数字可能为0都会导致龟兔跑法不能被使用
+     */
+    public int findDuplicate(int[] nums) {
+        int hare = nums[0], tortoise = nums[0];
+        while(true){
+            hare = nums[nums[hare]];
+            tortoise = nums[tortoise];
+            if(hare == tortoise){
+                tortoise = nums[0];
+                break;
+            }
+        }
+        while(hare != tortoise){
+            tortoise = nums[tortoise];
+            hare = nums[hare];
+        }
+        return hare;
+    }
+
     public String getPermutation(int n, int k){
         int [] a = new int [n];
         for(int i = 0; i < n; i ++){
