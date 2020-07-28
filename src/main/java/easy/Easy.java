@@ -1,6 +1,7 @@
 package easy;
 
 import pojo.ListNode;
+import pojo.TreeNode;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -307,6 +308,38 @@ public class Easy{
         return s.length() - lastSpace - 1;
     }
 
+    int max = 0;
+    /**
+     *  104. 二叉树的最大深度
+     *  给定一个二叉树，找出其最大深度。
+     * 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+     * 说明: 叶子节点是指没有子节点的节点。
+     * @param root 根节点
+     * @return 最大深度
+     * BFS DFS各来一遍，需要多加练习的基操
+     */
+    public int maxDepth(TreeNode root) {
+//        dfs(root, 1);
+//        return max;
+        return bfs(root);
+    }
+    private void dfs(TreeNode root, int current){
+        if(root == null){
+            max = Math.max(current, max);
+            return;
+        }
+        dfs(root.left, current + 1);
+        dfs(root.right, current + 1);
+    }
+
+    private int bfs(TreeNode root){
+        if(root == null){
+            return 0;
+        }
+        int left = bfs(root.left);
+        int right = bfs(root.right);
+        return Math.max(left, right) + 1;
+    }
      /**
      * 160.相交链表
      * 编写一个程序，找到两个单链表相交的起始节点。

@@ -409,4 +409,24 @@ public class MediumTest {
         System.out.println(medium.getPermutation(n2,k2));
         System.out.println(medium.getPermutation(n3,k3));
     }
+
+    @Test
+    public void test_search_matrix(){
+        int [][] matrix = new int[][]{{1,   4,  7, 11, 15},
+                                                        {2,   5,  8, 12, 19},
+                                                        {3,   6,  9, 16, 22},
+                                                        {10, 13, 14, 17, 24},
+                                                        {18, 21, 23, 26, 30}};
+        int [][] matrix2 = new int[][]{{}};
+        int [][] matrix3 = new int[][]{{-5}};
+        int target1 = 5;
+        int target2 = 20;
+        int target3 = 300;
+        int target4 = -5;
+        assertTrue(medium.searchMatrix(matrix, target1));
+        assertFalse(medium.searchMatrix(matrix, target2));
+        assertFalse(medium.searchMatrix(matrix, target3));
+        assertFalse(medium.searchMatrix(matrix2, target3));
+        assertTrue(medium.searchMatrix(matrix3, target4));
+    }
 }
