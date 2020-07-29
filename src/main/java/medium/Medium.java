@@ -1205,10 +1205,10 @@ public class Medium {
         for(int i = 0; i < inorder.length; i ++){
             map.put(inorder[i], i);
         }
-        return treeBuild(preorder, 0, preorder.length - 1,0,inorder.length - 1);
+        return treeBuild(preorder, 0, preorder.length - 1,0);
     }
 
-    private TreeNode treeBuild(int[] preorder, int preStart, int preEnd, int inStart, int inEnd){
+    private TreeNode treeBuild(int[] preorder, int preStart, int preEnd, int inStart){
         if(preStart > preEnd){
             return null;
         }
@@ -1216,14 +1216,23 @@ public class Medium {
         TreeNode node = new TreeNode(parent);
         int parentIdx = map.get(parent);
         int leftSize = parentIdx - inStart;
-        node.left = treeBuild(preorder, preStart + 1, preStart + leftSize, inStart, parentIdx - 1);
-        node.right = treeBuild(preorder, preStart + leftSize + 1,preEnd,parentIdx + 1, inEnd);
+        node.left = treeBuild(preorder, preStart + 1, preStart + leftSize, inStart);
+        node.right = treeBuild(preorder, preStart + leftSize + 1,preEnd,parentIdx + 1);
         return node;
     }
 
-//    private TreeNode tBuild(int [] preorder, int start, int end, int leftSize){
-//
-//    }
+    private TreeNode tBuild(int [] preorder, int start, int end, int leftSize){
+        if(start > end){
+            return null;
+        }
+        int parent = preorder[start];
+        int parentIdx = map.get(parent);
+        TreeNode node = new TreeNode(parent);
+        int currentLeftSize = parentIdx - leftSize;
+        node.left = tBuild(preorder, start + 1,start + currentLeftSize,leftSize);
+        node.right = tBuild(preorder, start + currentLeftSize + 1, end, parentIdx + 1);
+        return node;
+    }
 
     /**
      * No 215  数组中的第K个最大元素
