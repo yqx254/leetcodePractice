@@ -2,7 +2,8 @@ package medium;
 
 
 
-import java.math.BigInteger;
+import pojo.TreeNode;
+
 import java.util.*;
 
 /**
@@ -1179,6 +1180,50 @@ public class Medium {
         }
         return result;
     }
+    Map<Integer,Integer> map;
+    /**
+     * 105. 从前序与中序遍历序列构造二叉树
+     * 根据一棵树的前序遍历与中序遍历构造二叉树。
+     * 你可以假设树中没有重复的元素。
+     * @param preorder 前续遍历
+     * @param inorder  中序遍历
+     *  思路：比较脑壳疼的一个题
+     *  首先，前续遍历的第一个值就是根节点
+     *  然后，在中序遍历中找到根节点的位置（提前建立起哈希表来存储各节点的位置）
+     *  之后递归构建左右子树
+     *  在递归之前，需要保存左子树的长度（根节点在中序遍历中的位置减掉中序遍历的起始位置）
+     *   其中，左子树的根节点是前序遍历中的下一个
+     *               左子树的前序起点是根节点+1，终点是起点+长度（重要）
+     *                 左子树的中序起点是0，终点是根节点中序值 - 1
+     *               右子树的根节点是左子树的终点 + 1 ,终点是末尾
+     *                 右子树的中序起点是根节点中序值 + 1，终点是末尾
+     *   用以上参数进行递归
+     *   注意，Arrays.binarySearch()针对的是有序数组，所以节点的中序遍历需要提前用哈希表存储并准备
+     */
+    public TreeNode buildTree(int [] preorder, int [] inorder){
+        map = new HashMap<>();
+        for(int i = 0; i < inorder.length; i ++){
+            map.put(inorder[i], i);
+        }
+        return treeBuild(preorder, 0, preorder.length - 1,0,inorder.length - 1);
+    }
+
+    private TreeNode treeBuild(int[] preorder, int preStart, int preEnd, int inStart, int inEnd){
+        if(preStart > preEnd){
+            return null;
+        }
+        int parent = preorder[preStart];
+        TreeNode node = new TreeNode(parent);
+        int parentIdx = map.get(parent);
+        int leftSize = parentIdx - inStart;
+        node.left = treeBuild(preorder, preStart + 1, preStart + leftSize, inStart, parentIdx - 1);
+        node.right = treeBuild(preorder, preStart + leftSize + 1,preEnd,parentIdx + 1, inEnd);
+        return node;
+    }
+
+//    private TreeNode tBuild(int [] preorder, int start, int end, int leftSize){
+//
+//    }
 
     /**
      * No 215  数组中的第K个最大元素

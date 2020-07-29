@@ -3,10 +3,7 @@ package easy;
 import pojo.ListNode;
 import pojo.TreeNode;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @author fstar
@@ -427,6 +424,23 @@ public class Easy{
         }
         return new int[]{};
      }
+
+    /**
+     * 206. 反转链表
+     * 反转一个单链表。
+     * @param head 链表头
+     *   思路：有递归法和迭代法两种，递归法的空间复杂度较高
+     *  但是不会不行哟
+     */
+    public ListNode reverseList(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        ListNode next = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return next;
+    }
 
     /**
      *  392. 判断子序列
