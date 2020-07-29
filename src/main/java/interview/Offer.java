@@ -33,6 +33,26 @@ public class Offer {
     }
 
     /**
+     *   Offer 05. 替换空格
+     * @param s 需要替换的字符串
+     * @return 替换后的结果
+     * 思路： 没啥好说的
+     * 把字符串转化成char array再遍历是个小技巧
+     */
+    public String replaceSpace(String s){
+        char [] c = s.toCharArray();
+        StringBuilder stb = new StringBuilder();
+        for(char t : c){
+            if(t == ' '){
+                stb.append("%20");
+            }
+            else{
+                stb.append(t);
+            }
+        }
+        return stb.toString();
+    }
+    /**
      * Offer 06. 从尾到头打印链表
      * 输入一个链表的头节点，从尾到头反过来返回每个节点的值（用数组返回）。
      * @param head 头节点
