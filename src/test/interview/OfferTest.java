@@ -3,6 +3,8 @@ package interview;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class OfferTest {
@@ -43,5 +45,12 @@ public class OfferTest {
     public void test_min_array(){
         assertEquals(offer.minArray(new int [] {3,4,5,1,2}),1);
         assertEquals(offer.minArray(new int [] {2,2,2,0,1}),0);
+    }
+
+    @Test
+    public void test_print_number(){
+        System.out.println(Arrays.toString(offer.printNumbers(2)));
+        System.out.println(Arrays.toString(offer.printNumbers(3)));
+        System.out.println(Arrays.toString(offer.printNumbers(4)));
     }
 }

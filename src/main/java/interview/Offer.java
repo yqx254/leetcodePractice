@@ -150,4 +150,82 @@ public class Offer {
         }
         return numbers[low];
     }
+
+    /**
+     * Offer 17. 打印从1到最大的n位数
+     * @param n n位数
+     * @return 打印结果
+     * 思路： 简单题，好像没发现什么坑
+     */
+    public int[] printNumbers(int n){
+        int end = (int)Math.pow(10, (n - 1));
+        int [] result = new int[end - 1];
+        for(int i = 1; i < end; i ++){
+            result[i - 1] = i;
+        }
+        return result;
+    }
+
+    /**
+     * Offer 18. 删除链表结点
+     * @param head 头结点
+     * @param val 删除值
+     * @return 头结点
+     * 思路： 简单题，头结点的处理稍微注意一下
+     */
+    public ListNode deleteNode(ListNode head, int val) {
+        ListNode prev = new ListNode(0);
+        prev.next = head;
+        ListNode current = head;
+        if(head.val == val){
+            return head.next;
+        }
+        while(current != null){
+            if(current.val == val){
+                prev.next = current.next;
+                return head;
+            }
+            prev = prev.next;
+            current = current.next;
+        }
+        return head;
+    }
+
+    /**
+     * Offer 22. 链表中倒数第k个节点
+     * @param head 头
+     * @param k 倒数第几
+     * @return 返回链表
+     * 简单题不解释
+     */
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode fast = head;
+        ListNode slow = head;
+        for(int i = 0; i < k; i ++){
+            fast = fast.next;
+        }
+        while(fast != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+    /**
+     *Offer 24. 反转链表
+     * 定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
+     * @param head 头结点
+     * 思路：简单题，漏了不少细节，试试用递归解
+     */
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode current = head;
+        ListNode tmp;
+        while(current != null){
+            tmp = current.next;
+            current.next = prev;
+            prev = current;
+            current = tmp;
+        }
+        return  head;
+    }
 }
