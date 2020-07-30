@@ -1290,6 +1290,33 @@ public class Medium {
     }
 
     /**
+     * 240搜索二维矩阵 II
+     * 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：
+     * 每行的元素从左到右升序排列。
+     * 每列的元素从上到下升序排列。
+     * @param matrix 矩阵
+     * @param target 目标数
+     * @return 是否存在
+     * 思路：分析矩阵图可知，这个矩阵类似一个从左下方开始的查找二叉树，故能得解
+     * （这个分析并不容易）
+     */
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int i = matrix.length - 1;
+        int j = 0;
+        while(i >= 0 && j < matrix[0].length){
+            if(target == matrix[i][j]){
+                return true;
+            }
+            if(target > matrix[i][j]){
+                j ++;
+            }
+            else{
+                i --;
+            }
+        }
+        return false;
+    }
+    /**
      *  287. 寻找重复数
      *  给定一个包含 n + 1 个整数的数组 nums，其数字都在 1 到 n 之间（包括 1 和 n）
      *  可知至少存在一个重复的整数。假设只有一个重复的整数，找出这个重复的数。
@@ -1368,31 +1395,4 @@ public class Medium {
         return true;
     }
 
-    /**
-     * 240搜索二维矩阵 II
-     * 编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下特性：
-     * 每行的元素从左到右升序排列。
-     * 每列的元素从上到下升序排列。
-     * @param matrix 矩阵
-     * @param target 目标数
-     * @return 是否存在
-     * 思路：分析矩阵图可知，这个矩阵类似一个从左下方开始的查找二叉树，故能得解
-     * （这个分析并不容易）
-     */
-    public boolean searchMatrix(int[][] matrix, int target) {
-        int i = matrix.length - 1;
-        int j = 0;
-        while(i >= 0 && j < matrix[0].length){
-            if(target == matrix[i][j]){
-                return true;
-            }
-            if(target > matrix[i][j]){
-                j ++;
-            }
-            else{
-                i --;
-            }
-        }
-        return false;
-    }
 }

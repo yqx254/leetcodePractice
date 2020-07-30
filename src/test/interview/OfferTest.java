@@ -22,4 +22,26 @@ public class OfferTest {
         assertEquals(offer.findRepeatNumber(nums2),2);
         assertEquals(offer.findRepeatNumber(nums3),11);
     }
+
+    @Test
+    public void test_fib(){
+        assertEquals(offer.fib(2),1);
+        assertEquals(offer.fib(5),5);
+        assertEquals(offer.fib(30),832040);
+    }
+
+    @Test
+    public void test_num_ways(){
+        assertEquals(offer.numWays(2),2);
+        assertEquals(offer.numWays(7),21);
+        assertEquals(offer.numWays(0),1);
+        assertEquals(offer.numWays(1),1);
+        System.out.println(offer.numWays(45));
+    }
+
+    @Test
+    public void test_min_array(){
+        assertEquals(offer.minArray(new int [] {3,4,5,1,2}),1);
+        assertEquals(offer.minArray(new int [] {2,2,2,0,1}),0);
+    }
 }
