@@ -233,4 +233,14 @@ public class InterviewTest {
         System.out.println(interview.getValidT9Words(num4,words4).toString());
         System.out.println(interview.getValidT9Words(num5,words5).toString());
     }
+
+    @Test
+    public void test_find_magic_index(){
+        int [] n1 = new int []{0,2,3,4,5};
+        int [] n2 = new int [] {1,1,1};
+        int [] n3 = new int [] {1,1,1,2,2,2,3};
+        assertEquals(interview.findMagicIndex(n1),0);
+        assertEquals(interview.findMagicIndex(n2),1);
+        assertEquals(interview.findMagicIndex(n3),1);
+    }
 }

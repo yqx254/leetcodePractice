@@ -821,6 +821,26 @@ public class Interview {
     }
 
     /**
+     *   08.03. 魔术索引
+     *   魔术索引。 在数组A[0...n-1]中，有所谓的魔术索引，满足条件A[i] = i。给定一个有序整数数组，编写一种方法找出魔术索引
+     *   若有的话，在数组A中找出一个魔术索引，如果没有，则返回-1。若有多个魔术索引，返回索引值最小的一个。
+     *   nums长度在[1, 1000000]之间
+     * 此题为原书中的 Follow-up，即数组中可能包含重复元素的版本
+     * @param nums 数组
+     * @return 魔术索引
+     * 思路：因为数字可能出现重复，所以无法进行二分查找，注意！
+     * 也就是说，复杂度不可能降到O(log n)
+     * 朴素遍历搞定(最多加一个跳跃性的优化)
+     */
+    public int findMagicIndex(int [] nums){
+        for(int i = 0; i < nums.length; i ++){
+            if(nums[i] == i){
+                return i;
+            }
+        }
+        return  -1;
+    }
+    /**
      *  08.06. 汉诺塔问题
      * @param A 塔1
      * @param B 塔2
@@ -845,6 +865,57 @@ public class Interview {
         B.add(A.remove(A.size() - 1));
     }
 
+    int len;
+    int [] row;
+    int [] col;
+    int [] vale;
+    int [] dale;
+    List<String> board;
+    List<List<String>> res;
+
+    /**
+     *  08.12. N皇后
+     * @param n 再战N皇后
+     * @return 结果集合
+     * 思路：回溯，需要练习 + 复习
+     */
+    public List<List<String>> solveNQueens(int n){
+        res = new ArrayList<>();
+        board = new ArrayList<>();
+        if(n ==0){
+            return res;
+        }
+        len = n;
+        row = new  int[len];
+        col = new int[len];
+        vale = new int [len * 2];
+        dale = new int [len * 2];
+
+        for(int i = 0; i < len; i ++){
+            StringBuilder stb = new StringBuilder();
+            for(int j = 0; j < len; j ++){
+                stb.append('.');
+            }
+            board.add(stb.toString());
+        }
+        attempt(0,0);
+        return res;
+    }
+
+    private  void attempt(int r, int count){
+        if(count == len){
+            res.add(new ArrayList<>(board));
+            return;
+        }
+        for(int c = 0; c < len; c ++){
+            if(checkValid(r, c)){
+                put(r ,c);
+                attempt(r + 1, count + 1);
+                remove(r, c);
+            }
+        }
+
+    }
     /**
      * 10.02. 变位词组
      * 编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。
@@ -930,57 +1001,6 @@ public class Interview {
         arr[j] = tmp;
     }
 
-    int len;
-    int [] row;
-    int [] col;
-    int [] vale;
-    int [] dale;
-    List<String> board;
-    List<List<String>> res;
-
-    /**
-     *  08.12. N皇后
-     * @param n 再战N皇后
-     * @return 结果集合
-     * 思路：回溯，需要练习 + 复习
-     */
-    public List<List<String>> solveNQueens(int n){
-         res = new ArrayList<>();
-         board = new ArrayList<>();
-        if(n ==0){
-            return res;
-        }
-        len = n;
-        row = new  int[len];
-        col = new int[len];
-        vale = new int [len * 2];
-        dale = new int [len * 2];
-
-        for(int i = 0; i < len; i ++){
-            StringBuilder stb = new StringBuilder();
-            for(int j = 0; j < len; j ++){
-                stb.append('.');
-            }
-            board.add(stb.toString());
-        }
-        attempt(0,0);
-        return res;
-    }
-
-    private  void attempt(int r, int count){
-        if(count == len){
-            res.add(new ArrayList<>(board));
-            return;
-        }
-            for(int c = 0; c < len; c ++){
-                if(checkValid(r, c)){
-                    put(r ,c);
-                    attempt(r + 1, count + 1);
-                    remove(r, c);
-                }
-            }
-
-    }
 
     private void put(int r, int c){
         StringBuilder stb = new StringBuilder(board.get(r));
