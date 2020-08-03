@@ -172,4 +172,17 @@ public class EasyTest {
         assertFalse(easy.isSubsequence(s2, t2));
         assertTrue(easy.isSubsequence(s3, t3));
     }
+
+    @Test
+    public  void test_add_strings(){
+        String s1 = "100";
+        String s2 = "99";
+        String s3 = "1";
+        String s4 = "99";
+        String s5 = "69538";
+        String s6 = "77025";
+        assertEquals("199",easy.addStrings(s1, s2));
+        assertEquals("100",easy.addStrings(s3, s4));
+        assertEquals("146563",easy.addStrings(s5, s6));
+    }
 }

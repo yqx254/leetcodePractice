@@ -151,6 +151,64 @@ public class Offer {
         return numbers[low];
     }
 
+    int [][] map;
+    char [] wordArr;
+    char [][] board;
+    int row;
+    int col;
+
+    /**
+     * Offer 12. 矩阵中的路径
+     * 请设计一个函数，用来判断在一个矩阵中是否存在一条包含某字符串所有字符的路径。路径可以从矩阵中的任意一格开始，每一步可以在矩阵中向左、右、上、下移动一格。
+     * 如果一条路径经过了矩阵的某一格，那么该路径不能再次进入该格子。
+     * @param board  矩阵
+     * @param word 某字符
+     * @return 是否能找到
+     * 思路： 回溯算法，在长度为1的矩阵上翻车
+     * 要特别注意边界值，以及什么时候自增控制变量
+     */
+    public boolean exist(char[][] board, String word){
+        row = board.length;
+        col = board[0].length;
+        map = new int [row][col];
+        wordArr = word.toCharArray();
+        this.board = board;
+        boolean flag;
+        for(int i = 0; i < row; i ++){
+            for(int j = 0; j < col; j ++){
+                if(board[i][j] == wordArr[0]){
+                    flag = moveForward(i,  j,1);
+                    if(flag){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean moveForward(int i, int j, int len){
+        if(i < 0 || i >= row || j < 0 || j >= col){
+            return  false;
+        }
+        if(map[i][j] == 1){
+            return false;
+        }
+        if(board[i][j] == wordArr[len - 1]){
+            map[i][j] = 1;
+            if(len == wordArr.length){
+                return true;
+            }
+            len ++;
+            boolean result = moveForward(i - 1,j, len) || moveForward(i,j - 1, len) ||
+                    moveForward(i + 1, j, len) || moveForward(i , j + 1, len);
+            if(!result){
+                map[i][j] = 0;
+            }
+            return  result;
+        }
+        return false;
+    }
     /**
      * Offer 17. 打印从1到最大的n位数
      * @param n n位数

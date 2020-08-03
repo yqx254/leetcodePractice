@@ -466,4 +466,43 @@ public class Easy{
         }
         return j == s.length();
      }
+
+    /**
+     * 415. 字符串相加
+     * 两字符串相加，不能直接转整形
+     * @param num1  字符串1
+     * @param num2 字符串2
+     * @return 字符串型的结果
+     * 思路：转成char array挨个计算
+     *  char - '0' 的效率高于 char - 48
+     *  toCharArray的效率高于 挨个charAt
+     */
+     public String addStrings(String num1, String num2){
+         char [] n1 = num1.toCharArray();
+         char [] n2 = num2.toCharArray();
+         int start1 = n1.length - 1;
+         int start2 = n2.length - 1;
+         int extra = 0;
+         StringBuilder result = new StringBuilder();
+         while(start1 >= 0 || start2 >= 0 || extra != 0){
+             int tmp  = extra;
+             if(start1 >= 0){
+                 tmp += (n1[start1] - '0');
+                 start1 --;
+             }
+             if(start2 >= 0){
+                 tmp += (n2[start2] - '0');
+                 start2 --;
+             }
+             if(tmp >= 10){
+                 extra = 1;
+                 tmp -= 10;
+             }
+             else{
+                 extra = 0;
+             }
+             result.append(tmp);
+         }
+         return result.reverse().toString();
+     }
 }
