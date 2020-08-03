@@ -1,6 +1,7 @@
 package interview;
 
 import pojo.ListNode;
+import pojo.TreeNode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -285,5 +286,71 @@ public class Offer {
             current = tmp;
         }
         return  head;
+    }
+
+    /**
+     * Offer 25. 合并两个排序的链表
+     * @param l1 链表1
+     * @param l2 链表2
+     * @return 合并后的链表
+     * 思路： 常规操作，骚套路不太好想
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2){
+        ListNode head = new ListNode(0);
+        ListNode tmp = head;
+        while(l1 != null && l2 != null){
+            if(l1.val <= l2.val){
+                tmp.next = l1;
+                l1 = l1.next;
+            }
+            else{
+                tmp.next = l2;
+                l2 = l2.next;
+            }
+            tmp = tmp.next;
+        }
+        tmp.next = l1 != null ? l1 : l2;
+        return head.next;
+    }
+    /**
+     * Offer 27 二叉树的镜像
+     * 请完成一个函数，输入一个二叉树，该函数输出它的镜像。
+     * 思路：临时保存节点，进行递归
+     * 或者使用辅助栈？
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        if(root == null){
+            return null;
+        }
+        TreeNode tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+        return root;
+    }
+
+    /**
+     * Offer 28. 对称的二叉树
+     *请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+     *
+     * 例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+     * 思路：递归检查镜像对应节点的值是否相等，注意二叉树可能为空
+     */
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null){
+            return true;
+        }
+        return check(root.left, root.right);
+    }
+
+    private boolean check(TreeNode n1, TreeNode n2){
+        if(n1 == null || n2 == null){
+            return n1 == n2;
+        }
+        if(n1.val != n2.val){
+            return false;
+        }
+        return check(n1.left,n2.right) && check(n1.right, n2.left);
     }
 }
