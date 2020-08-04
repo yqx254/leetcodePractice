@@ -74,4 +74,27 @@ public class OfferTest {
         assertTrue(offer.exist(board4, word5));
         assertTrue(offer.exist(board5, word6));
     }
+
+    @Test
+    public void test_moving_count(){
+        int m1 = 2;
+        int n1 = 3;
+        int k1 = 1;
+        int m2 = 3;
+        int n2 = 1;
+        int k2 = 0;
+        assertEquals(offer.movingCount(m1,n1,k1),3);
+        offer.cnt = 0;
+        assertEquals(offer.movingCount(m2,n2,k2),1);
+        offer.cnt = 0;
+        System.out.println(offer.movingCount(100,100,20));
+    }
+
+    @Test
+    public void test_cutting_rope(){
+        int n1 = 2;
+        int n2 = 10;
+        assertEquals(offer.cuttingRope(n1),1);
+        assertEquals(offer.cuttingRope(n2), 36);
+    }
 }
