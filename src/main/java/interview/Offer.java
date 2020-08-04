@@ -210,6 +210,74 @@ public class Offer {
         }
         return false;
     }
+
+
+    int cnt = 0;
+    int limit;
+    int [][] robotBoard;
+    int xLen, yLen;
+    /**
+     *  Offer 13. 机器人的运动范围
+     *  地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。
+     *  一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右、上、下移动一格（不能移动到方格外）
+     *  也不能进入行坐标和列坐标的数位之和大于k的格子。
+     *  例如，当k为18时，机器人能够进入方格 [35, 37] ，因为3+5+3+7=18。
+     *  但它不能进入方格 [35, 38]，因为3+5+3+8=19。请问该机器人能够到达多少个格子？
+     * @param m 横长
+     * @param n 竖长
+     * @param k 边界参数
+     * 思路：DFS搞起
+     */
+    public int movingCount(int m, int n, int k){
+        robotBoard = new int[m][n];
+        limit = k;
+        xLen = m;
+        yLen = n;
+        forwardMove(0,0);
+        return cnt;
+    }
+    private void forwardMove(int x, int y){
+        if(!checkCurrent(x, y)){
+            return;
+        }
+        robotBoard[x][y] = 1;
+        cnt ++;
+        forwardMove(x - 1, y);
+        forwardMove(x, y - 1);
+        forwardMove(x + 1, y);
+        forwardMove(x, y + 1);
+    }
+
+    private boolean checkCurrent(int x, int y){
+        if(x < 0 || y < 0 || x == xLen || y == yLen){
+            return false;
+        }
+        return (x % 10 + x / 10 + y % 10 + y / 10) <= limit && robotBoard[x][y] == 0;
+    }
+
+    /**
+     *  Offer 14- I. 剪绳子
+     *  给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n>1并且m>1）
+     *  每段绳子的长度记为 k[0],k[1]...k[m-1] 。
+     *  请问 k[0]*k[1]*...*k[m-1] 可能的最大乘积是多少？
+     * @param n 绳子的长度
+     * @return 最大的可能乘积
+     * 思路： 数学证明略略略  切绳子，切出3的乘积最小，小于3就是0或1或2
+     * 大于三： 是2就乘2 是1就把最后一个3 + 1 切成2 + 2 得4，完事
+     */
+    public int cuttingRope(int n){
+        if(n <= 3){
+            return n - 1;
+        }
+        int a = n / 3, b = n % 3;
+        if(b == 0){
+            return (int) Math.pow(3, a);
+        }
+        if(b == 1){
+            return (int) Math.pow(3, a - 1) * 4;
+        }
+        return (int ) Math.pow(3, a)* 2;
+    }
     /**
      * Offer 17. 打印从1到最大的n位数
      * @param n n位数
