@@ -97,4 +97,21 @@ public class OfferTest {
         assertEquals(offer.cuttingRope(n1),1);
         assertEquals(offer.cuttingRope(n2), 36);
     }
+
+    @Test
+    public void test_cutting_rope2(){
+        int n1 = 1000;
+        System.out.println(offer.cuttingRope2(n1));
+    }
+
+    @Test
+    public void test_hamming_weight(){
+        int n1 = 00000000000000000000000000001011;
+        System.out.println(Integer.valueOf(n1));
+//        int n1 = 00000000000000000000000000001011;
+        int n2 = 00000000000000000000000010000000;
+
+        assertEquals(offer.hammingWeight(n1),3);
+        assertEquals(offer.hammingWeight(n2),1);
+    }
 }

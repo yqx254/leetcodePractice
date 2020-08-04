@@ -278,6 +278,44 @@ public class Offer {
         }
         return (int ) Math.pow(3, a)* 2;
     }
+
+    /**
+     * Offer 14- II. 剪绳子 II
+     * @param n 绳子
+     * @return 乘积
+     * 傻缺题目
+     */
+    public int cuttingRope2(int n){
+        if(n <= 3){
+            return n - 1;
+        }
+        int a = n / 3, b = n % 3;
+        long result = 1;
+        for(int i = 1;i < a; i ++){
+            result = result * 3 % 1000000007;
+        }
+        if(b == 0){
+            result = result * 3 % 1000000007;
+        }
+        else if(b == 1){
+            result = result * 4 % 1000000007;
+        }
+        else{
+            result = result * 6 % 1000000007;
+        }
+        return (int)result;
+    }
+
+    /**
+     * Offer 15. 二进制中1的个数
+     * 渣渣题目，输入不能被正常接收
+     * API走你
+     * @param n 可能是0开头的没办法正常转换的数字
+     * @return 1的个数
+     */
+    public int hammingWeight(int n){
+        return Integer.bitCount(n);
+    }
     /**
      * Offer 17. 打印从1到最大的n位数
      * @param n n位数
