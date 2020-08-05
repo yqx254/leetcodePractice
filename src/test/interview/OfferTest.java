@@ -119,6 +119,9 @@ public class OfferTest {
     public void test_my_pow(){
         double n1  = 2;
         int p1 = -3;
+        double n2 = 2;
+        int p2 = -2147483648;
         System.out.println(offer.myPow(n1,p1));
+        System.out.println(offer.myPow(n2,p2));
     }
 }

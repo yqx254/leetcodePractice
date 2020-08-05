@@ -318,17 +318,27 @@ public class Offer {
     }
 
     /**
-     *
+     *Offer 16. 数值的整数次方
+     * 实现函数double Power(double base, int exponent)，求base的exponent次方。
+     * 不得使用库函数，同时不需要考虑大数问题。
+     * 不考虑大数问题个屁咧！
+     * @param x 一个数字
+     * @param n 多少次幂
+     * 思路：似乎是一个叫快速幂的玩法，之后在具体研究
+     * 被乘数乘上自己以后，把结果变成被乘数，同时乘率翻倍，计数 + 乘率
+     * 如果发达县计数 + 乘率 大于结果，就把乘率变回1重新来过
+     * 存在n=-2147483648这个使用绝对值或取负时会溢出的用例（不是说不考虑大数？），所以要把关键变量表示成long型
      */
     public double myPow(double x, int n){
-        int rate = 1;
-        int cnt = 0;
+        long rate = 1;
+        long cnt = 0;
         double current = x;
         double total = 1;
         boolean flag = (n >= 0);
-        n = Math.abs(n);
-        while(cnt < n){
-            if(cnt + rate > n){
+        long num = n;
+        num = Math.abs(num);
+        while(cnt < num){
+            if(cnt + rate > num){
                 rate = 1;
                 current = x;
             }
