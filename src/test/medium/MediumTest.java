@@ -429,4 +429,12 @@ public class MediumTest {
         assertFalse(medium.searchMatrix(matrix2, target3));
         assertTrue(medium.searchMatrix(matrix3, target4));
     }
+
+    @Test
+    public void test_rob(){
+        int [] n1 = new int[] {2,3,2};
+        int [] n2 = new int[] {1,2,3,1};
+        assertEquals(3,medium.rob(n1));
+        assertEquals(4,medium.rob(n2));
+    }
 }

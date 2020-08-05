@@ -185,4 +185,18 @@ public class EasyTest {
         assertEquals("100",easy.addStrings(s3, s4));
         assertEquals("146563",easy.addStrings(s5, s6));
     }
+
+    @Test
+    public void test_rob(){
+        int [] n1 = new int []{1,2,3,1};
+        int [] n2 = new int []{2,7,9,3,1};
+        int [] n3 = new int []{1,2};
+        int [] n4 = new int []{3,1,1,2,4,5};
+        int [] n5 = new int []{1,3,1,3,100};
+        assertEquals(4,easy.rob(n1));
+        assertEquals(12,easy.rob(n2));
+        assertEquals(2,easy.rob(n3));
+        assertEquals(10,easy.rob(n4));
+        assertEquals(103,easy.rob(n5));
+    }
 }

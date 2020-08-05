@@ -114,4 +114,11 @@ public class OfferTest {
         assertEquals(offer.hammingWeight(n1),3);
         assertEquals(offer.hammingWeight(n2),1);
     }
+
+    @Test
+    public void test_my_pow(){
+        double n1  = 2;
+        int p1 = -3;
+        System.out.println(offer.myPow(n1,p1));
+    }
 }

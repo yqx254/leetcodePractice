@@ -316,6 +316,34 @@ public class Offer {
     public int hammingWeight(int n){
         return Integer.bitCount(n);
     }
+
+    /**
+     *
+     */
+    public double myPow(double x, int n){
+        int rate = 1;
+        int cnt = 0;
+        double current = x;
+        double total = 1;
+        boolean flag = (n >= 0);
+        n = Math.abs(n);
+        while(cnt < n){
+            if(cnt + rate > n){
+                rate = 1;
+                current = x;
+            }
+            if(flag){
+                total *= current;
+            }
+            else{
+                total *= 1 / current;
+            }
+            current = current * current;
+            cnt += rate;
+            rate *= 2;
+        }
+        return  total;
+    }
     /**
      * Offer 17. 打印从1到最大的n位数
      * @param n n位数
