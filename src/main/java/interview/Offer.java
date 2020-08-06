@@ -2,10 +2,9 @@ package interview;
 
 import pojo.ListNode;
 import pojo.TreeNode;
+import sun.reflect.generics.tree.Tree;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 剑指offer分类题解
@@ -580,6 +579,42 @@ public class Offer {
             }
         }
         return  nums;
+    }
+
+    /**
+     * Offer 32 - I. 从上到下打印二叉树
+     * 从上到下打印出二叉树的每个节点，同一层的节点按照从左到右的顺序打印。
+     * @param root 根节点
+     * @return 打印结果
+     * 思路: BFS
+     * 值得注意的效率提升细节（学到了！）
+     * 1.队列使用LinkedList比ArrayDeque快得多
+     * 2.一种List< Integer > 转 int[]的方法是int[] ints = list.stream().mapToInt(Integer::valueOf).toArray();效率似乎比较低
+     * 3.最后一步杀鸡取卵式遍历，释放内存，有点意思
+     */
+    public int[] levelOrder(TreeNode root){
+        if(root == null){
+            return new int[0];
+        }
+        List<Integer> result = new ArrayList<>();
+        Queue<TreeNode> storage = new LinkedList<>();
+        storage.offer(root);
+        while(storage.size() > 0){
+            TreeNode node = storage.poll();
+            result.add(node.val);
+            if(node.left != null){
+                storage.offer(node.left);
+            }
+            if(node.right != null){
+                storage.offer(node.right);
+            }
+        }
+        int [] res = new int[result.size()];
+        for(int i = 0;i < result.size(); i ++){
+            //这个remove就有点精髓
+            res[i] = result.remove(0);
+        }
+        return res;
     }
 
 }
