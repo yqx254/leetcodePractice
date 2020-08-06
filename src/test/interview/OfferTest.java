@@ -124,4 +124,24 @@ public class OfferTest {
         System.out.println(offer.myPow(n1,p1));
         System.out.println(offer.myPow(n2,p2));
     }
+
+    @Test
+    public void test_get_least_num(){
+        int [] arr1 = new int[] {3,2,1};
+        int k1 = 2;
+        int [] arr2 = new int[] {0,1,2,1};
+        int k2 = 0;
+        assertArrayEquals(new int[]{1,2},offer.getLeastNumbers(arr1, k1));
+        assertArrayEquals(new int[]{},offer.getLeastNumbers(arr2, k2));
+    }
+
+    @Test
+    public void test_exchange(){
+        int []arr1 = new int[]{1,2,3,4};
+        int []arr2 = new int[]{1,3,5};
+        int []arr3 = new int[]{2,2,2,2,2,2,2,2,2,2,3,3,3};
+        System.out.println(Arrays.toString(offer.exchange(arr1)));
+        System.out.println(Arrays.toString(offer.exchange(arr2)));
+        System.out.println(Arrays.toString(offer.exchange(arr3)));
+    }
 }

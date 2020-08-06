@@ -497,4 +497,89 @@ public class Offer {
         }
         return check(n1.left,n2.right) && check(n1.right, n2.left);
     }
+
+    int [] heapArr;
+
+    /**
+     *  Offer 40. 最小的k个数
+     *  输入整数数组 arr ，找出其中最小的 k 个数。
+     *  例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。
+     * @param arr 数组
+     * @param k 个数
+     * @return k个数
+     * 思路： 堆排序！
+     * 可以考虑学习一下快速排序解法
+     */
+    public int [] getLeastNumbers(int [] arr, int k){
+        heapArr = arr;
+        int heapSize = heapArr.length;
+        buildHeap();
+        int [] result = new int [k];
+        int index = 0;
+        while(index < k){
+            swap(0, heapSize - 1);
+            result[index] = heapArr[heapSize - 1];
+            heapSize --;
+            index ++;
+            minHeap(0,heapSize);
+        }
+        return result;
+    }
+
+    private void buildHeap(){
+        int size = heapArr.length;
+        for(int i = size / 2 - 1; i >=0 ; i --){
+            minHeap(i,size);
+        }
+    }
+
+    private void minHeap(int current, int heapSize){
+        int minIdx = current;
+        int l = current * 2 + 1;
+        int r = current * 2 + 2;
+        if(l < heapSize && heapArr[l] < heapArr[minIdx]){
+            minIdx = l;
+        }
+        if(r < heapSize && heapArr[r] < heapArr[minIdx]){
+            minIdx = r;
+        }
+        if(minIdx != current){
+            swap(minIdx, current);
+            minHeap(minIdx, heapSize);
+        }
+    }
+
+    private void swap(int i, int j){
+        int tmp = heapArr[i];
+        heapArr[i] = heapArr[j];
+        heapArr[j] = tmp;
+    }
+
+    /**
+     *  Offer 21. 调整数组顺序使奇数位于偶数前面
+     *  输入一个整数数组，实现一个函数来调整该数组中数字的顺序，
+     *  使得所有奇数位于数组的前半部分，所有偶数位于数组的后半部分。
+     * @param nums 整数数组
+     * @return 调整结果
+     * 思路：不要想得太复杂，双指针就能解
+     * num % 2 == 1 和num & 1 == 1都能够判断数字是否是奇数，学习了
+     */
+    public int[] exchange(int []nums){
+        int i = 0, j = nums.length - 1;
+        while(i < j){
+            while(i < nums.length && (nums[i] & 1) == 1){
+                i ++;
+            }
+            while( j >= 0 && (nums[j] & 1) == 0){
+                j --;
+            }
+            if(i < j){
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
+            }
+        }
+        return  nums;
+    }
+
 }
