@@ -2,7 +2,6 @@ package interview;
 
 import pojo.ListNode;
 import pojo.TreeNode;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 
@@ -579,6 +578,51 @@ public class Offer {
             }
         }
         return  nums;
+    }
+
+    /**
+     *  Offer 26. 树的子结构
+     *  输入两棵二叉树A和B，判断B是不是A的子结构。(约定空树不是任意一个树的子结构)
+     *  B是A的子结构， 即 A中有出现和B相同的结构和节点值。
+     * @param A 大树
+     * @param B  小树
+     * @return 是否是子树
+     * 思路：比较土气的BFS + 递归校验，待优化
+     */
+    public boolean isSubStructure(TreeNode A, TreeNode B){
+        if(A == null || B == null){
+            return false;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(A);
+        while(queue.size() != 0){
+            TreeNode node = queue.poll();
+            if(node.val == B.val){
+                if(checkTree(node, B)){
+                    return true;
+                }
+            }
+            if(node.left != null){
+                queue.offer(node.left);
+            }
+            if(node.right != null){
+                queue.offer(node.right);
+            }
+        }
+        return false;
+    }
+
+    private boolean checkTree(TreeNode p, TreeNode q){
+        if(p == null){
+            return q == null;
+        }
+        else if(q == null){
+            return true;
+        }
+        if(p.val == q.val){
+            return checkTree(p.left, q.left) && checkTree(p.right, q.right);
+        }
+        return false;
     }
 
     /**

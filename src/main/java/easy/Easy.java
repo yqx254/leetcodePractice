@@ -305,6 +305,24 @@ public class Easy{
         return s.length() - lastSpace - 1;
     }
 
+    /**
+     *  100. 相同的树
+     *给定两个二叉树，编写一个函数来检验它们是否相同。
+     * 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
+     * @param p  一棵树
+     * @param q  另一棵树
+     * @return 是否相同
+     * 思路：简单递归
+     */
+    public boolean isSameTree(TreeNode p, TreeNode q){
+        if(p == null || q == null){
+            return p == q;
+        }
+        if(p.val != q.val){
+            return false;
+        }
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
     int max = 0;
     /**
      *  104. 二叉树的最大深度
