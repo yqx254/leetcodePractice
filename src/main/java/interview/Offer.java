@@ -3,6 +3,7 @@ package interview;
 import pojo.ListNode;
 import pojo.TreeNode;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -588,41 +589,24 @@ public class Offer {
      * @param B  小树
      * @return 是否是子树
      * 思路：比较土气的BFS + 递归校验，待优化
+     * 更新，DFS速度快得多，为什么呢？
+     * 大概是BFS算法写的不好？
      */
     public boolean isSubStructure(TreeNode A, TreeNode B){
         if(A == null || B == null){
             return false;
         }
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(A);
-        while(queue.size() != 0){
-            TreeNode node = queue.poll();
-            if(node.val == B.val){
-                if(checkTree(node, B)){
-                    return true;
-                }
-            }
-            if(node.left != null){
-                queue.offer(node.left);
-            }
-            if(node.right != null){
-                queue.offer(node.right);
-            }
-        }
-        return false;
+        return checkTree(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
     }
 
     private boolean checkTree(TreeNode p, TreeNode q){
-        if(p == null){
-            return q == null;
-        }
-        else if(q == null){
+        if(q == null){
             return true;
         }
-        if(p.val == q.val){
-            return checkTree(p.left, q.left) && checkTree(p.right, q.right);
+        if(p == null){
+            return false;
         }
-        return false;
+        return p.val == q.val && checkTree(p.left, q.left) && checkTree(p.right, q.right);
     }
 
     /**
@@ -661,4 +645,38 @@ public class Offer {
         return res;
     }
 
+    /**
+     * Offer 32 - II. 从上到下打印二叉树 II
+     * 从上到下按层打印二叉树，同一层的节点按从左到右的顺序打印，每一层打印到一行。
+     * @param root 根节点
+     * @return 打印结果
+     * 思路：BFS很容易想到，关键是什么时候换行
+     * 提前取得当前存储队列的长度，就可以避免while循环时结点一头进一头出而导致的死循环
+     * 居然没想到
+     */
+    public List<List<Integer>> levelOrder2(TreeNode root){
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(queue.size() != 0){
+            List<Integer> list = new ArrayList<>();
+            //这个边界控制很关键！
+            for(int i = queue.size(); i > 0 ; i --){
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if(node.left != null){
+                    queue.offer(node.left);
+                }
+                if(node.right != null){
+                    queue.offer(node.right);
+                }
+            }
+            result.add(list);
+
+        }
+        return result;
+    }
 }
