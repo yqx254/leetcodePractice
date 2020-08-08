@@ -679,4 +679,36 @@ public class Offer {
         }
         return result;
     }
+
+    /**
+     * Offer 39. 数组中出现次数超过一半的数字
+     * 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
+     * @param nums 数组
+     * @return 众数
+     * 常规解法：
+     * 1.哈希表存储（空间复杂度较高）
+     * 2.排序以后取正中间的（时间复杂度较高）
+     * 3.摩尔投票法（最佳解法）
+     * 将第一位数字设置成候选人，选票为1，遍历数组
+     * 若被遍历的值不等于候选人，则减一票，票数为0又被减一票时，更换候选人并重设选票值
+     * 因为众数超过总数的一半，所以票数必定是正的
+     * 很有意思的解法
+     */
+    public int majorityElement(int[] nums) {
+        int vote = 1;
+        int current = nums[0];
+        for(int i = 1; i < nums.length; i ++){
+            if(nums[i] == current){
+                vote ++;
+            }
+            else if(vote > 0){
+                vote --;
+            }
+            else{
+                current = nums[i];
+                vote = 1;
+            }
+        }
+        return current;
+    }
 }
