@@ -199,4 +199,16 @@ public class EasyTest {
         assertEquals(10,easy.rob(n4));
         assertEquals(103,easy.rob(n5));
     }
+
+    @Test
+    public void test_count_binary_substring(){
+        String s1 = "10101";
+        String s2 = "00110";
+        String s3 = "00110011";
+        String s4 = "001";
+        assertEquals(4, easy.countBinarySubstrings(s1));
+        assertEquals(3, easy.countBinarySubstrings(s2));
+        assertEquals(6, easy.countBinarySubstrings(s3));
+        assertEquals(1, easy.countBinarySubstrings(s4));
+    }
 }

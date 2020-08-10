@@ -552,4 +552,33 @@ public class Easy{
          }
          return result.reverse().toString();
      }
+
+    /**
+     *  696. 计数二进制子串
+     * 给定一个字符串 s，计算具有相同数量0和1的非空(连续)子字符串的数量
+     * 并且这些子字符串中的所有0和所有1都是组合在一起的。
+     * 重复出现的子串要计算它们出现的次数。
+     * @param s 二进制字符串
+     * 思路：循环比较当前值i和前一个值tmp
+     *  如果i往前走一直不变且一直等于tmp ，每走一步总数+1
+     *  如果i值变了，把tmp值重置为i的前值
+     *  想通了会比较容易
+     */
+    public int countBinarySubstrings(String s){
+        if(s. length() < 2){
+            return 0;
+        }
+        int total = 0, tmp = -1;
+        char [] c = s.toCharArray();
+        for(int i = 1;i < c.length; i ++){
+            if(c[i - 1] != c[i]){
+                tmp = i - 1;
+            }
+            if(tmp > - 1 && c[tmp] != c[i]){
+                total ++;
+                tmp --;
+            }
+        }
+        return total;
+    }
 }

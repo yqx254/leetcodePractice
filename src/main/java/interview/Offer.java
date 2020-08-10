@@ -681,6 +681,50 @@ public class Offer {
     }
 
     /**
+     *  Offer 32 - III. 从上到下打印二叉树 III
+     *  请实现一个函数按照之字形顺序打印二叉树
+     *  即第一行按照从左到右的顺序打印，第二层按照从右到左的顺序打印，第三行再按照从左到右的顺序打印
+     *  其他行以此类推。
+     * @param root 根节点
+     * @return 打印结果
+     * 思路： 尝试过两种思路解决问题
+     * 1.逢偶数行使用Collections.reverse倒转结果
+     * 2.使用LinkedList，，逢偶数行使用addFirst构造列表
+     * 第二种方法更快些
+     */
+    public List<List<Integer>> levelOrder3(TreeNode root){
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        Queue <TreeNode> storage = new LinkedList<>();
+        storage.offer(root);
+        boolean reverse = false;
+        while(!storage.isEmpty()){
+            LinkedList<Integer> list = new LinkedList<>();
+            for(int i = storage.size(); i > 0; i --){
+                TreeNode node;
+                node =storage.poll();
+                if(reverse){
+                    list.addFirst(node.val);
+                }
+                else{
+                    list.add(node.val);
+                }
+                if(node.left != null){
+                    storage.add(node.left);
+                }
+                if(node.right != null){
+                    storage.add(node.right);
+                }
+            }
+            result.add(list);
+            reverse = !reverse;
+        }
+        return result;
+    }
+
+    /**
      * Offer 39. 数组中出现次数超过一半的数字
      * 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。
      * @param nums 数组
@@ -711,4 +755,5 @@ public class Offer {
         }
         return current;
     }
+
 }
