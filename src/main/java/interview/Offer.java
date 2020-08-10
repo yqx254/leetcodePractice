@@ -756,4 +756,24 @@ public class Offer {
         return current;
     }
 
+    /**
+     * Offer 42. 连续子数组的最大和
+     * 输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。
+     * @param nums
+     * @return
+     * 完全没有弄懂的题目，请再试！！
+     */
+    public int maxSubArray(int [] nums){
+        int max = nums[0];
+        int total = 0;
+        for (int num : nums) {
+            if (total > 0) {
+                total += num;
+            } else {
+                total = num;
+            }
+            max = Math.max(max, total);
+        }
+        return max;
+    }
 }
