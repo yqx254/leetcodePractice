@@ -762,17 +762,21 @@ public class Offer {
      * @param nums
      * @return
      * 完全没有弄懂的题目，请再试！！
+     * 实际上是相对简单的动态规划题目，需要多次复习
      */
     public int maxSubArray(int [] nums){
         int max = nums[0];
-        int total = 0;
+        int sum = 0;
+        if(nums.length < 2){
+            return  max;
+        }
         for (int num : nums) {
-            if (total > 0) {
-                total += num;
+            if (sum > 0) {
+                sum += num;
             } else {
-                total = num;
+                sum = num;
             }
-            max = Math.max(max, total);
+            max = Math.max(max, sum);
         }
         return max;
     }

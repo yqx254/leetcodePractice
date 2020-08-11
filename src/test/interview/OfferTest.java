@@ -148,6 +148,8 @@ public class OfferTest {
     @Test
     public void test_max_sub(){
         int [] arr1 = new int[] {-2,1,-3,4,-1,2,1,-5,4};
+        int [] arr2 = new int[] {-1, -2};
         assertEquals(6,offer.maxSubArray(arr1));
+        assertEquals(-1, offer.maxSubArray(arr2));
     }
 }
