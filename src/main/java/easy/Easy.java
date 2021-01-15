@@ -2,6 +2,7 @@ package easy;
 
 import pojo.ListNode;
 import pojo.TreeNode;
+import sun.reflect.generics.tree.Tree;
 
 import java.util.*;
 
@@ -580,5 +581,71 @@ public class Easy{
             }
         }
         return total;
+    }
+
+    /**
+     *  二叉树的层序遍历 II
+     *  给定一个二叉树，返回其节点值自底向上的层序遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+     *
+     * 例如：
+     * 给定二叉树 [3,9,20,null,null,15,7]
+     * 返回其自底向上的层序遍历为：
+     * [[15,7],[9,20],[3]]
+     * @param root
+     * @return
+     * 思路：BFS，需要多练
+     */
+    public List<List<Integer>> levelOrderBottom(TreeNode root){
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        //双向队列和链表队列效率差距还是有点大哟
+        //Queue<TreeNode> queue = new <>ArrayDeque();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            List<Integer> currentLayer = new ArrayList<>();
+            int size = queue.size();
+            for(int i = 0; i < size; i ++){
+                TreeNode node = queue.poll();
+                currentLayer.add(node.val);
+                if(node.left != null){
+                    queue.offer(node.left);
+                }
+                if(node.right != null){
+                    queue.offer(node.right);
+                }
+            }
+            result.add(0, currentLayer);
+        }
+        return result;
+    }
+
+    /**
+     * 上一题的dfs实现
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrderBottomDFS(TreeNode root){
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null){
+            return result;
+        }
+        bottomDfs(root, 0, result);
+        return result;
+    }
+    private void bottomDfs(TreeNode node, int depth, List<List<Integer>> result){
+        if(node == null){
+            return;
+        }
+        //非常精髓且不易理解的部分
+        if(depth == result.size()){
+            result.add(0, new ArrayList<>());
+        }
+        result.get(result.size() - depth - 1).add(node.val);
+
+        bottomDfs(node.left,depth + 1, result);
+        bottomDfs(node.right,depth + 1, result);
     }
 }
